@@ -8,6 +8,9 @@
 \selectlanguage{spanish}
 \usepackage[utf8]{inputenc}
 
+% Listas sencillas
+\usepackage[ampersand]{easylist}
+
 \usepackage[utf8]{inputenc}
 
 \title{PECL1. COMPUTACIÓN UBICUA} %inserten aqui el nombre de nuestro proyecto
@@ -20,7 +23,6 @@
 \maketitle
 
 \section{Introducción}
-
 El proyecto consistirá en un sistema inteligente para controlar los factores abioticos que afectan al bienestar de las plantas, con el objetivo de mejorar la salud de las mismas.
 
 Para ello se monitorizarán la humedad y temperatura tanto exterior como de la tierra así como la cantidad de luz que reciben. Con estos valores y una serie de parámetros se generarán las corresponsientes alarmas que indiquen situaciones de riesgo para la salud de la planta.
@@ -29,17 +31,33 @@ Para ello se monitorizarán la humedad y temperatura tanto exterior como de la t
     \subsection{Situación actual del problema a abordar}
     Actualmente existen bastantes sistemas que se encargan de controlar el riego de las plantas y los cuales ofrecen la posibilidad de ser controlados mediante dispositivos móviles. Algunos de ellos son Blossom, PlantLink o Edyn. Incluso encontramos maceteros inteligentes, como el que nos ofrece Xiaomi, capaz de regar las plantas automáticamente.También encontramos otros proyectos como GRO, capaz de sugerirnos especies de plantas que podríamos cultivar en función del terreno que disponemos.
     \newline
-    Sin embargo, ninguno nos ofrece integración con ningún asistente virtual como pueda ser Alexa, ese será nuestro principal objetivo.
+    Sin embargo, ninguno nos ofrece integración con ningún asistente virtual como pueda ser Alexa, ese será la principal diferencia de nuestro proyecto con los anteriores.
     
     \subsection{Situación prevista al final del proyecto}
     Al finalizar la asignatura se pretende tener un dispositivo capaz de mantener con vida un cultivo de manera automática y el cual pueda ser controlado mediante comandos de voz gracias a Alexa.
     Para ello, nuestro dispositivo contará con la predicción del tiempo, aviso de posibles plagas, estado del terreno y condiciones óptimas necesarias para el tipo de planta que se posea.
     
     \subsection{Beneficiarios del proyecto}
-    Con este proyecto se pretende ayudar a los aficionados de la jardinería que no disponen de una gran cantidad de tiempo para el óptimo cuidado de las plantas, así como a agricultores que necesiten una ayuda extra para minimizar el impacto de situaciones climáticas extremas. Un ejemplo de situación  climáticas extrema que este proyecto pretende minimizar, son las grandes heladas en momentos inesperados. 
+    Con este proyecto se pretende ayudar a los aficionados de la jardinería que no disponen de una gran cantidad de tiempo para el óptimo cuidado de las plantas, así como a agricultores que necesiten una ayuda extra para minimizar el impacto de situaciones climáticas extremas. Por situaciones climáticas extremas se entienden, por ejemplo, heladas producidas en fechas inesperadas.
     
-\section{Misión y alcance del proyecto}
-En los apartados anteriores se ha empezado a comentar estos aspectos, pero ahora se detallará con un mayor nivel de detalle:
+\section{Alcance del proyecto}
+
+\section{Descripción de ideas descartadas}
+
+\section{Tecnología a utilizar}
+Las decisiones acerca de la tecnología a utilizar en el proyecto se han tomado teniendo en cuenta la experiencia de los distintos miembros que conforman el área de desarrollo, así como el costo que tienen los distintos componentes.
+\newline
+Las distintas opciones barajadas para la realización del proyecto han sido:
+
+\begin{itemize}
+    \item Arduino: Ofrece una amplia gama de placas, con distintas prestaciones, cuenta con un entorno de programación para la creación de aplicaciones y una gran comunidad que apoya el Desarrollo. El principal inconveniente que se encontraba era su precio, el cual ronda los 20 euros.
+    
+    \item Raspberry: Fue una opción que se estuvo barajando utilizar, ya que ofrece una amplia variedad de lenguajes de programación a utilizar. Sin embargo, fue descartada debido a su gran tamaño.
+    
+    \item ESP32: Ha sido la opción finalmente elegida, ya que se trata de un SoC de muy bajo coste (su precio ronda los 5 euros), cuenta con Bluetooth y es utilizado en multitud de proyectos de IoT. Además, ofrece compatibilidad con Arduino, pudiendo utilizar los amplios recursos desarrollados por esa comunidad.
+\end{itemize}
+
+
 
 
 \end{document}
