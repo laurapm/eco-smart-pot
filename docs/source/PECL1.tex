@@ -13,92 +13,38 @@
 
 \usepackage[utf8]{inputenc}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\title{PECL1. Ubiquitous Computation} % The name of the project.
-\author{
-    Pablo Acereda García \and 
-    David Emanuel Craciunescu \and 
-    Pablo Martínez Gracia \and 
-    Laura Pérez Medeiro}
-
+\title{PECL1. COMPUTACIÓN UBICUA} %inserten aqui el nombre de nuestro proyecto
+\author{Pablo Acereda García \and David Emanuel Craciunescu \and Pablo Martínez Gracia \and Laura Pérez Medeiro }
 \date{October 2019}
+
 
 \begin{document}
 
 \maketitle
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introducción}
+El proyecto consistirá en un sistema inteligente para controlar los factores abioticos que afectan al bienestar de las plantas, con el objetivo de mejorar la salud de las mismas.
 
-\section{Introduction}
-The project will consist of an intelligent system with capabilities to control
-abiotic factors that affect the wellbeing of plants, with the objective of
-improving their health and quality of live.
+Para ello se monitorizarán la humedad y temperatura tanto exterior como de la tierra así como la cantidad de luz que reciben. Con estos valores y una serie de parámetros se generarán las corresponsientes alarmas que indiquen situaciones de riesgo para la salud de la planta.
 
-Factors such as humidity and temperature, as well as the levels of light these
-receive, will be monitorized and analyzed frequently in order to verify and 
-ensure optimal quality of life for the plants.
-
-Thanks to these measurements, a series of alarms and different warning states
-will be implemented in order to better control the status of the plants and
-alert the users of their current situation.
-
-Users will be able to easily install the system themselves, and interact and
-control it via a virtual assistant such as \textit{Amazon Alexa}.
-    
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Context}
-
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    \subsection{Current situation of the presented problem}
-
-    The market has seen its fair share of intelligent systems created to aid
-    with plant irrigation control, and there are those that even come with a
-    mobile app interface, such as Blossom, PlantLink or Edyn. Some of the
-    newcomers to jump aboard the backyard-sprinkler train are the so called 
-    `intelligent flowerpots', such as the one \textit{Xiaomi} has started to 
-    sell recently, capable of watering the plants automatically depending on the
-    humidity of the soil.
-
-    There are other projects like \textit{GR0} capable of suggesting what plant
-    species one should buy by analyzing the quality and type of soil one has.
-
+\section{Contexto}
+    \subsection{Situación actual del problema a abordar}
+    Actualmente existen bastantes sistemas que se encargan de controlar el riego de las plantas y los cuales ofrecen la posibilidad de ser controlados mediante dispositivos móviles. Algunos de ellos son Blossom, PlantLink o Edyn. Incluso encontramos maceteros inteligentes, como el que nos ofrece Xiaomi, capaz de regar las plantas automáticamente.También encontramos otros proyectos como GRO, capaz de sugerirnos especies de plantas que podríamos cultivar en función del terreno que disponemos.
     \newline
+    Sin embargo, ninguno nos ofrece integración con ningún asistente virtual como pueda ser Alexa, ese será la principal diferencia de nuestro proyecto con los anteriores.
     
-    Nevertheless, none of these offers use any kind of virtual-assistant
-    integration or any well-designed user experience, for that
-    matter. \textit{That} will be the main difference our project will have. Not
-    only will the user control the system through a virtual assistant, 
-    the design and user experience is planned to be exceptional and extremely 
-    intuitive.
-
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-   
-    \subsection{End-of-project projection}
-   
-    Once the course finishes, our intention is to have created a device capable
-    of automatically keeping alive crops or plants with interactions through
-    \textit{Amazon Alexa}.
-
-    In order to achieve that, our device will be able to give accurate weather
-    predictions, alert of possible plagues that might attack the crops and
-    monitor the optimal conditions for the plants themselves.
+    \subsection{Situación prevista al final del proyecto}
+    Al finalizar la asignatura se pretende tener un dispositivo capaz de mantener con vida un cultivo de manera automática y el cual pueda ser controlado mediante comandos de voz gracias a Alexa.
+    Para ello, nuestro dispositivo contará con la predicción del tiempo, aviso de posibles plagas, estado del terreno y condiciones óptimas necesarias para el tipo de planta que se posea.
     
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    \subsection{Targed audience}
+    \subsection{Beneficiarios del proyecto}
+    Con este proyecto se pretende ayudar a los aficionados de la jardinería que no disponen de una gran cantidad de tiempo para el óptimo cuidado de las plantas, así como a agricultores que necesiten una ayuda extra para minimizar el impacto de situaciones climáticas extremas. Por situaciones climáticas extremas se entienden, por ejemplo, heladas producidas en fechas inesperadas.
     
-    This project aims to aid the gardening aficionados that do not have a great
-    amount of time at their disposal to take care of their plants optimally. It
-    also aims to assist farmers that need help with the care of their crops and
-    seek to minimize the effect of unexpected and external factors to their
-    crops.
-
 \section{Alcance del proyecto}
 
 \section{Descripción de ideas descartadas}
+
+Inicialmente se pensó en un sistema que fuera capaz de controlar las plagas que atacan a los cultivos, sin embargo, tal proyecto no es sencillo ya que la detección de los insectos no es sencilla. Se pensó en utilizar 
 
 \section{Tecnología a utilizar}
 Las decisiones acerca de la tecnología a utilizar en el proyecto se han tomado teniendo en cuenta la experiencia de los distintos miembros que conforman el área de desarrollo, así como el costo que tienen los distintos componentes.
@@ -150,23 +96,48 @@ Dado que la microcontroladora elegida ha sido la ESP32, las opciones a la hora d
     
     \item Mongoose OS: framework de desarrollo disponible bajo la licencia de Apache (con una versión community y otra enterprise) y amplaimente utilizado en aplicaciones relacionadas con el IoT. Cuenta con compatibilidad para microcontroladores de bajo consumo, como es el caso del ESP32. Cuenta con un servidor web integrado, soporta programación tanto en C como en JavaScript y cuenta con integración de nubes privadas y públicas (como AWS Iot o Mosquitto).
     
-    \item IDE Arduino:
-    
+    \item IDE Arduino:  Software de código abierto que cuenta con una amplia comunidad de respaldo. Los lenguajes que admite son C y C++ haciendo uso de reglas especiales de estructuración de código, además de que bajo este IDE se suministran multitud de bibliotecas para procedimientos comunes de entrada y salida. Finalmente ha sido la opción elegida para la programación de la ESP32, ya que la forma de empezar a usar este software con la placa es muy sencilla.
     
 \end{itemize}
 
 \section{Metodología de desarrollo}
+La metodología escogida para la realización del proyecto ha sido Lean más Kanban con ligeras modificaciones. Los motivos que impulsaron la elección de esta metodología fueron los principios que sigue:
+
+\begin{enumerate}
+\item Eliminación de desperdicios. Todo aquello que no aporte valor debe eliminarse (códigos basura, requisitos modificados...)
+\item Ampliación del aprendizaje. Aunque inicialmente cada miembro del equipo se encargará del desarrollo de una parte del proyecto, todo el equipo está abierto a ofrecer su ayuda a los demás y a aprender nuevas tecnologías o formas de resolver problemas.
+\item Realizar las tomas de decisiones a medida que se van teniendo en cuenta los requisitos a cumplir, así como la manera de enfocarlos. El proyecto ha ido construyéndose de manera progresiva, no se ha seguido una idea fija desde el primer momento sino que esta se ha ido desarrollando y madurando con el tiempo.
+\item Entregas rápidas. Cada vez que se realiza una entrega esta implica un aumento de la funcionalidad o una corrección de esta.
+\item Potenciar el equipo, todos los miembros han sido partícipes en la toma de decisiones importantes para el proyecto.
+\item Creación de integridad, haciendo uso de un sistema para el control de versiones (github en nuestro caso).
+\item Visualizar todo en conjunto. \textit{“Pensar en grande, actuar en pequeño, equivocarse rápido y aprender con rapidez”} Esa frase resume la mentalidad de todos los integrantes del equipo.
+\end{enumerate}
+
+Esta metodología se ha apoyado con Kanban, el cual no es una metodología de trabajo en sí sino una forma de visualizar el trabajo, controlar la asignación de tareas y mejorar la comunicación de los miembros del equipo.
+
+\subsection{Aplicación de la metodología}
+Para aplicar la metodología de manera eficaz se realizaba semanalmente una breve exposición de los avances realizados (mejoras realizadas, problemas encontrados...), así como un nuevo reparto de tareas y la exposición de alguna nueva idea aplicable al proyecto.
+
+Todo la actividad quedaba registrada en github mediante los commit y el dashboard con las distintas actividades.
 
 \section{Arquitectura de la aplicación}
+De verdad que te lo digo, Dave is a love.
 
 \section{Modelo de negocio}
+A very big loveee loveeee.
 
 \section{Planificación temporal y de desarrollo}
+uuuuuh uuuuuh yellow submarine yellow submarine yes, yellow submarine
 
 \section{Riesgos del proyecto}
+avia huna bhez un vaarkito chikitito TT
 
 \section{Plan de contingencias}
 
+
 \section{Resumen y conclusiones}
+La Antorcha Humana fue a bankia y le denegaron una hipoteca.
 
 \end{document}
+
+
