@@ -110,11 +110,20 @@ Las distintas opciones barajadas para la realización del proyecto han sido:
 \subsection*{Hardware}
 \subsubsection*{Controladoras}
 \begin{itemize}
-    \item Arduino: Ofrece una amplia gama de placas, con distintas prestaciones, cuenta con un entorno de programación para la creación de aplicaciones y una gran comunidad que apoya el Desarrollo. El principal inconveniente que se encontraba era su precio, el cual ronda los 20 euros.
+    \item Arduino: Ofrece una amplia gama de placas, con distintas prestaciones,
+    cuenta con un entorno de programación para la creación de aplicaciones y 
+    una gran comunidad que apoya el Desarrollo. El principal inconveniente que 
+    se encontraba era su precio, el cual ronda los 20 euros.
     
-    \item Raspberry: Fue una opción que se estuvo barajando utilizar, ya que ofrece una amplia variedad de lenguajes de programación a utilizar. Sin embargo, fue descartada debido a su gran tamaño.
+    \item Raspberry: Fue una opción que se estuvo barajando utilizar, ya que 
+    ofrece una amplia variedad de lenguajes de programación a utilizar. 
+    Sin embargo, fue descartada debido a su gran tamaño.
     
-    \item ESP32: Ha sido la opción finalmente elegida, ya que se trata de un SoC de muy bajo coste (su precio ronda los 5 euros), cuenta con Bluetooth y es utilizado en multitud de proyectos de IoT. Además, ofrece compatibilidad con Arduino, pudiendo utilizar los amplios recursos desarrollados por esa comunidad.
+    \item ESP32: Ha sido la opción finalmente elegida, ya que se trata de un SoC
+    de muy bajo coste (su precio ronda los 5 euros), cuenta con Bluetooth y es 
+    utilizado en multitud de proyectos de IoT. Además, ofrece compatibilidad con
+    Arduino, pudiendo utilizar los amplios recursos desarrollados por esa 
+    comunidad.
 \end{itemize}
 
 \subsubsection*{Sensores}
@@ -127,30 +136,52 @@ Las distintas opciones barajadas para la realización del proyecto han sido:
 
 \subsection*{Lenguaje de programación}
 
-Dado que la microcontroladora elegida ha sido la ESP32, las opciones a la hora de programar disponibles son:
+Dado que la microcontroladora elegida ha sido la ESP32, las opciones a la hora 
+de programar disponibles son:
 
 \begin{itemize}
-    \item MicroPython: consiste en un pequeño intérprete de Python, el cual contiene un subconjunto mínimo y optimizado de librerias para que pueda correr en microcontroladores.
+    \item MicroPython: consiste en un pequeño intérprete de Python, el cual 
+    contiene un subconjunto mínimo y optimizado de librerias para que pueda 
+    correr en microcontroladores.
     En un primer momento, fue la idea elegida para utilizar en nuestro proyecto.
     
     Ventajas:
     \begin{itemize}
-        \item RELP Interactiva, es decir, un programa que permite leer e interpretar los comandos para evaluarlos e imprimir el resultado sin la necesidad de compilar ni cargar el programa en el microcontrolador.
+        \item RELP Interactiva, es decir, un programa que permite leer e 
+        interpretar los comandos para evaluarlos e imprimir el resultado sin la 
+        necesidad de compilar ni cargar el programa en el microcontrolador.
         \item Gran cantidad de librerías disponibles
-        \item Extensibilidad. Ofrece la posibilidad de mezclas códigod que requieran una ejecución más rápida a bajo nivel mediante la extensión de sus funciones.
+        \item Extensibilidad. Ofrece la posibilidad de mezclas códigod que 
+        requieran una ejecución más rápida a bajo nivel mediante la extensión de
+        sus funciones.
     \end{itemize}
     
     Desventajas:
     \begin{itemize}
-        \item Código más lento y con necesidad de mayor cantidad de memoria, en comparación con C o C++
+        \item Código más lento y con necesidad de mayor cantidad de memoria, en 
+        comparación con C o C++
         \item Proceso de inicialización del microcontrolador más complejo
         \item Funcionalidad de ciertas librerías para componentes más limitadas
     \end{itemize}
      
-    \item RTOS: es un sistema de operación en tiempo realutilizado en sistemas embebidos. Proporciona métodos para múltiples subprocesos o hilos, mutexes, semáforos, temporizadores... Además de soportar las prioridades de los hilos. Por último, cuenta con un modo que reduce el consumo energético (tickless). En FreeRTOS las aplicaciones puede asignarse de manera estática, mientras que los objetos pueden asignarse dinámicamente con distintos esquemas de asignación de memoria. 
-    Pese a contar con una enorme cantidad de documentación, la complejidad y la curva de aprendizaje que supondría el uso de este lenguaje hizo que fuera descartado rápidamente.
+    \item RTOS: es un sistema de operación en tiempo realutilizado en sistemas 
+    embebidos. Proporciona métodos para múltiples subprocesos o hilos, mutexes, 
+    semáforos, temporizadores... Además de soportar las prioridades de los 
+    hilos. Por último, cuenta con un modo que reduce el consumo energético 
+    (tickless). En FreeRTOS las aplicaciones puede asignarse de manera estática,
+    mientras que los objetos pueden asignarse dinámicamente con distintos 
+    esquemas de asignación de memoria. 
+    Pese a contar con una enorme cantidad de documentación, la complejidad y la 
+    curva de aprendizaje que supondría el uso de este lenguaje hizo que fuera 
+    descartado rápidamente.
     
-    \item Mongoose OS: framework de desarrollo disponible bajo la licencia de Apache (con una versión community y otra enterprise) y amplaimente utilizado en aplicaciones relacionadas con el IoT. Cuenta con compatibilidad para microcontroladores de bajo consumo, como es el caso del ESP32. Cuenta con un servidor web integrado, soporta programación tanto en C como en JavaScript y cuenta con integración de nubes privadas y públicas (como AWS Iot o Mosquitto).
+    \item Mongoose OS: framework de desarrollo disponible bajo la licencia de 
+    Apache (con una versión community y otra enterprise) y amplaimente utilizado
+    en aplicaciones relacionadas con el IoT. Cuenta con compatibilidad para 
+    microcontroladores de bajo consumo, como es el caso del ESP32. Cuenta con un
+    servidor web integrado, soporta programación tanto en C como en JavaScript y
+    cuenta con integración de nubes privadas y públicas (como AWS Iot o 
+    Mosquitto).
     
     \item IDE Arduino:
     

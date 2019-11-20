@@ -230,7 +230,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{Rainforest}
+\title{ec\textbf{\o}}
 \author{
     Pablo Acereda Gracia \and
     David Emanuel Craciunesuc \and
@@ -322,7 +322,92 @@ control it via a virtual assistant such as \textit{Amazon Alexa}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section*{Used Technologies}
+\section*{Technology to Use}
+
+The decisions about the technology that the project will use have taken into
+account the experience of the different members that make up the development
+area of the group, as well as the actual monetary cost of the different hardware
+elements.
+
+Here are some options considered for the project:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Controllers}
+
+\begin{easylist}[itemize]
+
+& Arduino: Offers a wide array of boards, with different specifications and it
+comes with a ready-to-use programming environment for the development of
+applications and a large community that supports development and improvements.
+The main downside to this approach was that every single board would have cost
+around \$20.
+
+& Raspberry Pi: Considered an initial option, given the simplicity of its use
+and the wide array of languages that are compatible with it. In the end it was
+discarded given its enormous size relative to the rest of the elements.
+
+& ESP32: This is the option that was chosen in the end because it's a low-cost
+SoC (the price is around \$5), it comes with Bluetooth and it's used in a wide
+array of IoT projects. It's also compatible with Arduino, allowing it's users to
+benefit from the large amount of resources the Arduino community provides.
+
+\end{easylist}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Sensors}
+
+\begin{easylist}[itemize]
+
+& DHT22
+& DSB18B20:
+& LDR:
+& YL-69:
+
+\end{easylist}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Programming Languages}
+
+Given the chosen microcontroller (ESP32), the options when it comes to
+programming have been:
+
+\begin{easylist}[itemize]
+
+& MicroPython\\
+    It consists of a very small and extremely optimized Python interpreter
+    designed specifically to run on microcontrollers. It was the initial choice
+    for the project. Here are some advantajes and disadvantages to
+    \textit{MicroPython}.
+
+    && Advantages \\
+        &&& Interactive \textit{RELP} \\
+        This means it comes with a program that allows the read of commands to
+        evaluate them and print the result on screen without the need to
+        compile or load the program, nor to load the program in the
+        microcontroller itself.
+
+        &&& Big amount of available libraries \\
+
+        &&& Extensibility \\
+        It's able to mix and combine code from different sources that require a
+        faster execution to a much lower level because of the extension of its
+        functions.
+
+    && Disadvantages \\
+        
+
+        
+
+& RTOS:
+
+& Mongoose OS:
+
+& Arduino IDE:
+
+\end{easylist}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
