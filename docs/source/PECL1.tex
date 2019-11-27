@@ -6,7 +6,11 @@
 %   - Laura Pérez Medeiro                                                      %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% This template has been tested with LLNCS DOCUMENT CLASS -- version 2.20 (10-Mar-2018)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                              %
+%                               LaTeX Formatting                               %
+%                                                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % !TeX spellcheck   = en-US
 % !TeX encoding     = utf8
@@ -16,7 +20,6 @@
 
 % "a4paper" enables:
 %  - easy print out on DIN A4 paper size
-%
 
 % English documents: pass english as class option
 \documentclass[english,runningheads,a4paper]{llncs}[2018/03/10]
@@ -228,6 +231,11 @@
 \addbibresource{java.bib}
 \usepackage[ampersand]{easylist}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                              %
+%                               Actual content                                 %
+%                                                                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \title{ec\textbf{\o}, a Rainforest Product}
@@ -329,7 +337,7 @@ vital importance to the company.
 `\textit{ec\textbf{\o}}' is a product than can be commercialized both as a
 physical system and a digital solution for the client. As a physical system it
 will be able to monitor all the ambiental factors that could affect a plant's
-growth and development, e.g. humidity, temperature, luminosity, soil quality
+growth and development, e.g.\ humidity, temperature, luminosity, soil quality
 etc.
 
 As a digital solution, it comes with visualization software that will be able to
@@ -393,83 +401,118 @@ availability and the trust the very manufacturer inspired.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection*{Controllers}
+    \subsection*{Controllers}
 
-\begin{easylist}[itemize]
+    \begin{easylist}[itemize]
 
-& \textbf{Arduino}
+    & \textbf{Arduino}
 
-\textit{Arduino} is an open-source electronics platform that is based on
-easy-to-use software and hardware. The \textit{Arduino} boards themselves are
-controlled by sending a set of instructions to a microcontroller on the board.
-To do so, one must use the \textit{Arduino} programming language, which is based
-on \textit{Wiring}, and the \textbf{Arduino Software (IDE)}, which is based on
-\textit{Processing}.
+    \textit{Arduino} is an open-source electronics platform that is based on
+    easy-to-use software and hardware. The \textit{Arduino} boards themselves 
+    are controlled by sending a set of instructions to a microcontroller on the 
+    board. To do so, one must use the \textit{Arduino} programming language, 
+    which is based on \textit{Wiring}, and the \textbf{Arduino Software (IDE)}, 
+    which is based on \textit{Processing}.
 
-These boards were our first choice because they are extremely easy to use. The
-programming language is extremely easy to pick up if one already knows
-\textit{C}, and the \textit{Arduino} community offers a wide array of
-free-to-use resources that improve the quality and reduce the effort of any project trying
-to use \textit{Arduino}.
+    These boards were our first choice because they are extremely easy to use. 
+    The programming language is extremely easy to pick up if one already knows
+    \textit{C}, and the \textit{Arduino} community offers a wide array of
+    free-to-use resources that improve the quality and reduce the effort of any 
+    project trying to use \textit{Arduino}.
 
-Even with all it's benefits, \textit{Arduino} ended up being discarded as a
-possible option, given that the absolutely cheapest of boards would still cost
-around \$20.
+    Even with all it's benefits, \textit{Arduino} ended up being discarded as a
+    possible option, given that the absolutely cheapest of boards would still 
+    cost around \$20.
 
-& \textbf{Raspberry Pi}
+    & \textbf{Raspberry Pi}
 
-According to the official \textit{Raspberry Pi} webpage: \textit{``Raspberry Pi
-is a low cost, credit-card sized computer that plugs into a monitor or a TV, and
-uses standard keyboard and mouse. (\ldots) It's capable of doing what you'd
-normally expect a regular computer to do, from browsing the internet and playing
-high-definition video, to making spreadsheets, word processing and playing
-games''}.
+    According to the official \textit{Raspberry Pi} webpage: \textit{``Raspberry
+    Pi is a low cost, credit-card sized computer that plugs into a monitor or a 
+    TV, and uses standard keyboard and mouse. (\ldots) It's capable of doing 
+    what you'd normally expect a regular computer to do, from browsing the 
+    internet and playing high-definition video, to making spreadsheets, word 
+    processing and playing games''}.
 
-Just like a regular computer, once would be able to program it to do whatever
-they'd want it to do. This would have been ideal for the project itself, given
-the simplicity of its use and the gigantic array of languages that are
-compatible with it. In the end, though, it was discarded because the computer
-itself was too large in comparison to the rest of the elements of the project.
+    Just like a regular computer, once would be able to program it to do 
+    whatever they'd want it to do. This would have been ideal for the project 
+    itself, given the simplicity of its use and the gigantic array of languages 
+    that are compatible with it. In the end, though, it was discarded because 
+    the computer itself was too large in comparison to the rest of the elements 
+    of the project.
 
-& \textbf{ESP32}
+    & \textbf{ESP32}
 
-The \textit{ESP32} is a series of low-cost, low-power system on a chip
-\textbf{SoC} microcontrollers with integrated Wi-Fi and dual-mode Bluetooth.
-This was the option the team ended up choosing for the project, given that the
-\textit{ESP32} was specifically designed for \textbf{wearable electronics and
-IoT applications.}
+    The \textit{ESP32} is a series of low-cost, low-power system on a chip
+    \textbf{SoC} microcontrollers with integrated Wi-Fi and dual-mode Bluetooth.
+    This was the option the team ended up choosing for the project, given that 
+    the \textit{ESP32} was specifically designed for \textbf{wearable 
+    electronics and IoT applications.}
 
-One can also program on it using the \textit{Arduino IDE}, which was a huge
-advantage. Most of the team already knew how to use and control
-\textit{Arduino}, so not having to learn a skil specifically for the
-microcontroller plus all the benefits of the \textit{Arduino} community made the
-group decide on the \textit{ESP32} as an option.
+    One can also program on it using the \textit{Arduino IDE}, which was a huge
+    advantage. Most of the team already knew how to use and control
+    \textit{Arduino}, so not having to learn a skil specifically for the
+    microcontroller plus all the benefits of the \textit{Arduino} community made
+    the group decide on the \textit{ESP32} as an option.
 
-\end{easylist}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection*{Sensors}
-
-\begin{easylist}[itemize]
-
-& DHT22
-& DSB18B20:
-& LDR:
-& YL-69:
-
-\end{easylist}
+    \end{easylist}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection*{Programming Languages}
+    \subsection*{Sensors}
 
-As previously mentioned, the chosen microcontroller is the \textit{ESP32}.
-Therefore, the options when it comes to programming languages have been:
+    There are many different kinds of sensors on the market. Many of these are
+    extremely capable and can be obtained very easily. When deciding on the 
+    sensors, the team always looked for the most reliable and available on the 
+    market. Here are some of the sensors the project will use:
 
-\begin{easylist}[itemize]
+    \begin{easylist}[itemize]
+
+    & \textbf{DHT22} \\
+    It is a basic and low-cost digital temperature and humidity sensor. It 
+    measures the surrounding air thanks to a capacity humiditor sensor and a
+    thermistor, and spits out digital signal on the data pin. It's extremely 
+    simple to use, given that its transmissions are already digital, but one can
+    only make readings each two seconds. Extreme speed, or lack thereof, is not
+    a highly important factor when it comes to plant humidity and temperature
+    measuring, so the only real downside would not be an actual downside. 
+
+    Just like any avid and shrewd reader would have realized by now, this sensor
+    will be used to measure exterior temperature and humidity.
+
+    & \textbf{LDR} \\
+    A \textit{Light Dependent Resistor} or a photo resistor is a device whose
+    resistivity is a function of the incident electromagnetic radiation. These
+    are light sensitive devices also called photo conductors, photo conductive
+    cells or simply photocells.
+
+    The ability to detect light is a must in the soon-to-be deliverable product,
+    therefore the use of this sensor was an easy and obvious solution.
+
+    & \textbf{YL-69} \\
+
+    According to the product description the manufacturer provides:
+    \textit{``The YL-69 is a simple sensor that can be used to detect soil
+    moisture/relative humidity within the soil. The module is able to detect
+    when the soil is too dry or wet. Great for use with automatic plant watering
+    systems''}.
+
+    The need for a sensor like this, especially considering it's insignificant
+    price in comparison to the price of the rest of the setup and components.
+    Terefore, this will be the main triggering mechanism to notify the plant or
+    plants need to be watered.
+
+    \end{easylist}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \subsection*{Programming Languages}
+
+    As previously mentioned, the chosen microcontroller is the \textit{ESP32}.
+    Therefore, the options when it comes to programming languages have been:
+
+    \begin{easylist}[itemize]
     
-& MicroPython
+    & MicroPython
 
     \textit{MicroPython} an open source \textit{Python} programming language
     interpreter that is capable of running on small embedded development boards.
@@ -485,17 +528,17 @@ Therefore, the options when it comes to programming languages have been:
     These are some of the features that set it apart from other embedded
     systems:
 
-    && \textbf{Interactive REPL}
+        && \textbf{Interactive REPL}
     This feature allows execution of code without the need of any compilation or
     uploading time, which is perfect for systems with a high level of
     experimentation.
 
-    && \textbf{Extensive software library}
+        && \textbf{Extensive software library}
     \textit{MicroPython} already comes with libraries built in to support common
     tasks, like JSON data parsing, regular expression handling or even network
     socket programming.
 
-    && \textbf{Extensibility}
+        && \textbf{Extensibility}
     Advanced users ma be able to mix \textit{MicroPython} with extensible
     low-level C/C++ functions in order to further optimize their code and make
     the execution faster when it really matters.
@@ -503,48 +546,144 @@ Therefore, the options when it comes to programming languages have been:
     \textit{MicroPython} has some very useful features. Unfortunately, it also
     comes with its downsides:
 
-    && Slower code and higher memory needs when compared to C/C++.
-    && Complicated microcontroller initialization process.
-    && Limited functionality for some key libraries.
+        && Slower code and higher memory needs when compared to C/C++.
+        && Complicated microcontroller initialization process.
+        && Limited functionality for some key libraries.
 
-& FreeRTOS
+    & FreeRTOS
 
-\textit{FreeRTOS} is a real-time operating system made specifically to run on
-embedded systems. It is especially good because it natively provides core real
-time scheduling, inter-task communication, timing and syncrhonisation
-primitives. This transalates into a more accurately controlled kernel and a
-system that is able to execute tasks exactly when they have to be executed, a
-\textit{deterministic} system.
+    \textit{FreeRTOS} is a real-time operating system made specifically to run 
+    on embedded systems. It is especially good because it natively provides core
+    real time scheduling, inter-task communication, timing and syncrhonisation
+    primitives. This transalates into a more accurately controlled kernel and a
+    system that is able to execute tasks exactly when they have to be executed, 
+    a \textit{deterministic} system.
 
-In \textit{FreeRTOS}, applications can be assigned in a static manner while
-objects themselves can be assigned dynamically with different memory-assignment
-memory schemes. This system was quickly discarded. Even with the great deal of
-documentation it counts, the complexity of \textit{FreeRTOS} and the learning
-curve it would entail made it practiacally impossible in the provided timeframe.
+    In \textit{FreeRTOS}, applications can be assigned in a static manner while
+    objects themselves can be assigned dynamically with different 
+    memory-assignment memory schemes. This system was quickly discarded. Even 
+    with the great deal of documentation it counts, the complexity of 
+    \textit{FreeRTOS} and the learning curve it would entail made it 
+    practiacally impossible in the provided timeframe.
 
-& Mongoose OS
+    & Mongoose OS
 
-\textit{Mongoose OS} is an Internet of Things Firmware Development Framework
-under Apache License Version 2.0.
+    \textit{Mongoose OS} is an Internet of Things Firmware Development Framework
+    under Apache License Version 2.0.
 
-\textit{Mongoose OS} is a firmware development framework specifically designed
-for development of IoT products. It is highly compatible with a wide array of
-microcontrollers, just like the \textit{ESP32}, and it's objective is to fill
-`the noticeable for embedded software developers' between firmware created for
-prototyping and bare-metal microcontrollers.
+    \textit{Mongoose OS} is a firmware development framework specifically 
+    designed for development of IoT products. It is highly compatible with a 
+    wide array of microcontrollers, just like the \textit{ESP32}, and it's 
+    objective is to fill `the noticeable for embedded software developers' 
+    between firmware created for prototyping and bare-metal microcontrollers.
 
-It comes with an integrated web server and supports interaction with both
-private and public clouds like AWS IoT or Mosquitto.
+    It comes with an integrated web server and supports interaction with both
+    private and public clouds like AWS IoT or Mosquitto.
 
-& Arduino IDE
+    & Arduino IDE
 
+    It's an open-source project that has a very large community behind it.
+    \textit{Arduino IDE} comes with a text editor for writing code, a message 
+    area, a console, and other common functionalities of full-fledged IDEs. The
+    programming languages it admits are C and C++, but with some special rules 
+    when it comes to structuring the code. The IDE also comes with plenty of 
+    built-in libraries for common tasks like robot control or I/O mechanisms.
 
+    This is the option the team ended up choosing, not only for its simplicity 
+    and usefulness, but also because it can interact directly with the 
+    \textit{ESP32} chip that the project will use as a main component.
 
-\end{easylist}
+    \end{easylist}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section*{Software Development Methodologies}
+\section*{Development Methodology}
+
+One of the key factors when it comes to a project, especially the creation of a
+new one, is the \textit{Development Methodology}. These methodologies are a
+means by which a product can be created in an organized, somewhat predictable
+and planned manner. A \textit{Development Methodology} is nothing more than the
+process of planning, creating, testing and then deploying a project. And the
+different types of methodologies only alter the way in which those components
+interact with each other. 
+
+The specific methodology used for this project is \textit{Lean w/ Kanban}. Here
+are some of the main reasons that made the group choose this methodology:
+
+\begin{easylist}[enumerate]
+
+& \textbf{Waste reduction}. Helps keep project simple and clean. Everything that
+is not absolutely necessary is promptly eliminated, be it garbage code,
+unecessary meetings, obsolete hardware, etc.
+
+& \textbf{Knowledge improvement}. This is one of the best aspects of
+\textit{Lean}. Even if every member has a defined function within the team and
+their tasks are clearly stated, any other member can lend a hand and help if
+they feel the need or have the time. This helps keep the team agile and on their
+feet.
+
+& \textbf{Delayed decision-making}. Within \textit{Lean} decisions are made as
+the requirements are being met, as well as their focus starts to change. The
+project starts building itself in a progressive and adaptative manner because it
+hasn't followed a strictly defined idea since its inception. Instead, it has
+been allowed to grow and morph into it needed to become.
+
+& \textbf{Quick delivery}. Given the minimalism of the methodology and its short
+iterations of work, the authors of this document believe a further explanation
+of this specific aspect would be an insult to the reader.
+
+& \textbf{Team-oriented}. Every single member is part of the decision-making
+process, as well as the definition of their own work. This methodology works
+best in teams that extremely motivated because the different members usually
+divide the work amongst them without the need of actual meetings and specific,
+written-down planification.
+
+& \textbf{Focus on the objective}. Thanks to many of the factors mentionded
+above, the project does not lose sight of the objective. One could say the
+\textit{motto} of the team would be \textit{``Think big, act small, err
+frequently and fix quickly''}.
+
+\end{easylist}
+
+When combining \textit{Lean} with \textit{Kanban}\footnote{Kanban is a
+visualization methodology and mechanism, not an actual defined development
+process.} controlling the assignment of different tasks and jobs of the
+different team members was extremely easy and intuitive. This combination is the
+key component to the development of the prototype of the product, since it
+increases visibility of the project and enhances control of the direction in
+which the development steers towards.
+
+\textit{Lean Kanban} is a methodology used by various startups, just like IMVU,
+which is a company created by Eric Ries. He created a methodology called
+\textit{Lean Startup}, which as `improved' version of the methodology this
+project uses, designed specifically to adapt to the way a startup works.
+
+The development cycles in \textit{Lean Kanban} start with the creation of an
+idea, which is then assessed and developed in order to analyze if its addition
+to the overall project would be of any real value. With this process, the worse
+case scenario is still obtaining knowledge about the creation and implementation
+of that specific idea, even if it does not end up being part of the project.
+This is the way some of the most important parts of `\textit{ec\textbf{\o}}'
+were created, like the \textit{Amazon Alexa} virtual-assistant integration or
+the detection of factors like humidity and light levels.
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \subsection*{Implementation of the metodology}
+
+    In order to apply the methodology in an effective manner, the team has used
+    the project collaboration tools of \textit{GitHub Projects}, which
+    officially integrated as part of the software of University of Alcalá thanks
+    to the \textit{GitHub Campus Program}.
+
+    The team met weekly to plan their activities and tasks for the following
+    week and kept in touch with the mentioned tools, also able to track changes
+    in the status of each task and maintain the visibility of the overall
+    project.
+
+    Every single modification and all the planification has been recorded thanks
+    to \textit{GitHub Projects} and a link to the respository will be provided
+    with this document.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
