@@ -686,6 +686,23 @@ the detection of factors like humidity and light levels.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section*{Application Architecture}
+%To do: Dear Dave, would you mind to check this part? Please and thank you
+The device is formed by two components:
+\begin{itemize}
+\item Data collector. Formed by all the different sensors that can be found. This component aims to collect and send data to the server. It is the server where the information is going to be treated.
+\item Actuator. Formed by the irrigation system, it can be activated when the land's humidity is low or using a voice command. 
+\end{itemize}
+
+All the data collected by the sensors is sent to a server, using WiFi and
+MQTT protocol. The reasons why this protocol has been chosen are, on the 
+one hand, the fact that it is once of the most used protocol in which IoT is referred,
+and also the fact that we can use OpenMQTTGateway which provided 
+solutions to managed different protocols used by different devices (which means that if there is any sensor that uses BLE, it can be translated into MQTT). 
+There is where C takes part, as it is the language in which main.cpp will be created and where all the configuration of MQTT can be found. In the beginning,
+data is stored into a relational Database which used PostgreSQL as DBMS. Then, data is sent to the AWS DataBase which will be used by Alexa's API to give
+the user information about how the pant is.
+
+Also, the provided information by the sensors will be used in a web page, where register users can find some graphics and statistics.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
