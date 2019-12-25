@@ -1,155 +1,1050 @@
-\documentclass[runningheads]{llncs}
-% Hipervínculos
-\usepackage{hyperref}
-% Tablas
-\usepackage[table,xcdraw]{xcolor}
-% Idioma y tildes
-\usepackage[spanish]{babel}
-\selectlanguage{spanish}
-\usepackage[utf8]{inputenc}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Ubiquitous Computation - Lab Practice 1                                      %
+%   - Pablo Acereda García                                                     %
+%   - David Emanuel Craciunescu                                                %
+%   - Pablo Martínez Gracia                                                    %
+%   - Laura Pérez Medeiro                                                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Listas sencillas
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                              %
+%                               LaTeX Formatting                               %
+%                                                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% !TeX spellcheck   = en-US
+% !TeX encoding     = utf8
+% !TeX program      = pdflatex
+% !BIB program      = bibtex
+% -*- coding:utf-8 mod:LaTeX -*-
+
+% "a4paper" enables:
+%  - easy print out on DIN A4 paper size
+
+% English documents: pass english as class option
+\documentclass[english,runningheads,a4paper]{llncs}[2018/03/10]
+\usepackage[ngerman,main=english]{babel}
+\addto\extrasenglish{\languageshorthands{ngerman}\useshorthands{"}}
+
+\usepackage{regexpatch}
+\makeatletter
+\edef\switcht@albion{%
+  \relax\unexpanded\expandafter{\switcht@albion}%
+}
+\xpatchcmd*{\switcht@albion}{ \def}{\def}{}{}
+\xpatchcmd{\switcht@albion}{\relax}{}{}{}
+\edef\switcht@deutsch{%
+  \relax\unexpanded\expandafter{\switcht@deutsch}%
+}
+\xpatchcmd*{\switcht@deutsch}{ \def}{\def}{}{}
+\xpatchcmd{\switcht@deutsch}{\relax}{}{}{}
+\edef\switcht@francais{%
+  \relax\unexpanded\expandafter{\switcht@francais}%
+}
+\xpatchcmd*{\switcht@francais}{ \def}{\def}{}{}
+\xpatchcmd{\switcht@francais}{\relax}{}{}{}
+\makeatother
+
+\usepackage{ifluatex}
+\ifluatex
+  \usepackage{fontspec}
+  \usepackage[english]{selnolig}
+\fi
+
+\iftrue % use default-font
+  \ifluatex
+    \setmainfont{Latin Modern Roman}
+    \setsansfont{Latin Modern Sans}
+    \setmonofont{Latin Modern Mono} % "variable=false"
+  \else
+    \usepackage[%
+      rm={oldstyle=false,proportional=true},%
+      sf={oldstyle=false,proportional=true},%
+      tt={oldstyle=false,proportional=true,variable=false},%
+      qt=false%
+    ]{cfr-lm}
+  \fi
+\else
+  \ifluatex
+    \setmainfont{TeX Gyre Termes}
+    \setsansfont[Scale=.9]{TeX Gyre Heros}
+    \setmonofont{Latin Modern Mono} % "variable=false"
+  \else
+    \usepackage{newtxtext}
+    \usepackage{newtxmath}
+    \usepackage[zerostyle=b,scaled=.9]{newtxtt}
+  \fi
+\fi
+
+\ifluatex
+\else
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc} %support umlauts in the input
+\fi
+
+\usepackage{graphicx}
+\usepackage{upquote}
+\usepackage{booktabs}
+\usepackage{paralist}
+\usepackage{csquotes}
+\usepackage{textcmds}
+
+% Enable margin kerning
+\RequirePackage[%
+  babel,%
+  final,%
+  expansion=alltext,%
+  protrusion=alltext-nott]{microtype}%
+\DisableLigatures{encoding = T1, family = tt* }
+
+\usepackage{url}
+\makeatletter
+\g@addto@macro{\UrlBreaks}{\UrlOrds}
+\makeatother
+
+% Required for package pdfcomment later
+\usepackage{xcolor}
+
+% For listings
+\usepackage{listings}
+\lstset{%
+  basicstyle=\ttfamily,%
+  columns=fixed,%
+  basewidth=.5em,%
+  xleftmargin=0.5cm,%
+  captionpos=b}%
+\renewcommand{\lstlistingname}{List.}
+\usepackage{chngcntr}
+\AtBeginDocument{\counterwithout{lstlisting}{section}}
+
+% Enable nice comments
+\usepackage{pdfcomment}
+
+\newcommand{\commentontext}[2]{\colorbox{yellow!60}{#1}\pdfcomment[color={0.234 0.867 0.211},hoffset=-6pt,voffset=10pt,opacity=0.5]{#2}}
+\newcommand{\commentatside}[1]{\pdfcomment[color={0.045 0.278 0.643},icon=Note]{#1}}
+
+\newcommand{\todo}[1]{\commentatside{#1}}
+% Compatiblity with package fixmetodonotes
+\newcommand{\TODO}[1]{\commentatside{#1}}
+
+% Bibliography
+\ifluatex
+\else
+  \SetExpansion
+  [ context = sloppy,
+    stretch = 30,
+    shrink = 60,
+    step = 5 ]
+  { encoding = {OT1,T1,TS1} }
+  { }
+\fi
+
+% Put footnotes below floats
+% Source: https://tex.stackexchange.com/a/32993/9075
+\usepackage{stfloats}
+\fnbelowfloat
+
+\usepackage{hyperref}
+\hypersetup{hidelinks,
+  colorlinks=true,
+  allcolors=black,
+  pdfstartview=Fit,
+  breaklinks=true}
+
+% Enable correct jumping to figures when referencing
+\usepackage[all]{hypcap}
+
+\usepackage[group-four-digits,per-mode=fraction]{siunitx}
+
+\usepackage[capitalise,nameinlink]{cleveref}
+
+% Nice formats for \cref
+\usepackage{iflang}
+\IfLanguageName{ngerman}{
+  \crefname{table}{Tab.}{Tab.}
+  \Crefname{table}{Tabelle}{Tabellen}
+  \crefname{figure}{\figurename}{\figurename}
+  \Crefname{figure}{Abbildungen}{Abbildungen}
+  \crefname{equation}{Gleichung}{Gleichungen}
+  \Crefname{equation}{Gleichung}{Gleichungen}
+  \crefname{listing}{\lstlistingname}{\lstlistingname}
+  \Crefname{listing}{Listing}{Listings}
+  \crefname{section}{Abschnitt}{Abschnitte}
+  \Crefname{section}{Abschnitt}{Abschnitte}
+  \crefname{paragraph}{Abschnitt}{Abschnitte}
+  \Crefname{paragraph}{Abschnitt}{Abschnitte}
+  \crefname{subparagraph}{Abschnitt}{Abschnitte}
+  \Crefname{subparagraph}{Abschnitt}{Abschnitte}
+}{
+  \crefname{section}{Sect.}{Sect.}
+  \Crefname{section}{Section}{Sections}
+  \crefname{listing}{\lstlistingname}{\lstlistingname}
+  \Crefname{listing}{Listing}{Listings}
+}
+
+% Solution for hyperlink refs.
+\newcommand{\Vlabel}[1]{\label[line]{#1}\hypertarget{#1}{}}
+\newcommand{\lref}[1]{\hyperlink{#1}{\FancyVerbLineautorefname~\ref*{#1}}}
+    
+\usepackage{xspace}
+%\newcommand{\eg}{e.\,g.\xspace}
+%\newcommand{\ie}{i.\,e.\xspace}
+\newcommand{\eg}{e.\,g.,\ }
+\newcommand{\ie}{i.\,e.,\ }
+
+% Powerset
+\DeclareFontFamily{U}{MnSymbolC}{}
+\DeclareSymbolFont{MnSyC}{U}{MnSymbolC}{m}{n}
+\DeclareFontShape{U}{MnSymbolC}{m}{n}{
+  <-6>    MnSymbolC5
+  <6-7>   MnSymbolC6
+  <7-8>   MnSymbolC7
+  <8-9>   MnSymbolC8
+  <9-10>  MnSymbolC9
+  <10-12> MnSymbolC10
+  <12->   MnSymbolC12%
+}{}
+\DeclareMathSymbol{\powerset}{\mathord}{MnSyC}{180}
+
+% Name says it all.
+\ifluatex
+\else
+  \input glyphtounicode
+  \pdfgentounicode=1
+\fi
+
+% Correct bad hypenation.
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+% Some useful info to add.
+
+\iffalse
+  \usepackage[intended]{llncsconf}
+  \conference{name of the conference}
+  \llncs{book editors and title}{0042} %% 0042 is the start page
+\fi
+
+% For demonstration purposes only
+\usepackage[math]{blindtext}
+\usepackage{mwe}
+\usepackage[backend=biber, style=numeric]{biblatex}
+\addbibresource{java.bib}
 \usepackage[ampersand]{easylist}
 
-\usepackage[utf8]{inputenc}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                              %
+%                               Actual content                                 %
+%                                                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{PECL1. COMPUTACIÓN UBICUA} %inserten aqui el nombre de nuestro proyecto
-\author{Pablo Acereda García \and David Emanuel Craciunescu \and Pablo Martínez Gracia \and Laura Pérez Medeiro }
+\title{ec\textbf{\o}, a Rainforest Product}
+\author{
+    Pablo Acereda García \and
+    David Emanuel Craciunescu \and
+    Pablo Martínez Gracia \and
+    Laura Pérez Medeiro
+}
 \date{October 2019}
-
 
 \begin{document}
 
 \maketitle
 
-\section{Introducción}
-El proyecto consistirá en un sistema inteligente para controlar los factores abioticos que afectan al bienestar de las plantas, con el objetivo de mejorar la salud de las mismas.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Para ello se monitorizarán la humedad y temperatura tanto exterior como de la tierra así como la cantidad de luz que reciben. Con estos valores y una serie de parámetros se generarán las corresponsientes alarmas que indiquen situaciones de riesgo para la salud de la planta.
+\section*{Introduction}
 
-\section{Contexto}
-    \subsection{Situación actual del problema a abordar}
-    Actualmente existen bastantes sistemas que se encargan de controlar el riego de las plantas y los cuales ofrecen la posibilidad de ser controlados mediante dispositivos móviles. Algunos de ellos son Blossom, PlantLink o Edyn. Incluso encontramos maceteros inteligentes, como el que nos ofrece Xiaomi, capaz de regar las plantas automáticamente.También encontramos otros proyectos como GRO, capaz de sugerirnos especies de plantas que podríamos cultivar en función del terreno que disponemos.
-    \newline
-    Sin embargo, ninguno nos ofrece integración con ningún asistente virtual como pueda ser Alexa, ese será la principal diferencia de nuestro proyecto con los anteriores.
+This project will consist of an intelligent system with capabilities to control
+abiotic factors that affect the wellbeing of plants, with the objective of
+improving their health and quality of life.
+
+Factors such as humidity and temperature, as well as the levels of light these
+receive, will be monitorized and analyzed frequently in order to verify and
+ensure optimal quality of life for the plants.
+
+Thanks to these measurements, a series of alarms and different warning states
+will be implemented in order to better control the status of the plants and
+alert the users of their current situation.
+
+Users will be able to easily install the system themselves, and interact and
+control it via a virtual assistant such as \textit{Amazon Alexa}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Context}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \subsection*{Current situation of the presented problem}
+
+    The market has seen its fair share of intelligent systems created to aid
+    with plant irrigation control, and there are those that even come with a
+    mobile app interface, such as Blossom, PlantLink or Edyn. Some of the
+    newcomers to jump aboard the backyard-sprinkler train are the so-called
+    `intelligent flowerpots', like the one \textit{Xiaomi} has recently started
+    to sell, capable of watering the plants automatically depending on the
+    humidity of the soil.
+
+    There are other projects like \textit{GR0} that are capable of suggesting
+    what plant species one should buy by analyzing the quality and type of soil
+    one uses.
+
+    Nevertheless, none of these offers use any kind of virtual-assistant
+    integration or any well-designed user experience, for that matter.
+    \textit{That} will be the main difference our project will have. Not only
+    will the user control the system through a virtual assistant, but the 
+	design and user experience is planned to be exceptional and extremely easy 
+	and intuitive.
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \subsection*{End-of-project prediction}
+
+    Once the course finishes, our intention is to have created a device capable
+    of automatically keeping alive crops or plants with interactions through
+    \textit{Amazon Alexa}.
+
+    In order to achieve that, our device will be able to give accurate weather
+    predictions, alert of possible plagues that might attack the crops and
+    monitor the optimal conditions for the plants themselves.
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \subsection*{Target audience}
+
+    This project aims to aid the gardening enthusiast that do not have a great
+    amount of time at their disposal to take care of their plants optimally. It
+    also aims to assist farmers that need help with the care of their crops and
+    seek to minimize the effect of unexpected and external factors to their
+    produce.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Project Scope}
+
+Just as previously mentioned, the main objective of this technological endeavor
+is the creation of a good-enough prototype in order to shot to multiple possible
+future investors so that they help to commercialize and empower the creation of
+the product itself through their monetary support. In short and plain English,
+the objective of the product is to attract suitable investors that, with their
+contributions, would help the product grow and transform into a marketable
+commercial system. This product, `\textit{ec\textbf{\o}}', is currently the
+only product the startup \textit{Raninforest} has, therefore this project is of
+vital importance to the company.
+
+`\textit{ec\textbf{\o}}' is a product than can be commercialized both as a
+physical system and a digital solution for the client. As a physical system it
+will be able to monitor all the ambiental factors that could affect a plant's
+growth and development, e.g.\ humidity, temperature, luminosity, soil quality
+etc.
+
+As a digital solution, it comes with visualization software that will be able to
+show and display information in a clear and concise way, as well as in an
+intuitive manner. The project promoters also hope to be able to motivate a big
+community of collaborators so that the product improves substantially over time.
+
+This is not all though, for the `\textit{ec\textbf{\o}}' also comes with Virtual
+Assistant integration, with which the user would be able to interact easily and
+seamlessly.
+
+When it comes to future functions or ones in early stages of development, the
+biggest one so far has been the incorporation of sensors and mechanisms capable
+of detecting the presence of bugs and insects that could pose a threat to the
+plant. There are multiple other initiatives and lines of development and
+improvement for the product within the company, but those are in very early
+stages and developing further into those lines of work in this document would
+not be appropriate, given the volatile nature of initiatives in such early
+stages.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Discarded Ideas}
+
+The project has suffered many changes since its initial conception and ideation.
+Some of these changes and modifications have been so great and have influenced
+the project such a big deal that they earn a mention in the following list, just
+by their very nature as disruptive and polarizing within the developing team:
+
+\begin{easylist}[itemize]
+
+& \textbf{Detection of plagues} \\
+An initial idea was that the system should detect different insects and monitor
+for known plagues that attack plants and crops. Conceptually insect detection
+seems simple but its implementation isn't. Some initial ideas entailed the used
+of infrared radiation, but this idea turned out to be completely inefficient.
+
+This possible feature has not been completely discarded just yet. There is a
+type of sensor called \textit{PIR}, which could be configured in such a way that
+detect small-sized animals. The development of this idea is currently
+experimenting some issues.
+
+& \textbf{Development of own microcontroller} \\
+This would have been extremely useful for the product itself, given that the
+development of a microcontroller specialized for the task would have optimized
+the way in which the product was designed. After much thought, this idea was
+discarded, given the short timeframe this product has for development and the
+ambitious nature of the initiative.
+
+\end{easylist}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Technology to Use}
+
+This section contains the different options that were considered for the
+project. The different decisions about the different used technology within ght
+project took into account the experience of the various members of the group, as
+well as the monetary cost of the different hardware elements, their general
+availability and the trust the very manufacturer inspired.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \subsection*{Controllers}
+
+    \begin{easylist}[itemize]
+
+    & \textbf{Arduino}
+
+    \textit{Arduino} is an open-source electronics platform that is based on
+    easy-to-use software and hardware. The \textit{Arduino} boards themselves 
+    are controlled by sending a set of instructions to a microcontroller on the 
+    board. To do so, one must use the \textit{Arduino} programming language, 
+    which is based on \textit{Wiring}, and the \textbf{Arduino Software (IDE)}, 
+    which is based on \textit{Processing}.
+
+    These boards were our first choice because they are extremely easy to use. 
+    The programming language is extremely easy to pick up if one already knows
+    \textit{C}, and the \textit{Arduino} community offers a wide array of
+    free-to-use resources that improve the quality and reduce the effort of any 
+    project trying to use \textit{Arduino}.
+
+    Even with all it's benefits, \textit{Arduino} ended up being discarded as a
+    possible option, given that the absolutely cheapest of boards would still 
+    cost around \$20.
+
+    & \textbf{Raspberry Pi}
+
+    According to the official \textit{Raspberry Pi} webpage: \textit{``Raspberry
+    Pi is a low cost, credit-card sized computer that plugs into a monitor or a 
+    TV, and uses standard keyboard and mouse. (\ldots) It's capable of doing 
+    what you'd normally expect a regular computer to do, from browsing the 
+    internet and playing high-definition video, to making spreadsheets, word 
+    processing and playing games''}.
+
+    Just like a regular computer, once would be able to program it to do 
+    whatever they'd want it to do. This would have been ideal for the project 
+    itself, given the simplicity of its use and the gigantic array of languages 
+    that are compatible with it. In the end, though, it was discarded because 
+    the computer itself was too large in comparison to the rest of the elements 
+    of the project.
+
+    & \textbf{ESP32}
+
+    The \textit{ESP32} is a series of low-cost, low-power system on a chip
+    \textbf{SoC} microcontrollers with integrated Wi-Fi and dual-mode Bluetooth.
+    This was the option the team ended up choosing for the project, given that 
+    the \textit{ESP32} was specifically designed for \textbf{wearable 
+    electronics and IoT applications.}
+
+    One can also program on it using the \textit{Arduino IDE}, which was a huge
+    advantage. Most of the team already knew how to use and control
+    \textit{Arduino}, so not having to learn a skil specifically for the
+    microcontroller plus all the benefits of the \textit{Arduino} community made
+    the group decide on the \textit{ESP32} as an option.
+
+    \end{easylist}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \subsection*{Sensors}
+
+    There are many different kinds of sensors on the market. Many of these are
+    extremely capable and can be obtained very easily. When deciding on the 
+    sensors, the team always looked for the most reliable and available on the 
+    market. Here are some of the sensors the project will use:
+
+    \begin{easylist}[itemize]
+
+    & \textbf{DHT22} \\
+    It is a basic and low-cost digital temperature and humidity sensor. It 
+    measures the surrounding air thanks to a capacity humiditor sensor and a
+    thermistor, and spits out digital signal on the data pin. It's extremely 
+    simple to use, given that its transmissions are already digital, but one can
+    only make readings each two seconds. Extreme speed, or lack thereof, is not
+    a highly important factor when it comes to plant humidity and temperature
+    measuring, so the only real downside would not be an actual downside. 
+
+    Just like any avid and shrewd reader would have realized by now, this sensor
+    will be used to measure exterior temperature and humidity.
+
+    & \textbf{LDR} \\
+    A \textit{Light Dependent Resistor} or a photo resistor is a device whose
+    resistivity is a function of the incident electromagnetic radiation. These
+    are light sensitive devices also called photo conductors, photo conductive
+    cells or simply photocells.
+
+    The ability to detect light is a must in the soon-to-be deliverable product,
+    therefore the use of this sensor was an easy and obvious solution.
+
+    & \textbf{YL-69} \\
+    According to the product description the manufacturer provides:
+    \textit{``The YL-69 is a simple sensor that can be used to detect soil
+    moisture/relative humidity within the soil. The module is able to detect
+    when the soil is too dry or wet. Great for use with automatic plant watering
+    systems''}.
+
+    The need for a sensor like this, especially considering it's insignificant
+    price in comparison to the price of the rest of the setup and components.
+    Therefore, this will be the main triggering mechanism to notify the plant or
+    plants need to be watered.
+
+    \end{easylist}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \subsection*{Programming Languages}
+
+    As previously mentioned, the chosen microcontroller is the \textit{ESP32}.
+    Therefore, the options when it comes to programming languages have been:
+
+    \begin{easylist}[itemize]
     
-    \subsection{Situación prevista al final del proyecto}
-    Al finalizar la asignatura se pretende tener un dispositivo capaz de mantener con vida un cultivo de manera automática y el cual pueda ser controlado mediante comandos de voz gracias a Alexa.
-    Para ello, nuestro dispositivo contará con la predicción del tiempo, aviso de posibles plagas, estado del terreno y condiciones óptimas necesarias para el tipo de planta que se posea.
-    
-    \subsection{Beneficiarios del proyecto}
-    Con este proyecto se pretende ayudar a los aficionados de la jardinería que no disponen de una gran cantidad de tiempo para el óptimo cuidado de las plantas, así como a agricultores que necesiten una ayuda extra para minimizar el impacto de situaciones climáticas extremas. Por situaciones climáticas extremas se entienden, por ejemplo, heladas producidas en fechas inesperadas.
-    
-\section{Alcance del proyecto}
-Como se ha descrito con anterioridad, el objetivo de este proyecto es obtener un producto que presentar a distintos socios inversores para su comercialización. Tal producto, denominado como `\textit{ec\textbf{\o}}', es  el principal proyecto de la startup \textit{Rainforest}.
+    & MicroPython
 
-`\textit{Ec\textbf{\o}}' es un producto que se comercializa tanto como un producto físico, como uno digital. Las funciones que realizará el producto físico serán las de monitorizar todos los factores ambientales que afectan a la planta (humedad, temperatura, luminosidad, calidad del suelo...) como base, aunque en un futuro, se incluirán sensores capaces de detectar la presencia de insectos que puedan resultar perjudiciales para la planta. Por otro lado, `\textit{ec\textbf{\o}}' contará con el respaldo de un producto software donde poder visualizar toda la información de manera clara y contar con el apoyo de una comunidad, con el fin de obtener una planta con cuidados óptimos. Además, de la comodidad de poder manejar `\textit{ec\textbf{\o}}' mediante un asistente de voz, con el que poder obtener la información sobre el estado de la planta así como regarla. Esas serán actualmentes las funciones que se están desarrollando, aunque en un futuro se esperaría poder ampliar la funcionalidad.
-\section{Descripción de ideas descartadas}
+    \textit{MicroPython} an open source \textit{Python} programming language
+    interpreter that is capable of running on small embedded development boards.
+    With the adaptability build into \textit{MicroPython}, one can write clean
+    and simple \textit{Python} code to control hardware directly instead of
+    having to use complex low-level languages.
 
-Inicialmente se pensó en un sistema que fuera capaz de controlar las plagas que atacan a los cultivos, sin embargo, tal proyecto no es sencillo ya que la detección de los insectos no es sencilla. Se pensó en utilizar algún tipo de sensor con radiación infrarroja sin embargo, tras buscar información más detalla se ha comprobado que no sería eficaz. Se encontró un tipo de sensor llamado PIR, el cual podría regularse los parámetros del sensor para detectar animales de pequeño tamaño. Temporalmente, esta idea ha sido aplazada.
+    Even if a reduced version, \textit{MicroPython} still supports most of
+    \textit{Python}'s syntax and implements most of its inner mechanism. Given
+    all these features and advantages, it was a quick initial choice for the
+    project.
 
-Otra idea descartada fue la de crear nosotros mismos el microcontrolador a utilizar para el proyecto, esta idea fue descartada por ser demasiado ambiciosa valorando el tiempo disponible para su desarrollo.
+    These are some of the features that set it apart from other embedded
+    systems:
 
-\section{Tecnología a utilizar}
-Las decisiones acerca de la tecnología a utilizar en el proyecto se han tomado teniendo en cuenta la experiencia de los distintos miembros que conforman el área de desarrollo, así como el costo que tienen los distintos componentes.
-\newline
-Las distintas opciones barajadas para la realización del proyecto han sido:
+        && \textbf{Interactive REPL}
+    This feature allows execution of code without the need of any compilation or
+    uploading time, which is perfect for systems with a high level of
+    experimentation.
 
-\subsection*{Hardware}
-\subsubsection*{Controladoras}
+        && \textbf{Extensive software library}
+    \textit{MicroPython} already comes with libraries built in to support common
+    tasks, like JSON data parsing, regular expression handling or even network
+    socket programming.
+
+        && \textbf{Extensibility}
+    Advanced users may be able to mix \textit{MicroPython} with extensible
+    low-level C/C++ functions in order to further optimize their code and make
+    the execution faster when it really matters.
+
+    \textit{MicroPython} has some very useful features. Unfortunately, it also
+    comes with its downsides:
+
+        && Slower code and higher memory needs when compared to C/C++.
+        && Complicated microcontroller initialization process.
+        && Limited functionality for some key libraries.
+
+    & FreeRTOS
+
+    \textit{FreeRTOS} is a real-time operating system made specifically to run 
+    on embedded systems. It is especially good because it natively provides core
+    real time scheduling, inter-task communication, timing and synchronisation
+    primitives. This translates into a more accurately controlled kernel and a
+    system that is able to execute tasks exactly when they have to be executed, 
+    a \textit{deterministic} system.
+
+    In \textit{FreeRTOS}, applications can be assigned in a static manner while
+    objects themselves can be assigned dynamically with different 
+    memory-assignment memory schemes. This system was quickly discarded. Even 
+    with the great deal of documentation it counts, the complexity of 
+    \textit{FreeRTOS} and the learning curve it would entail made it 
+    practiacally impossible in the provided timeframe.
+
+    & Mongoose OS
+
+    \textit{Mongoose OS} is an Internet of Things Firmware Development Framework
+    under Apache License Version 2.0.
+
+    \textit{Mongoose OS} is a firmware development framework specifically 
+    designed for development of IoT products. It is highly compatible with a 
+    wide array of microcontrollers, just like the \textit{ESP32}, and it's 
+    objective is to fill `the noticeable for embedded software developers' 
+    between firmware created for prototyping and bare-metal microcontrollers.
+
+    It comes with an integrated web server and supports interaction with both
+    private and public clouds like AWS IoT or Mosquitto.
+
+    & Arduino IDE
+
+    It's an open-source project that has a very large community behind it.
+    \textit{Arduino IDE} comes with a text editor for writing code, a message 
+    area, a console, and other common functionalities of full-fledged IDEs. The
+    programming languages it admits are C and C++, but with some special rules 
+    when it comes to structuring the code. The IDE also comes with plenty of 
+    built-in libraries for common tasks like robot control or I/O mechanisms.
+
+    This is the option the team ended up choosing, not only for its simplicity 
+    and usefulness, but also because it can interact directly with the 
+    \textit{ESP32} chip that the project will use as a main component.
+
+    \end{easylist}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Development Methodology}
+
+One of the key factors when it comes to a project, especially the creation of a
+new one, is the \textit{Development Methodology}. These methodologies are a
+means by which a product can be created in an organized, somewhat predictable
+and planned manner. A \textit{Development Methodology} is nothing more than the
+process of planning, creating, testing and then deploying a project. And the
+different types of methodologies only alter the way in which those components
+interact with each other. 
+
+The specific methodology used for this project is \textit{Lean w/ Kanban}. Here
+are some of the main reasons that made the group choose this methodology:
+
+\begin{easylist}[enumerate]
+
+& \textbf{Waste reduction}. Helps keep project simple and clean. Everything that
+is not absolutely necessary is promptly eliminated, be it garbage code,
+unecessary meetings, obsolete hardware, etc.
+
+& \textbf{Knowledge improvement}. This is one of the best aspects of
+\textit{Lean}. Even if every member has a defined function within the team and
+their tasks are clearly stated, any other member can lend a hand and help if
+they feel the need or have the time. This helps keep the team agile and on their
+feet.
+
+& \textbf{Delayed decision-making}. Within \textit{Lean} decisions are made as
+the requirements are being met, as well as their focus starts to change. The
+project starts building itself in a progressive and adaptative manner because it
+hasn't followed a strictly defined idea since its inception. Instead, it has
+been allowed to grow and morph into it needed to become.
+
+& \textbf{Quick delivery}. Given the minimalism of the methodology and its short
+iterations of work, the authors of this document believe a further explanation
+of this specific aspect would be an insult to the reader.
+
+& \textbf{Team-oriented}. Every single member is part of the decision-making
+process, as well as the definition of their own work. This methodology works
+best in teams that extremely motivated because the different members usually
+divide the work amongst them without the need of actual meetings and specific,
+written-down planification.
+
+& \textbf{Focus on the objective}. Thanks to many of the factors mentioned
+above, the project does not loose sight of the objective. One could say the
+\textit{motto} of the team would be \textit{``Think big, act small, err
+frequently and fix quickly''}.
+
+\end{easylist}
+
+When combining \textit{Lean} with \textit{Kanban}\footnote{Kanban is a
+visualization methodology and mechanism, not an actual defined development
+process.} controlling the assignment of different tasks and jobs of the
+different team members was extremely easy and intuitive. This combination is the
+key component to the development of the prototype of the product, since it
+increases visibility of the project and enhances control of the direction in
+which the development steers towards.
+
+\textit{Lean Kanban} is a methodology used by various startups, just like IMVU,
+which is a company created by Eric Ries. He created a methodology called
+\textit{Lean Startup}, which as `improved' version of the methodology this
+project uses, designed specifically to adapt to the way a startup works.
+
+The development cycles in \textit{Lean Kanban} start with the creation of an
+idea, which is then assessed and developed in order to analyze if its addition
+to the overall project would be of any real value. With this process, the worse
+case scenario is still obtaining knowledge about the creation and implementation
+of that specific idea, even if it does not end up being part of the project.
+This is the way some of the most important parts of `\textit{ec\textbf{\o}}'
+were created, like the \textit{Amazon Alexa} virtual-assistant integration or
+the detection of factors like humidity and light levels.
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \subsection*{Implementation of the metodology}
+
+    In order to apply the methodology in an effective manner, the team has used
+    the project collaboration tools of \textit{GitHub Projects}, which
+    officially integrated as part of the software of University of Alcalá thanks
+    to the \textit{GitHub Campus Program}.
+
+    The team met weekly to plan their activities and tasks for the following
+    week and kept in touch with the mentioned tools, also able to track changes
+    in the status of each task and maintain the visibility of the overall
+    project.
+
+    Every single modification and all the planification has been recorded thanks
+    to \textit{GitHub Projects} and a link to the respository will be provided
+    with this document.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Application Architecture}
+
+The device is formed by two components:
 \begin{itemize}
-    \item Arduino: Ofrece una amplia gama de placas, con distintas prestaciones, cuenta con un entorno de programación para la creación de aplicaciones y una gran comunidad que apoya el Desarrollo. El principal inconveniente que se encontraba era su precio, el cual ronda los 20 euros.
-    
-    \item Raspberry: Fue una opción que se estuvo barajando utilizar, ya que ofrece una amplia variedad de lenguajes de programación a utilizar. Sin embargo, fue descartada debido a su gran tamaño.
-    
-    \item ESP32: Ha sido la opción finalmente elegida, ya que se trata de un SoC de muy bajo coste (su precio ronda los 5 euros), cuenta con Bluetooth y es utilizado en multitud de proyectos de IoT. Además, ofrece compatibilidad con Arduino, pudiendo utilizar los amplios recursos desarrollados por esa comunidad.
+\item Data collector. Formed by all the different sensors that can be found. This component aims to collect and send data to the server. It is the server where the information is going to be treated.
+\item Actuator. Formed by the irrigation system, it can be activated when the land's humidity is low or using a voice command. 
 \end{itemize}
 
-\subsubsection*{Sensores}
-\begin{itemize}
-    \item DHT22: Consiste en un sensor analógico para medir valores de humedad y temperatura cuya señal de salida es digital.  Se eligió este modelo debido a su tamaño, factor bastante importante para nuestro proyecto, su precisión y el precio del mismo. \newline Este sensor será utilizado para medir la temperatura y humedad ambiental.
-    \item LDR: Es un fotoresistor, con el cual mediremos la cantidad de luz recibida por la planta.
-    \item YL-69: Sensor de humedad de la tierra, nos servirá como activador del sistema de riego o lanzador de notificación para que el usuario conozca que su planta necesita ser regada.
-\end{itemize}
+All the data collected by the sensors is sent to a server, using WiFi and
+MQTT protocol. The reasons why this protocol has been chosen are, on the 
+one hand, the fact that it is once of the most used protocol in which IoT is referred,
+and also the fact that we can use OpenMQTTGateway which provided 
+solutions to managed different protocols used by different devices (which means that if there is any sensor that uses BLE, it can be translated into MQTT). 
+There is where C takes part, as it is the language in which main.cpp will be created and where all the configuration of MQTT can be found. In the beginning,
+data is stored into a relational Database which used PostgreSQL as DBMS. Then, data is sent to the AWS DataBase which will be used by Alexa's API to give
+the user information about how the pant is.
 
-\subsection*{Lenguaje de programación}
+Also, the provided information by the sensors will be used in a web page, where register users can find some graphics and statistics.
 
-Dado que la microcontroladora elegida ha sido la ESP32, las opciones a la hora de programar disponibles son:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{itemize}
-    \item MicroPython: consiste en un pequeño intérprete de Python, el cual contiene un subconjunto mínimo y optimizado de librerias para que pueda correr en microcontroladores.
-    En un primer momento, fue la idea elegida para utilizar en nuestro proyecto.
+\section*{Business Model}
+
+When it comes to selling and pitching the product to customers, there are many
+factors to take into account. Different elements such as the target demographic
+or the country in which the product will be commercialized have to be taken into
+account. In order to be successful, the writers of this document have devised a
+careful and detailed careful plan in order to optimize the labors of the
+company.
+
+There are many things a company must ask itself before selling their products.
+The first factor of many is about what the company offers, what value do the
+things that the company does have.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \subsection*{Offering. Value Proposition}
+
+    Everyone would love to have plants at home without having to worry about how
+    much water they need or whether they are receiving enough sunlight or not.
+    Sometimes people buy plants simply to decorate their homes, but have no idea
+    how to take care of them, or even consider it before buying for that matter.
+    Others may claim to love plants but then have no time, ability or real
+    interest whatsoever when it comes to their wellbeing and maintenance.
+
+    `\textit{ec{\textbf{\o}}}' can assure their customers that their plants will
+    be well attended at all times. It measures the state of the plant constantly
+    by checking its temperature, humidity, pH levels, etc. After collecting all
+    this information, it carries out a diagnosis, letting its owners know
+    whether the plant is in optimal conditions, whether it's sick or
+    not\footnote{Potential feature in development.}, or even if it has any
+    nutrient deficiencies in its soil\footnote{Potential feature in
+    development.}.
+
+    At the same time, it gives recommendations about the way in which the plant
+    would be better off. In the case of lack of water, `\textit{ec\textbf{\o}}'
+    will be able to directly water the plants and, if the plant has other needs,
+    let the owner know inmediately.
+
+    Furthemore, `\textit{ec\textbf{\o}}' has its own skill on \textit{Amazon
+    Alexa}, which makes checking the status of the plants even more convenient.
+    Just by asking \textit{Alexa} about the state of the plant the virtual
+    assistant will give back to the user all the information related to the
+    plant's current state and the needs it has. If the owner does not have
+    \textit{Alexa} at home, they can also log in to the \textit{ec\textbf{\o}}
+    website in order to check all the information related to their plants.
+
+    To sum up, the product iself adapts to the needs of each plant, providing
+    its customers with a simple, time-saving, innovative and customised
+    solution. Forgetful or inexperienced customers will not have to worry about
+    possibly killing their plants anymore and plant lovers will have detailed
+    information about the current state of their plants at all times. Combined
+    with the functionalities of \textit{Alexa}, \textit{ec\textbf{\o}} offers an
+    even more convenient and efficient way of ensuring the plant's well-being
+    while taking care of the planet as a whole.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \subsection*{Customers}
+
+    This section will contain information related to the customers themselves,
+    the point of view the product should have when presented to them, different
+    `customer segments', etc.
+
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+        \subsubsection*{Customer segments}
+
+        Nowadays, we all take care of elders, children, animals\ldots But what
+        about plants? They are a key factor in the future of the planet and the
+        lives of human beings, so there is a general incentive among the
+        population to take care of them. By buying \textit{ec\textbf{\o}} this
+        task will be easier and quicker than ever, especially nowadays with
+        faster work and pace of life. However, it is well-known that not
+        everyone is going to be interested in \textit{ec\textbf{\o}}. That's the
+        reason why a segmentation strategy must be carried out in order to find
+        the product's targets customers.
+
+        By following a segmentation strategy focused on lifestyle, owner's
+        income and individual/business approach one can easily perceive that
+        \textit{ec\textbf{\o}} will stick to a niche unattended market formed by
+        people that love plants and have them at home as part of their
+        lifestyles, businesses whose main activity is related to plants or
+        enterprises in sectors such as horticulture, agriculture or gardening.
+        Another option would be targeting public spaces and entities such as
+        governments, public parks, botanic gardens or governmental buildings.
+
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+        \subsubsection*{Channels}
+
+        A company can deliver its value proposition to its targeted customers
+        through different channels. Reaching each different segment with
+        different communication strategies is not only important, but vital to
+        the process. Focusing on business-to-business (B2B) and deals with
+        governments is recommended since they normally go hand-in-hand with
+        discounts due to large volume purchases and business negotiations are at
+        stake.
+
+        When it comes to sales to clients for individual use, a large range of
+        options are available. In order to attract the attention of those who
+        would be willing to buy \textit{ec\textbf{\o}}, the company could
+        promote itself through advertisements on specialized magazines such as
+        `Country Gardens', `Fine Gardening', or `Horticulture', which are read
+        by people interested in plants and probably in \textit{ec\textbf{\o}} as
+        well. Another option would be to create online advertisements through
+        gardening forums and blogs, social media such as Facebook groups formed
+        by people interested in the plant worlds, horticulture Instagram
+        accounts, etc.
+
+        Furthermore, flyers explaining \textit{ec\textbf{\o}}'s benefits and
+        characteristics could be distributed in botanic gardens or
+        plant-specialized stores. Indirect advertisements played on screens
+        during public events related to gardening could be very efficient to
+        find \textit{ec\textbf{\o}}'s target customers as well as word-of-mouth
+        among friends, relatives and colleagues who have bought the product and
+        are satisfied with it.
+
+        \textit{ec\textbf{\o}} will only have an official distribution channel:
+        online selling, where buyers can directly buy the product online.
+
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+        \subsubsection*{Customer Relationships}
+
+        The relationship with the customer does not end once they buy
+        \textit{ec\textbf{\o}}, the company will create a phone line and email
+        address so that the customers who are having issues with the product or
+        need information requests can contact the firm directly. Therefore,
+        personal assistance will be available along the whole purchase process,
+        either during pre-sales and/or after sales situations.
+
+        It will also create an online community, which allows for direct
+        interactions among the company and its clients, where knowledge can be
+        shared, and problems can be solved between different clients with the
+        company as an intermediary. Through this platform, consumers could
+        become what is known as co-creators of the product by suggesting ideas
+        of upgrades that would make \textit{ec\textbf{\o}} more efficient.
+
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \subsection*{Infrastructure}
+
+        \subsubsection*{Key Activities}
+
+        The key activity required to execute \textit{Rainforest}'s value
+        proposition are the technical development and programming of the project
+        itself, both in terms of creating a product capable of detecting the
+        plants' state and needs, and creating the website and the Alexa Skill.
+        Another key activity would be to target \textit{ec\textbf{\o}}'s
+        potential customers correctly by investing appropriately in the
+        different channels needed to create awareness in consumers' minds that,
+        hopefully, will end up in the product's purchase.
+
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+        \subsubsection*{Key Resources}
+
+        In order to create \textit{ec\textbf{\o}} and sustan
+        \textit{Rainforest}'s Business, physical components are needed such as
+        the DHT22 to detect humidity and temperature, microcontrollers and
+        boards such as the ESP-32 and water pumps such as the R385. Apart from
+        that, human capital is crucial for the creation and correct functioning
+        of the software that detects the plant's current state, the creation of
+        \textit{Alexa}'s skill and \textit{ec\textbf{\o}}'s website.
+
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+        \subsubsection*{Partner Network}
+
+        Partnerships and alliances are crucial for a business, especially when
+        the company is new to the marketplace. They optimize operations and
+        reduce risks so that the company can focus on its core activity, which
+        in \textit{Rainforest}'s case is the creation of \textit{ec\textbf{\o}}.
+
+        The main and most important partnership for \textit{Rainforest} is the
+        one with the physical distributors of their product. Even if the product
+        is sold online, it still has to arrive to the client in order for them
+        to benefit from it. Choosing the right partners is essential for the
+        company to ensure that quality of product is maintained and the
+        relationship with the client is kept honest and trustworthy.
     
-    Ventajas:
-    \begin{itemize}
-        \item RELP Interactiva, es decir, un programa que permite leer e interpretar los comandos para evaluarlos e imprimir el resultado sin la necesidad de compilar ni cargar el programa en el microcontrolador.
-        \item Gran cantidad de librerías disponibles
-        \item Extensibilidad. Ofrece la posibilidad de mezclas códigod que requieran una ejecución más rápida a bajo nivel mediante la extensión de sus funciones.
-    \end{itemize}
-    
-    Desventajas:
-    \begin{itemize}
-        \item Código más lento y con necesidad de mayor cantidad de memoria, en comparación con C o C++
-        \item Proceso de inicialización del microcontrolador más complejo
-        \item Funcionalidad de ciertas librerías para componentes más limitadas
-    \end{itemize}
-     
-    \item RTOS: es un sistema de operación en tiempo realutilizado en sistemas embebidos. Proporciona métodos para múltiples subprocesos o hilos, mutexes, semáforos, temporizadores... Además de soportar las prioridades de los hilos. Por último, cuenta con un modo que reduce el consumo energético (tickless). En FreeRTOS las aplicaciones puede asignarse de manera estática, mientras que los objetos pueden asignarse dinámicamente con distintos esquemas de asignación de memoria. 
-    Pese a contar con una enorme cantidad de documentación, la complejidad y la curva de aprendizaje que supondría el uso de este lenguaje hizo que fuera descartado rápidamente.
-    
-    \item Mongoose OS: framework de desarrollo disponible bajo la licencia de Apache (con una versión community y otra enterprise) y amplaimente utilizado en aplicaciones relacionadas con el IoT. Cuenta con compatibilidad para microcontroladores de bajo consumo, como es el caso del ESP32. Cuenta con un servidor web integrado, soporta programación tanto en C como en JavaScript y cuenta con integración de nubes privadas y públicas (como AWS Iot o Mosquitto).
-    
-    \item IDE Arduino:  Software de código abierto que cuenta con una amplia comunidad de respaldo. Los lenguajes que admite son C y C++ haciendo uso de reglas especiales de estructuración de código, además de que bajo este IDE se suministran multitud de bibliotecas para procedimientos comunes de entrada y salida. Finalmente ha sido la opción elegida para la programación de la ESP32, ya que la forma de empezar a usar este software con la placa es muy sencilla.
-    
-\end{itemize}
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Metodología de desarrollo}
-La metodología escogida para la realización del proyecto ha sido Lean más Kanban con ligeras modificaciones. Los motivos que impulsaron la elección de esta metodología fueron los principios que sigue:
+    \subsection*{Finances}
 
-\begin{enumerate}
-\item Eliminación de desperdicios. Todo aquello que no aporte valor debe eliminarse (códigos basura, requisitos modificados...)
-\item Ampliación del aprendizaje. Aunque inicialmente cada miembro del equipo se encargará del desarrollo de una parte del proyecto, todo el equipo está abierto a ofrecer su ayuda a los demás y a aprender nuevas tecnologías o formas de resolver problemas.
-\item Realizar las tomas de decisiones a medida que se van teniendo en cuenta los requisitos a cumplir, así como la manera de enfocarlos. El proyecto ha ido construyéndose de manera progresiva, no se ha seguido una idea fija desde el primer momento sino que esta se ha ido desarrollando y madurando con el tiempo.
-\item Entregas rápidas. Cada vez que se realiza una entrega esta implica un aumento de la funcionalidad o una corrección de esta.
-\item Potenciar el equipo, todos los miembros han sido partícipes en la toma de decisiones importantes para el proyecto.
-\item Creación de integridad, haciendo uso de un sistema para el control de versiones (github en nuestro caso).
-\item Visualizar todo en conjunto. \textit{“Pensar en grande, actuar en pequeño, equivocarse rápido y aprender con rapidez”} Esa frase resume la mentalidad de todos los integrantes del equipo. \newline
-\end{enumerate}
-Esta metodología se ha apoyado con Kanban, el cual no es una metodología de trabajo en sí sino una forma de visualizar el trabajo, controlar la asignación de tareas y mejorar la comunicación de los miembros del equipo.
+        \subsubsection*{Cost structure}
 
-Lean Kanban es una metodología seguida por varías startups, como IMVU startup creada por Eric Ries quien creó una metodología llamada Lean Startup que se basa principalmente en Lean con Kanban pero con ciertos aspectos más centralizados en el funcionamiento de una startup.
+        \textit{ec\textbf{\o}}'s business structure would be value-driven, since
+        the enterprise will focus its efforts on creating value for its
+        customers rather than minimizing costs as much as possible. It is clear
+        that the company will try to minimize its costs to get higher revenues,
+        but this is not the main objective for the firm at the time this
+        document was being written.
 
-Los ciclos del desarrollo comienzan con el lanzamiento de una idea, la cuál es desarrollada y valorada, se obtiene un aprendizaje con los datos arrojados por esta idea y se incorpora al producto. De esta forma se inició el proyecto con la intención de crear un sistema de detección de riesgos potenciales para los cultivos (clima y plagas principalmente) y se pensó en incluir alexa en el control de este sistema.
+        In terms of costs, the key activities that will be more expensive
+        throughout the process are the technical development and computing
+        programming of the project itself, both in terms of the low-level
+        software and the multiple user interfaces. Whenever possible, especially
+        when selling to businesses and governments, economies of scale could be
+        reached, thus, decreasing the cost of each unit as the number of units
+        that are ordered of the product increase.
 
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Aplicación de la metodología}
-Para aplicar la metodología de manera eficaz se realizaba semanalmente una breve exposición de los avances realizados (mejoras realizadas, problemas encontrados...), así como un nuevo reparto de tareas y la exposición de alguna nueva idea aplicable al proyecto.
+        \subsubsection*{Revenue Streams}
 
-Todo la actividad quedaba registrada en github mediante los commit y el dashboard con las distintas actividades.
+        \textit{ec\textbf{\o}}'s customers would be willing to pay a premium
+        compared to other competitors for the quality and value of the product.
+        \textit{ec\textbf{\o}} offers possible new upgrades that are not out in
+        the market yet, such as detecting if the plant is sick or what the
+        disease that is causing it is. Other attributes for which customers
+        would be willing to pay more are its complimentary website and the
+        opportunity of connecting it to \textit{Amazon Alexa}.
 
-\section{Arquitectura de la aplicación}
-DIAGRAMA DE PABLO +  EXPLICACIÓN DE ESTE
+        Taking a look at the market, the cost of material to create the product
+        would be around \$30US.\ To this cost, other fixed costs such as the
+        creation of the website, the design and implementation of the physical
+        system itself and the \textit{Alexa} skill, must be added. Comparing it
+        to the market, the most similar competitor would be ``Xiaomi Mi Smart
+        Flowerpot Plant Pot'' which costs \$50US.\
 
-\section{Modelo de negocio}
+        This fact provides \textit{Rainforest} with an idea of what price would
+        be reasonable to ask for the product and still generate revenue, but
+        taking into account that \textit{Xiaomi}'s product doesn't offer as many
+        attributes as \textit{ec\textbf{\o}}, it would be reasonable to ask for
+        approximately \$60US as the final price for the product. The revenue
+        streams of the firm will mainly come from the sale of this very product
+        and this price would give \textit{Rainforest} a decent revenue margin to
+        ensure its success in the future.
 
-MODELO CANVAS AQUÍ 
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Planificación temporal y de desarrollo}
-La planificación se ha ido elaborando semanalmente, según se tenía mayor conocimiento de las labores a realizar. Estas tareas y el encargado de realizarlas se refleja en el dashboard que nos ofrece github.
-En líneas generales, para noviembre se contaría con toda la información relativa a los sensores a utilizar, el esquema de las conexiones a realizar y un servidor donde almacenar los datos de los sensores. Así mismo, se avanzaría con la interfaz de voz de Alexa mediante la realización de un curso para tener un mayor conocimiento acerca de su funcionamiento y la manera de integrarlo en el proyecto.
+    \subsection*{Marketing}
 
-\section{Riesgos del proyecto}
+    When it comes to actually getting to the clients. There are many factors to
+    take into account. From the way the company is perceived in the market, to
+    the way customers see the product and the sentiment they have towards it. In
+    order to maximize the labors of the company and market the product in the
+    best way possible, \textit{Rainfores}'s marketing team has devised the
+    following factors and elements to follow.
 
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+        \subsubsection*{Perception and differentiation}
 
-Cosos de Pablo de seguridad
+        When it comes to \textit{Rainforest} itself, the focus and the angle the
+        company should have towards its customers and towards the market could
+        be characterized as that of the personality of a young technological
+        activist that fights for the future of planet Earth. Some of the most
+        important factors this company should have and the way it should behave
+        are the following:
 
-\section{Plan de contingencias}
+        \begin{easylist}[itemize]
 
+        & \textbf{Young}. With \textit{young} the team does not mean the company
+        should act childishly, but with the desire to do something and the wish
+        to work hard and earn people's trust.
 
-\section{Resumen y conclusiones}
-La Antorcha Humana fue a bankia y le denegaron una hipoteca.
+        & \textbf{Connected}. Maintaining a connection with the customer, be it
+        through social media or through a different online presence is a key
+        factor when appealing to the younger audiences and customers. The very
+        inclusion of `technology' in the product will attract younger customers
+        towards it and statistics show a company that keeps in touch is a
+        company customers trust.
+
+        & \textbf{Revolutionary}. This is not a term that defines the product or
+        the way to do things itself. With a \textit{Rainforest} that is
+        revolutionary what the marketing team means is a company that is not
+        afraid to do things differently and a company that does not simply fear
+        change for the sake of change.
+
+        & \textbf{Responsible}. At the same time as young, connected and
+        revolutionary, the company should always maintain it's status as a
+        responsible one. The product \textit{Rainforest} sells is one that helps
+        nature and keeps the planet clean. It's a product that helps people
+        reduce wasted resources and keep plants alive, therefore one could say
+        the product is responsible with the environment, and so should the
+        company be.
+
+        & \textbf{Involved}. An involved and present company is one that is sure
+        to succeed, especially when it is related to nature and the topics
+        \textit{Rainforest} treats and gets involved with. A company that is
+        about the betterment of nature and the improvement of it \textit{must}
+        be one that is involved.
+
+        & \textbf{Honest}. This point is obvious. A company that does not lie
+        and stays honest with their customers is a company that gains their
+        trust. A company that inspires security and makes people feel confident
+        when buying their products.
+
+        \end{easylist}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Development Plan}
+
+Given the very nature of the software development plan the team has chosen for
+the project, the need for an actual `development plan' \textit{per se} is not of
+the utmost importance. The team has instead chosen to divide the work in a
+realistic set of project objectives and deliverable items within the provided
+timeframe of the project.
+
+It is true that projects generally function better with a somewhat defined
+development workflow. This case, however, is not applicable to the engineering
+team at \textit{Rainforest}. The very nature of their relationship and the way
+members are able to collaborate seamlessly given their already based background
+makes the \textit{Lean} software development methodology a great one for the
+team. In fact, the addition and creation of a software development plan into the
+development environment would take more time than the actual development itself.
+
+Every single characteristic found in this document and defined as an objective
+can be considered a deliverable item unless specified otherwise. This section is
+also accompanied by a document called ``planning'' where a preliminary idea and
+conceptualization of how the work should be distributed among the work months
+can be shown. This, however is a mere conceptualization of a preliminary idea,
+it should not be taken as definitive.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Risk Assessment and Contingency Plan}
+
+All the information related to this point can be found in the file called as  	  risk\_analysis-contingency\_plan.xlsx
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Overview of the Project}
+
+Even though the project seems to be seriously ambitious, all the team members are highly motivated
+and have studied all the relevant information carefully with the objective of having the clearest
+set of mind by the time the project developing takes place.
+In order to find collaborator is key to have a well defined project., that is why all the
+developers have participated in the implementation of  the code, developing Alexa's skill,
+creating the server, etc.  Using close-loop feedback within the team members there have been
+overcomed the problems and difficulties faced throughout the implementation of the project.
+
+The aim of this project is, not only to create a system which is able to take care of a plant, but
+it also to learn and enjoy the process of developing this idea.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\printbibliography
 
 \end{document}
-
-
