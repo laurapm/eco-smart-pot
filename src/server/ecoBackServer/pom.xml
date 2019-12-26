@@ -42,12 +42,6 @@
 			<scope>runtime</scope>
 		</dependency>
 		
-		<!-- Redis - Store in memory Data Structure -->
-		<dependency>
-		   <groupId>org.springframework.boot</groupId>
-		   <artifactId>spring-boot-starter-redis</artifactId>
-		</dependency>
-		
 		<!-- JUnit - Testing -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
