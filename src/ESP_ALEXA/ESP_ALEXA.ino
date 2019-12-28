@@ -7,8 +7,8 @@ int ECOWATER = 0;
 
 /* NETWORK DATA*/ 
 
-const char* ssid = "NAME_WIFI";
-const char* password = "PASS";
+const char* ssid = "MiFibra-C646";
+const char* password = "9AkavUxV";
 
 /* OBJECT THAT WILL BE CONNECTED
 in this case, Alexa */
