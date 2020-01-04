@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.1" last-position="0,0" last-zoom="1"
+<dbmodel pgmodeler-ver="0.9.1" last-position="120,0" last-zoom="1"
 	 default-schema="public" default-owner="postgres">
 <database name="new_database" is-template="false" allow-conns="true">
 </database>
@@ -14,7 +14,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="TREATMENTS">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="360" y="220"/>
+	<position x="340" y="380"/>
 	<column name="ID" not-null="true">
 		<type name="int8" length="0"/>
 	</column>
@@ -29,7 +29,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="TREAMENT_HISTORY">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="320" y="420"/>
+	<position x="320" y="600"/>
 	<column name="ID" not-null="true">
 		<type name="int8" length="0"/>
 	</column>
@@ -83,7 +83,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="POT_INT">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1000" y="520"/>
+	<position x="1000" y="540"/>
 	<column name="ID" not-null="true">
 		<type name="int8" length="0"/>
 	</column>
@@ -111,7 +111,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="LUMINOSITY">
 		<type name="float8" length="0"/>
 	</column>
-	<column name="TIME_MEASURE">
+	<column name="MEASURE_TIME">
 		<type name="timestamp" length="0"/>
 	</column>
 	<constraint name="LUM_EXT_pk" type="pk-constr" table="public.&quot;LUM_EXT&quot;">
@@ -127,11 +127,53 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="int8" length="0"/>
 	</column>
 	<column name="HUMIDITY">
+		<type name="float" length="0"/>
+	</column>
+	<column name="MEASURE_TIME">
 		<type name="timestamp" length="0"/>
 	</column>
 	<constraint name="HUM_EXT_pk" type="pk-constr" table="public.&quot;HUM_EXT&quot;">
 		<columns names="ID" ref-type="src-columns"/>
 	</constraint>
 </table>
+
+<table name="ALEXA_ORDER">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="340" y="120"/>
+	<column name="ID" not-null="true">
+		<type name="int8" length="0"/>
+	</column>
+	<column name="TOKEN">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="DATE">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="ALEXA_ORDER_pk" type="pk-constr" table="public.&quot;ALEXA_ORDER&quot;">
+		<columns names="ID" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="ID_TREATMENTS" index="1"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="TREATMENTS_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="REQUESTED_AS" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;TREATMENTS&quot;"
+	 dst-table="public.&quot;ALEXA_ORDER&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
 
 </dbmodel>
