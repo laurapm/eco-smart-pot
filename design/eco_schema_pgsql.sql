@@ -19,7 +19,7 @@ CREATE TABLE public."TREATMENTS"(
 	"ID" int8 NOT NULL,
 	"TITLE" varchar(20),
 	"TREATMENT" json,
-	"DESCRIPTION" varchar(150),
+	"DESCRIPTION" varchar(200),
 	CONSTRAINT "TREATMENTS_pk" PRIMARY KEY ("ID")
 
 );
