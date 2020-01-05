@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.1" last-position="120,0" last-zoom="1"
+<dbmodel pgmodeler-ver="0.9.1" last-position="0,0" last-zoom="1"
 	 default-schema="public" default-owner="postgres">
 <database name="new_database" is-template="false" allow-conns="true">
 </database>
@@ -18,8 +18,14 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="ID" not-null="true">
 		<type name="int8" length="0"/>
 	</column>
+	<column name="TITLE">
+		<type name="varchar" length="20"/>
+	</column>
 	<column name="TREATMENT">
 		<type name="json" length="0"/>
+	</column>
+	<column name="DESCRIPTION">
+		<type name="varchar" length="150"/>
 	</column>
 	<constraint name="TREATMENTS_pk" type="pk-constr" table="public.&quot;TREATMENTS&quot;">
 		<columns names="ID" ref-type="src-columns"/>

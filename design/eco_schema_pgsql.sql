@@ -17,7 +17,9 @@
 -- DROP TABLE IF EXISTS public."TREATMENTS" CASCADE;
 CREATE TABLE public."TREATMENTS"(
 	"ID" int8 NOT NULL,
+	"TITLE" varchar(20),
 	"TREATMENT" json,
+	"DESCRIPTION" varchar(150),
 	CONSTRAINT "TREATMENTS_pk" PRIMARY KEY ("ID")
 
 );
@@ -77,7 +79,7 @@ ALTER TABLE public."POT_INT" OWNER TO postgres;
 CREATE TABLE public."LUM_EXT"(
 	"ID" int8 NOT NULL,
 	"LUMINOSITY" float8,
-	"TIME_MEASURE" timestamp,
+	"MEASURE_TIME" timestamp,
 	CONSTRAINT "LUM_EXT_pk" PRIMARY KEY ("ID")
 
 );
@@ -89,7 +91,8 @@ ALTER TABLE public."LUM_EXT" OWNER TO postgres;
 -- DROP TABLE IF EXISTS public."HUM_EXT" CASCADE;
 CREATE TABLE public."HUM_EXT"(
 	"ID" int8 NOT NULL,
-	"HUMIDITY" timestamp,
+	"HUMIDITY" float,
+	"MEASURE_TIME" timestamp,
 	CONSTRAINT "HUM_EXT_pk" PRIMARY KEY ("ID")
 
 );
