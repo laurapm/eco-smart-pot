@@ -1,0 +1,77 @@
+IRRIGATION
+----------
+
+DRAINAGE
+--------
+if (humidity >= MAX_HUM_RANGE) then
+	activate_treatment(drainage)
+endif
+
+FERTILIZATION 
+-------------
+// I have not been able to find any article related to the effect of 
+// temperature on the metabolism of a plant. High temperatures are supposed to
+// accelerate the plant's metabolism (and, of course, low temperatures should
+// have the opposite effect); but no relation has been found.
+var last_fertilization = find_last_fertilization()
+
+if (last_fertilization*(1)(2) >= FERTILIZER_PERIOD_DAYS) then
+	activate_treatment(fertilization)
+endif
+
+STARVATION
+----------
+// Would probably need a pH sensor...
+if (user_asks) then
+	activate_treatment(starvation)
+endif
+
+SUNBATHE
+--------
+if (luminosity_now && luminosity_yesterday <= MIN_LUMINOSITY) then
+	activate_treatment(sunbathe)
+endif
+
+ISOLATION
+----------
+if (luminosity  >= RECOMMENDED_LUMINOSITY &&
+    temperature >= MAX_TEMP_RANGE) then
+	activate_treatment(isolation)
+endif
+
+WARMUP
+------
+if (temperature <= MIN_TEMP_RANGE) then
+	activate_treatment(warmup)
+endif
+
+COOLDOWN
+--------
+if (temperature >= MAX_TEMP_RANGE) then
+	activate_treatment(cooldown)
+endif
+
+// #############################################################################
+// #############################################################################
+// #############################################################################
+
+*(1)
+SELECT TREATMENT_HISTORY.DATE
+FROM TREATMENT_HISTORY
+WHERE TREATMENT_HISTORY.TREATMENTS_ID = (
+	SELECT TREATMENTS.ID
+	FROM TREATMENTS
+	WHERE TREATMENTS.TITLE = "fertilization"
+) AS ID_FERTILIZATION
+AND
+TREATMENT_HISTORY.ECO_DEVICE_ID = 00
+ORDER BY DESC
+LIMIT 1
+;
+
+*(2)
+Check also that the query does not return NULL (no treatments in DB).
+
+**
+ISOLATION and COOLDOWN protocols might be the same, as I cannot find proves 
+that too much actual light can damage the plant.
