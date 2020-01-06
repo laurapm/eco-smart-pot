@@ -12,7 +12,7 @@
 //Comunication with any OneWire devices
 OneWire oneWire(ONE_WIRE_BUS);
 
-// Pass our oneWire reference to Dallas Temperature sensor 
+// Pass our oneWire reference to Dallas Temperature sensor
 DallasTemperature sensors(&oneWire);
 
 //NETWORK CREDENTIALS
@@ -23,7 +23,7 @@ const char* password = "******";
 AsyncWebServer server(80);
 
 String readDSTemperatureC() {
-  sensors.requestTemperatures(); 
+  sensors.requestTemperatures();
   float tempC = sensors.getTempCByIndex(0);
 
   if(tempC == -127.00) {
@@ -31,13 +31,13 @@ String readDSTemperatureC() {
     return "--";
   } else {
     Serial.print("Temperature Celsius: ");
-    Serial.println(tempC); 
+    Serial.println(tempC);
   }
   return String(tempC);
 }
 
 String readDSTemperatureF() {
-  sensors.requestTemperatures(); 
+  sensors.requestTemperatures();
   float tempF = sensors.getTempFByIndex(0);
 
   if(int(tempF) == -196){
@@ -75,13 +75,13 @@ const char index_html[] PROGMEM = R"rawliteral(
 <body>
   <h2>ESP DS18B20 Server</h2>
   <p>
-    <i class="fas fa-thermometer-half" style="color:#059e8a;"></i> 
-    <span class="ds-labels">Temperature Celsius</span> 
+    <i class="fas fa-thermometer-half" style="color:#059e8a;"></i>
+    <span class="ds-labels">Temperature Celsius</span>
     <span id="temperaturec">%TEMPERATUREC%</span>
     <sup class="units">&deg;C</sup>
   </p>
   <p>
-    <i class="fas fa-thermometer-half" style="color:#059e8a;"></i> 
+    <i class="fas fa-thermometer-half" style="color:#059e8a;"></i>
     <span class="ds-labels">Temperature Fahrenheit</span>
     <span id="temperaturef">%TEMPERATUREF%</span>
     <sup class="units">&deg;F</sup>
@@ -127,10 +127,10 @@ void setup(){
   // Serial port for debugging purposes
   Serial.begin(9600);
   Serial.println();
-  
+
   // Start up the DS18B20 library
   sensors.begin();
-  
+
   // Connect to Wi-Fi
   WiFi.begin(ssid, password);
   Serial.println("Connecting to WiFi");
@@ -139,7 +139,7 @@ void setup(){
     Serial.print(".");
   }
   Serial.println();
-  
+
   // Print ESP Local IP Address
   Serial.println(WiFi.localIP());
 
@@ -156,7 +156,7 @@ void setup(){
   // Start server
   server.begin();
 }
- 
+
 void loop(){
-  
+
 }
