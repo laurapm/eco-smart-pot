@@ -1,0 +1,15 @@
+-- Most common treatments in...
+-- THE_DATE should be selected as parameter, same as x.
+-- Could be done different queries to select DAYS, MONTHS or even YEARS.
+SELECT 
+	ID
+	COUNT(ID) AS USED
+FROM TREATMENT_HISTORY
+WHERE DATE BETWEEN THE_DATE AND DATE_ADD(TODAY, INTERVAL x DAYS/MONTHS/YEARS)
+GROUP BY ID
+;
+
+-- Average, maximum or minimum humidity/temperature/luminosity
+SELECT AVG/MAX/MIN(HUMIDITY/TEMPERATURE/LUMINOSITY)
+FROM HUM_INT/TEMP_INT/LUM_EXT/POT_EXT
+WHERE DATE ... (same as before)
