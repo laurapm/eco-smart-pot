@@ -5,11 +5,22 @@
 #include <PubSubClient.h>
 #include <WiFiClient.h>
 
+#include "DHT.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+uint8_t temprature_sens_read();
+#ifdef __cplusplus
+}
+#endif  
+uint8_t temprature_sens_read();
+
 /* ------------------------- */
 /*     W I F I   D A T A     */
 /* ------------------------- */
-#define SSID_NAME "NETWORK_NAME"	    // Wifi Network name
-#define SSID_PASSWORD "NETWOK_PASS"		// Wifi network password
+#define SSID_NAME "MiFibra-C646"	    // Wifi Network name
+#define SSID_PASSWORD "9AkavUxV"		// Wifi network password
 
 /* ------------------------- */
 /*     S M A R T N E S T
@@ -28,7 +39,17 @@
 /* ------------------------- */
 WiFiClient   espClient;
 PubSubClient client(espClient);
-int          waterPump = 2;
+const int waterPump = 2;
+const int YL69Pin = 34;
+const int DHTPin = 23;
+const int LDR = 35;
+
+
+//our sensor is DHT11 type
+#define DHTTYPE DHT22
+
+//create an instance of DHT sensor
+DHT dht(DHTPin, DHTTYPE);
 
 
 /*------------------------- */
@@ -40,8 +61,7 @@ void initMQTT      ();
 void checkMqtt     ();
 int  splitTopic    (char* topic, char* tokens[] ,int tokensNumber);
 void callback      (char* topic, byte* payload,  unsigned int length);
-
-
+void mediciones();
 
 /* ------------------------ */
 void setup()
@@ -62,6 +82,7 @@ void loop()
   client.loop();
   // In case MQTT is closed, it starts the service.
   checkMqtt();
+ 
 }
 
 /* ------------------------ */
@@ -119,8 +140,21 @@ void callback(char* topic, byte* payload, unsigned int length)
 	// Starts the water pump.
     if(strcmp(message, "ON") == 0)
 	{
-      digitalWrite(waterPump, LOW);
-      client.publish(reportChange, "ON");
+        digitalWrite(waterPump, LOW);
+        client.publish(reportChange, "ON");
+
+          // ** YL-69 moisture ***
+      int const readYL69value = analogRead(YL69Pin);
+      // map inversely to 0..10%
+      int const convertedPercentage = map(readYL69value, 4095, 1200, 0, 100);
+      Serial.println("HUMIDITY: ");
+      Serial.print(convertedPercentage);
+      if (convertedPercentage < 80){
+        digitalWrite(waterPump, LOW);
+        client.publish(reportChange, "ON");
+      }
+      Serial.println("NO SE HA PODIDO REGAR");
+      
     }
 	// Stops the water pump.
     else if(strcmp(message, "OFF") == 0)
@@ -229,4 +263,47 @@ void checkMqtt ()
 	{
       initMQTT();
     }
+}
+
+void mediciones(){
+   // *** DHT22 measurement ***
+  //use the functions which are supplied by library.
+  double const humidity = dht.readHumidity();
+  // Read temperature as Celsius (the default)
+  double const temperature = dht.readTemperature();
+  // Check if any reads failed and exit early (to try again).
+  if (isnan(humidity) || isnan(temperature)) {
+    Serial.println("Failed to read from DHT sensor!");
+    delay(1000); // wait a bit
+    return;
+  }
+
+  // print the result to Terminal
+  Serial.print("Humidity (DHT22): ");
+  Serial.print(humidity);
+  Serial.print(" %\t");
+  Serial.print("Temperature (DHT22): ");
+  Serial.print(temperature);
+  Serial.println(" °C ");
+
+  // *** internal temperature ***
+  //convert raw temperature in F to Celsius degrees
+  Serial.print("Temperature (internal): ");
+  Serial.print((temprature_sens_read() - 32) / 1.8);
+  Serial.println(" °C");
+
+  // ** YL-69 moisture ***
+  int const readYL69value = analogRead(YL69Pin);
+  // map inversely to 0..10%
+  int const convertedPercentage = map(readYL69value, 4095, 1200, 0, 100);
+  Serial.print("Moisture (YL-69): ");
+  Serial.print(convertedPercentage);
+  Serial.print("%\n");
+
+  // ** LDR measurement ** //
+  int const readLDRvalue = analogRead(LDR);
+  Serial.println("Amoung of ligth: ");
+  Serial.print(readLDRvalue);
+  Serial.print("% ");
+
 }
