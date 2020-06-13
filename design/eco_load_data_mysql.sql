@@ -31,7 +31,7 @@ INSERT INTO OWNERS (ID, NAME, SURNAME, COURTESY_TITLE, USERNAME, PASSWORD, EMAIL
 INSERT INTO OWNERS (ID, NAME, SURNAME, COURTESY_TITLE, USERNAME, PASSWORD, EMAIL) VALUES (5, 'Pablo', 'Martinez', 'Mr.', 'pablo.martinez', SHA1('martinez'), 'pablo.marting@edu.uah.es');
 INSERT INTO OWNERS (ID, NAME, SURNAME, COURTESY_TITLE, USERNAME, PASSWORD, EMAIL) VALUES (6, 'Laura', 'Perez', 'Ms.', 'laura.perez', SHA1('perez'), 'l.perezm@edu.uah.es');
 
-INSERT INTO ECO_DEVICE (ID, OWNERS_ID, FIRMWARE_UPDATE) VALUES (1, 6, '1.0');
+INSERT INTO ECO_DEVICE (ID, OWNERS_ID, PLANT_ID, PLANT_FAMILY_ID, FIRMWARE_UPDATE) VALUES (1, 6, 1, 1, '1.0');
 
 INSERT INTO FAMILY (ID, NAME, DESCRIPTION) VALUES (1, 'Asteraceae', 'La familia se caracteriza por presentar las flores dispuestas en una inflorescencia compuesta denominada capítulo la cual se halla rodeada de una o más filas de brácteas (involucro).');
 INSERT INTO FAMILY (ID, NAME, DESCRIPTION) VALUES (2, 'Crassulaceae', 'Son plantas herbáceas, algunas subarbustivas y relativamente pocas arbóreas o acuáticas.');
