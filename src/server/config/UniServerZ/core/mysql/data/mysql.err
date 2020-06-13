@@ -1,0 +1,15 @@
+2020-01-08T07:24:04.186054Z 0 [System] [MY-010116] [Server] C:\Users\laura\OneDrive\Documents\UniServerZ\core\mysql\bin\mysqld_z.exe (mysqld 8.0.18) starting as process 12272
+2020-01-08T07:24:04.189046Z 0 [Warning] [MY-013242] [Server] --character-set-server: 'utf8' is currently an alias for the character set UTF8MB3, but will be an alias for UTF8MB4 in a future release. Please consider using UTF8MB4 in order to be unambiguous.
+2020-01-08T07:24:06.786247Z 0 [ERROR] [MY-011947] [InnoDB] Cannot open 'C:\Users\laura\OneDrive\Documents\UniServerZ\core\mysql\data\ib_buffer_pool' for reading: No such file or directory
+2020-01-08T07:24:06.835845Z 0 [Warning] [MY-010075] [Server] No existing UUID has been found, so we assume that this is the first time that this server has been started. Generating a new UUID: daec72f0-31e7-11ea-ab64-0a0027000016.
+2020-01-08T07:24:07.255083Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2020-01-08T07:24:07.381278Z 0 [System] [MY-010931] [Server] C:\Users\laura\OneDrive\Documents\UniServerZ\core\mysql\bin\mysqld_z.exe: ready for connections. Version: '8.0.18'  socket: ''  port: 3306  MySQL Community Server - GPL.
+2020-01-08T07:24:07.410414Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
+2020-01-08T07:24:35.315622Z 0 [System] [MY-010116] [Server] C:\Users\laura\OneDrive\Documents\UniServerZ\core\mysql\bin\mysqld_z.exe (mysqld 8.0.18) starting as process 952
+2020-01-08T07:24:35.317872Z 0 [Warning] [MY-013242] [Server] --character-set-server: 'utf8' is currently an alias for the character set UTF8MB3, but will be an alias for UTF8MB4 in a future release. Please consider using UTF8MB4 in order to be unambiguous.
+2020-01-08T07:24:36.681574Z 0 [System] [MY-010229] [Server] Starting crash recovery...
+2020-01-08T07:24:36.692453Z 0 [System] [MY-010232] [Server] Crash recovery finished.
+2020-01-08T07:24:36.708601Z 0 [ERROR] [MY-011947] [InnoDB] Cannot open 'C:\Users\laura\OneDrive\Documents\UniServerZ\core\mysql\data\ib_buffer_pool' for reading: No such file or directory
+2020-01-08T07:24:36.750131Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2020-01-08T07:24:36.815071Z 0 [System] [MY-010931] [Server] C:\Users\laura\OneDrive\Documents\UniServerZ\core\mysql\bin\mysqld_z.exe: ready for connections. Version: '8.0.18'  socket: ''  port: 3306  MySQL Community Server - GPL.
+2020-01-08T07:24:36.840483Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
