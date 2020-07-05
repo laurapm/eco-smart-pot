@@ -77,5 +77,8 @@ installed, of course (just follow the steps).
 2. Make sure MongoDB has been incleded to you PATH, if not, we highly recommend 
 for you to do it.
 3. Run the `mongod` with the configuration file 
-[main_server.conf]().
-
+[initial server configuration](https://github.com/laurapm/UBICUA/blob/master/database/config_scripts/servers/main_server.conf).
+4. Now, connect to the server by using `mongo` and the necessary paremeters
+ - May need the `--host` or `--port` parameters.
+5. Run the 
+[initial configurations steps](https://github.com/laurapm/UBICUA/blob/master/database/config_scripts/init_config.txt).
