@@ -26,32 +26,34 @@ mongod -f <path-to-file>
 There are more parameters than the ones used in these files, but the ones used 
 for this project are:
 
-**storage**
-- `dbPath` (_string_): The directory where the `mongod` instance stores its data.
-
 **systemLog**
 - **`path`** (_string_): The path of the log file to which `mongod` or `mongos` 
 should send all diagnostic logging information, rather than the standard output
 or the host’s syslog. MongoDB creates the log file at the specified path.
-- **`destination`** (file | syslog): If you specify _file_, you must also 
-specify `systemLog.path`. If you do not specify `systemLog.destination`, 
-MongoDB sends all log output to standard output.
 - **`logAppend`** (_boolean_): When true, `mongos` or `mongod` appends new 
 entries to the end of the existing log file when the `mongos` or `mongod` 
 instance restarts. Without this option, `mongod` will back up the existing log 
 and create a new file.
+- **`destination`** (file | syslog): If you specify _file_, you must also 
+specify `systemLog.path`. If you do not specify `systemLog.destination`, 
+MongoDB sends all log output to standard output.
+
+**processManagement**
+- **`fork`** (_boolean_): Enable a daemon mode that runs the `mongos` or 
+`mongod` process in the background. By default `mongos` or `mongod` does not 
+run as a daemon.
 
 **net**
-- **`bindIp`** (_string_): The hostnames and/or IP addresses and/or full Unix 
-domain socket paths on which `mongos` or `mongod` should listen for client 
-connections. You may attach `mongos` or `mongod` to any interface. To bind to 
-multiple addresses, enter a list of comma-separated values.
 - **`port`** (_integer_): The TCP port on which the MongoDB instance listens 
 for client connections. Default:
   - **27017** for `mongod` (if not a shard member or a config server member) or 
   `mongos` instance.
   - **27018** if `mongod` is a shard member.
   - **27019** if `mongod` is a config server member.
+- **`bindIp`** (_string_): The hostnames and/or IP addresses and/or full Unix 
+domain socket paths on which `mongos` or `mongod` should listen for client 
+connections. You may attach `mongos` or `mongod` to any interface. To bind to 
+multiple addresses, enter a list of comma-separated values.
 
 **security**
 - **`authorization`** (_string_): Enable or disable Role-Based Access Control 
@@ -61,10 +63,64 @@ this option to one of the following:
   which they have been granted privileges.
   - **disabled**: A user can access any database and perform any action.
 
-**processManagement**
-- **`fork`** (_boolean_): Enable a daemon mode that runs the `mongos` or 
-`mongod` process in the background. By default `mongos` or `mongod` does not 
-run as a daemon.
+**storage**
+- **`dbPath`** (_string_): The directory where the `mongod` instance stores its
+data.
+- **`directoryPerDB`** (_boolean_): When true, MongoDB uses a separate 
+directory to store data for each database. The directories are under the 
+`storage.dbPath` directory, and each subdirectory name corresponds to the 
+database name.
+
+**replication**
+- **`replSetName`** (_string_): The name of the replica set that the `mongod` 
+is part of. All hosts in the replica set must have the same set name.
+If your application connects to more than one replica set, each set should have
+a distinct name. Some drivers group replica set connections by replica set 
+name.
+
+## Replication
+
+Database [replication](https://docs.mongodb.com/manual/replication/) is a 
+methodology that allows to have multiple servers at the same time, one of them 
+being the main server, with several secondary servers connected. 
+
+This brings the possibility of having the same data separated in different 
+servers (that can be even in different locations). This means that if the main 
+server fails, the application service will not be interrupted, it will be 
+redirected to other of the secondary servers (which will become primary by a 
+process called 
+[election](https://docs.mongodb.com/manual/core/replica-set-elections/)). There
+will always be service as long as a primary can be elected.
+
+There are different type of nodes:
+- [Primary node](https://docs.mongodb.com/manual/core/replica-set-primary/): 
+Receives all the write operations. Can only be one primary per replica set.
+- [Secondary node](https://docs.mongodb.com/manual/core/replica-set-secondary/): 
+Maintains a copy of the primary's data. Data is replicated via an asynchronous process that copies the operations from the primary 
+[oplog](https://docs.mongodb.com/manual/core/replica-set-oplog/).
+- [Hidden Node](https://docs.mongodb.com/manual/core/replica-set-hidden-member/#replica-set-hidden-members):
+It acts just like a secondary, but it is hidden from the application. Used for
+reporting and backup tasks. Needs to have its 
+[priority set to 0](https://docs.mongodb.com/manual/core/replica-set-priority-0-member/#replica-set-secondary-only-members), 
+it cannot become primary. 
+- [Delayed Node](https://docs.mongodb.com/manual/core/replica-set-delayed-member/#replica-set-delayed-members):
+Contain a copy of the data, but that data can be an earlier of delayed copy of
+the dataset. They are mainly used for recoverability purposes, specially for 
+unsuccessful application upgrades and operator errors. They have a [priority of 0](https://docs.mongodb.com/manual/core/replica-set-priority-0-member/#replica-set-secondary-only-members) 
+and it is adviseable for them to be hidden. They 
+[can vote](https://docs.mongodb.com/manual/reference/replica-configuration/#rsconf.members[n].votes) 
+in elections (if their vote is set to 1).
+- [Arbiter Node](https://docs.mongodb.com/manual/core/replica-set-arbiter/): 
+They cannot become primary, they do not have a copy of the data, but they can 
+vote. It is a solution when another secondary node cannot be added to the 
+replica set. They have exaclty **1** election vote.
+
+Reading operations can be done against any primary or secondary node of the 
+cluster, which is handy for, for example, analytical queries, where it does not
+matter if data is a little outdated.
+
+On the other hand, write operations can only be done against the primary node, 
+for consistency reasons.
 
 ## Do it yourself
 
@@ -76,9 +132,72 @@ etc. you are going to find tin the specific documents._)
 installed, of course (just follow the steps).
 2. Make sure MongoDB has been incleded to you PATH, if not, we highly recommend 
 for you to do it.
-3. Run the `mongod` with the configuration file 
-[initial server configuration](https://github.com/laurapm/UBICUA/blob/master/database/config_scripts/servers/main_server.conf).
+3. Run the `mongod` with the 
+[standalone server configuration](https://github.com/laurapm/UBICUA/blob/master/database/config_scripts/servers/main_server.conf) 
+file.
+  - May need to configure the paths:
+```bash
+mkdir -pv /var/mongodb/db/1
+chmod -Rv 777 
+```
 4. Now, connect to the server by using `mongo` and the necessary paremeters
  - May need the `--host` or `--port` parameters.
 5. Run the 
 [initial configurations steps](https://github.com/laurapm/UBICUA/blob/master/database/config_scripts/init_config.txt).
+
+Now that the users and _eco_ database have been created, it is time to create 
+the replication cluster.
+
+6. Connect to the standalone server and shut it down, this will allow to set a 
+new configuration (change the previously set configuration) and maintain the
+databases and users created.
+
+```javascript
+use admin
+db.shutDownServer()
+```
+
+7. To enforce the securitity of the new replica set is convenient to use a 
+[keyFile](https://docs.mongodb.com/manual/reference/configuration-options/#security.keyFile).
+To set up this file it is necessary to:
+  - Create the file and give the necessary permisions (specifying the path to 
+  the file).
+  - Give the appropiate permisions to the file.
+
+```bash
+sudo mkdir -pv /var/mongodb/pki
+openssl rand -base64 741 > /var/mongodb/pki/eco-keyfile
+chmod 600 /var/mongodb/eco-keyfile
+```
+
+8. It is necessary to create different files for every node in the server (need
+to change the port, the dbPath, logPath):
+
+| type                | PRIMARY                      | SECONDARY                    | SECONDARY                    |
+| :------------------ | :--------------------------- | :--------------------------- | :--------------------------- |
+| **config filename** | mongo-repl-1.conf            | mongo-repl-2.conf            | mongo-repl-3.conf            |
+| **port**            | 27001                        | 27002                        | 27003                        |
+| **dbPath**          | /var/mongodb/db/1            | /var/mongodb/db/2            | /var/mongodb/db/3            |
+| **logPath**         | /var/mongodb/db/mongod1.log  | /var/mongodb/db/mongod2.log  | /var/mongodb/db/mongod3.log  |
+| **replSet**         | eco-repl                     | eco-repl                     | eco-repl                     |
+| **keyFile**         | /var/mongodb/pki/eco-keyfile | /var/mongodb/pki/eco-keyfile | /var/mongodb/pki/eco-keyfile |
+
+9. After connecting to the server that is going to act as the primary of the 
+cluster (in this case the `mongo-repl-1.conf`), it must be initiated the 
+replica set and added the rest of the members (if the replica set is not local,
+change the host ip address):
+
+```javascript
+rs.initiate()
+rs.add( { host: "localhost:27002" } )
+rs.add( { host: "localhost:27003" } )
+```
+
+10. To check that everything is running as it should run the command:
+
+```javascript
+rs.status()
+```
+
+The users and databases previously created in the standalone node should now be
+available in the rest of the nodes.
