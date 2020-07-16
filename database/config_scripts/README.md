@@ -132,18 +132,29 @@ etc. you are going to find tin the specific documents._)
 installed, of course (just follow the steps).
 2. Make sure MongoDB has been incleded to you PATH, if not, we highly recommend 
 for you to do it.
+3. To avoid messing with the system, create a new folder:
+```bash
+mkdir /var/mongodb
+sudo chown pace:pace -R /var/mongodb
+```
 3. Run the `mongod` with the 
 [standalone server configuration](https://github.com/laurapm/UBICUA/blob/master/database/config_scripts/servers/main_server.conf) 
 file.
   - May need to configure the paths:
 ```bash
 mkdir -pv /var/mongodb/db/1
-chmod -Rv 777 
+chmod -Rv 700 /var/mongodb/db/1
 ```
 4. Now, connect to the server by using `mongo` and the necessary paremeters
  - May need the `--host` or `--port` parameters.
 5. Run the 
-[initial configurations steps](https://github.com/laurapm/UBICUA/blob/master/database/config_scripts/init_config.txt).
+[initial configurations steps](https://github.com/laurapm/UBICUA/blob/master/database/config_scripts/init_config.txt)
+using the command:
+
+```javascript
+load("init_config.js")
+```
+- Might need to specify the path where that file is stored in your PC.
 
 Now that the users and _eco_ database have been created, it is time to create 
 the replication cluster.
@@ -167,7 +178,8 @@ To set up this file it is necessary to:
 ```bash
 sudo mkdir -pv /var/mongodb/pki
 openssl rand -base64 741 > /var/mongodb/pki/eco-keyfile
-chmod 600 /var/mongodb/eco-keyfile
+chmod 600 /var/mongodb/pki/eco-keyfile
+mkdir -pv /var/mongodb/db/{2,3}
 ```
 
 8. It is necessary to create different files for every node in the server (need
@@ -182,6 +194,13 @@ to change the port, the dbPath, logPath):
 | **replSet**         | eco-repl                     | eco-repl                     | eco-repl                     |
 | **keyFile**         | /var/mongodb/pki/eco-keyfile | /var/mongodb/pki/eco-keyfile | /var/mongodb/pki/eco-keyfile |
 
+  - One again, some new folder will be necessary before launching the servers.
+  
+```bash 
+mkdir -pv /var/mongodb/db/{2,3}
+chmod -Rv 700 /var/mongodb/db/{2,3}
+```
+  
 9. After connecting to the server that is going to act as the primary of the 
 cluster (in this case the `mongo-repl-1.conf`), it must be initiated the 
 replica set and added the rest of the members (if the replica set is not local,
