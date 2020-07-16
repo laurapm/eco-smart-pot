@@ -62,6 +62,14 @@ this option to one of the following:
   - **enabled**: A user can access only the database resources and actions for 
   which they have been granted privileges.
   - **disabled**: A user can access any database and perform any action.
+- **`keyFile`** (_string_): The path to a key file that stores the shared 
+secret that MongoDB instances use to authenticate to each other in a sharded 
+cluster or replica set. keyFile implies `security.authorization`. See 
+[Internal/Membership Authentication](https://docs.mongodb.com/manual/core/security-internal-authentication/#inter-process-auth) 
+for more information.
+- a single key string (same as in earlier versions),
+- multiple key strings (each string must be enclosed in quotes), or
+- sequence of key strings.
 
 **storage**
 - **`dbPath`** (_string_): The directory where the `mongod` instance stores its
@@ -94,7 +102,7 @@ will always be service as long as a primary can be elected.
 
 There are different type of nodes:
 - [Primary node](https://docs.mongodb.com/manual/core/replica-set-primary/): 
-Receives all the write operations. Can only be one primary per replica set.
+Receives **all write operations**. Can only be one primary per replica set.
 - [Secondary node](https://docs.mongodb.com/manual/core/replica-set-secondary/): 
 Maintains a copy of the primary's data. Data is replicated via an asynchronous process that copies the operations from the primary 
 [oplog](https://docs.mongodb.com/manual/core/replica-set-oplog/).
@@ -122,7 +130,7 @@ matter if data is a little outdated.
 On the other hand, write operations can only be done against the primary node, 
 for consistency reasons.
 
-## Do it yourself
+## DIY
 
 Some of you may want to create your own cluster, here you have the steps to 
 achieve your goal. (_DISCLAIMER: you might want to change the paths, addresses, 
@@ -220,3 +228,75 @@ rs.status()
 
 The users and databases previously created in the standalone node should now be
 available in the rest of the nodes.
+
+## Reconfigure a Node
+
+As it might have been suggested earlier, to reconfigure a running node it is 
+needed to first stop the node, and the launch the new configuration using the 
+same paths and ports. The rest of the values can usually be changed.
+
+In order to avoid problems while 
+[shutting down a node](https://docs.mongodb.com/manual/tutorial/manage-mongodb-processes/#terminate-mongod-processes), 
+use one of the following options, in order of preference:
+
+- Use **shutdownserver**:
+
+```javascript
+use admin
+db.shutdownServer()
+```
+
+- Use **--shutdown**:
+
+It is not mandatory, but it is recommended to specify the `--dbpath`.
+
+```bash
+mongod --shutdown --dbpath <path-to-running-instance>
+```
+
+- Use **Ctrl+C**:
+
+Needs to have the process running on a terminal, without the `--fork` option.
+
+- Use **kill**:
+
+Needs to know the PID (in Linux):
+
+```bash
+ps -ef | grep mongo
+kill <mongod-PID>
+```
+
+After that, just run the new configuration (use one of the next options):
+
+```bash
+mongod --config <path-to-new-config>
+mongod -f <path-to-new-config>
+```
+
+## Reconfigure a Running Replica Set
+
+Being connected to the mongo shell, to the Primary node, there is a command 
+that returns the current configuration of the replica set.
+
+```javascript
+rs.config()
+```
+
+The thing is, the JSON that represents the configuration returned in that 
+function call, can be stored in a variable as a simple text. This allows to 
+edit the content of the configuration (i.e: change the IP:Port pair of a given 
+host). All the elements of the JSON can be accessed using dot notation.
+
+```javascript
+cfg = rs.config()
+cfg.members[1].host = "localhost:27017"
+```
+
+But it does not mean that by changing the variable with the configuration 
+actually affects the configuration of the replica set. In order to do that, a 
+reconfiguration must be performed.
+
+```javascript
+rs.reconfig(cfg)
+```
