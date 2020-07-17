@@ -49,6 +49,12 @@ information is needed, it is recommended to use the
 [MongoDB official documentation](https://docs.mongodb.com/) - some links have 
 already been included in the guide done by the developers of this project.
 
+_**Disclaimer**: Please be advised, if you want to connect from outside your LAN 
+and you use [Port Forwarding](https://en.wikipedia.org/wiki/Port_forwarding), 
+consider changing the default ports for every type of connection you need when
+accessing from a remote source, otherwise some security risks might appear in 
+your application._
+
 # How to Connect
 
 Once the servers are running, it is used the 
@@ -64,7 +70,7 @@ mongo --port <port>
 But, in case it is not a local instance, or you want to connect from outside 
 the LAN, the host address must be specified. In which case, it might be 
 necessary to activate 
-[Port Forwarding](https://en.wikipedia.org/wiki/Port_forwarding) in your 
+[Port Forwarding](https://www.portforwarding.org/) in your 
 [router](https://portforward.com/) - **in case of doubt, please refer to your  Telcom provider to ensure you do not break anything**.
 
 ```bash
