@@ -1,4 +1,4 @@
-use admin
+db = db.getSiblingDB('admin')
 
 db.createUser({
   user: "root",
@@ -34,7 +34,7 @@ db.createUser({
   roles : [ { db:"eco", role:"readWrite" } ]
 })
 
-use eco
+db = db.getSiblingDB('eco')
 
 db.model_version.insert(
    [
@@ -42,3 +42,4 @@ db.model_version.insert(
      { version: "0.1", date: new Date(), changes: "Created users." }
    ]
 )
+
