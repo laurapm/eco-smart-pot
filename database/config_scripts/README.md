@@ -215,10 +215,29 @@ replica set and added the rest of the members (if the replica set is not local,
 change the host ip address):
 
 ```javascript
+rs.initiate(
+   {
+      _id: "eco-repl",
+      version: 1,
+      members: [
+         { _id: 0, host : "localhost:27001" },
+         { _id: 1, host : "localhost:27002" },
+         { _id: 2, host : "localhost:27003" }
+      ]
+   }
+)
+```
+
+or use:
+
+```javascript
 rs.initiate()
 rs.add( { host: "localhost:27002" } )
 rs.add( { host: "localhost:27003" } )
 ```
+
+- The first option is more advisable. Remember, if using different host, 
+replace `localhost` for the appropiate `ip-address`.
 
 10. To check that everything is running as it should run the command:
 
