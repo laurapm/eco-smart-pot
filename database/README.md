@@ -49,13 +49,14 @@ information is needed, it is recommended to use the
 [MongoDB official documentation](https://docs.mongodb.com/) - some links have 
 already been included in the guide done by the developers of this project.
 
-_**Disclaimer**: Please be advised, if you want to connect from outside your LAN 
-and you use [Port Forwarding](https://en.wikipedia.org/wiki/Port_forwarding), 
+_**Disclaimer**: Please be advised, if you want to connect from outside your 
+LAN and you use 
+[Port Forwarding](https://en.wikipedia.org/wiki/Port_forwarding), 
 consider changing the default ports for every type of connection you need when
 accessing from a remote source, otherwise some security risks might appear in 
 your application._
 
-# How to Connect
+## How to Connect
 
 Once the servers are running, it is used the 
 [mongo](https://docs.mongodb.com/manual/reference/program/mongo/#bin.mongo)
@@ -115,3 +116,20 @@ mongo --host <host> -u <username> -p <password> --authenticationDatabase <databa
 The 
 [authentication database](https://docs.mongodb.com/manual/reference/program/mongo/#cmdoption-mongo-authenticationdatabase) 
 must be the database where the user was created.
+
+# Operations
+
+Once the servers are up and running, several operations can be performed on 
+data stored. These operations are given the name of 
+[CRUD](https://docs.mongodb.com/manual/crud/):
+- [Create Operations](https://docs.mongodb.com/manual/crud/#create-operations)
+- [Read Operations](https://docs.mongodb.com/manual/crud/#read-operations)
+- [Update Operations](https://docs.mongodb.com/manual/crud/#update-operations)
+- [Delete Operations](https://docs.mongodb.com/manual/crud/#delete-operations)
+- [Bulk Write](https://docs.mongodb.com/manual/crud/#bulk-write)
+
+Each of those types of operations are explained in a different documentation. 
+Refer to 
+[Operations Documentation]() 
+to know more about this topic.
+

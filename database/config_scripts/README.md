@@ -237,7 +237,7 @@ rs.add( { host: "localhost:27003" } )
 ```
 
 - The first option is more advisable. Remember, if using different host, 
-replace `localhost` for the appropiate `ip-address`.
+replace `localhost` for the appropiate `ip-address`
 
 10. To check that everything is running as it should run the command:
 
