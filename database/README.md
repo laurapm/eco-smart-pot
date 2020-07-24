@@ -130,6 +130,7 @@ data stored. These operations are given the name of
 
 Each of those types of operations are explained in a different documentation. 
 Refer to 
-[Operations Documentation]() 
+[Operations Documentation](https://github.com/laurapm/UBICUA/tree/master/database/operations) 
 to know more about this topic.
+
 

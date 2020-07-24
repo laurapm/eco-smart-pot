@@ -146,7 +146,7 @@ mkdir /var/mongodb
 sudo chown pace:pace -R /var/mongodb
 ```
 3. Run the `mongod` with the 
-[standalone server configuration](https://github.com/laurapm/UBICUA/blob/master/database/config_scripts/servers/main_server.conf) 
+[standalone server configuration](https://github.com/laurapm/UBICUA/blob/master/database/config_scripts/servers/standalone-server.conf) 
 file.
   - May need to configure the paths:
 ```bash
@@ -156,7 +156,7 @@ chmod -Rv 700 /var/mongodb/db/1
 4. Now, connect to the server by using `mongo` and the necessary paremeters
  - May need the `--host` or `--port` parameters.
 5. Run the 
-[initial configurations steps](https://github.com/laurapm/UBICUA/blob/master/database/config_scripts/init_config.txt)
+[initial configurations steps](https://github.com/laurapm/UBICUA/blob/master/database/config_scripts/init_config.js)
 using the command:
 
 ```javascript
