@@ -1,0 +1,9 @@
+{
+    "_id": "<objectId>",
+    "username": "<string>",
+    "name": "<string>",
+    "surname": "<string>",
+    "courtesy_title": "<string>",
+    "email": "<string>",
+    "password": "<string>"
+}

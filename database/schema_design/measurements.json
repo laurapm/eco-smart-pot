@@ -1,0 +1,26 @@
+{
+    "_id": "<objectId>",
+    "plant_id": "<objectId>",
+    "device": "<objectId>",
+    "date": "<string>",
+    "hour": "<int>",
+    "humidity_int": [{
+        "minute": "<int>",
+        "measure": [{
+            "watered": "<bool>",
+            "value": "<int>"
+        }]
+    }],
+    "humidity_ext": [{
+        "minute": "<int>",
+        "measure": "<double>"
+    }],
+    "luminosity_ext": [{
+        "minute": "<int>",
+        "measure": "<int>"
+    }],
+    "temperature_ext": [{
+        "minute": "<int>",
+        "measure": "<double>"
+    }]
+  }

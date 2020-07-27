@@ -1,0 +1,10 @@
+{
+    "_id": "<objectId>",
+    "plant_id": "<objectId>",
+    "owner": {
+        "username": "<string>",
+        "name": "<string>",
+        "surname": "<string>"
+    },
+    "firmware_update": "<string>"
+}
