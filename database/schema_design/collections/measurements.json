@@ -1,15 +1,15 @@
 {
     "_id": "<objectId>",
-    "plant_id": "<objectId>",
+    "plant": "<objectId>",
     "device": "<objectId>",
     "date": "<string>",
     "hour": "<int>",
     "humidity_int": [{
         "minute": "<int>",
-        "measure": [{
+        "measure": {
             "watered": "<bool>",
-            "value": "<int>"
-        }]
+            "value": ["<int>"]
+        }
     }],
     "humidity_ext": [{
         "minute": "<int>",

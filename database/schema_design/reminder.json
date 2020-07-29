@@ -1,6 +1,0 @@
-{
-    "_id": "<objectId>",
-    "device": "<objectId>",
-    "period": "<double>",
-    "comment": "<string>"
-}

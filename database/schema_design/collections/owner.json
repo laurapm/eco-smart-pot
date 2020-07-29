@@ -1,9 +1,11 @@
 {
     "_id": "<objectId>",
+    "device": ["<objectId>"],
     "username": "<string>",
     "name": "<string>",
     "surname": "<string>",
     "courtesy_title": "<string>",
+    "phone": "<string>",
     "email": "<string>",
     "password": "<string>"
 }

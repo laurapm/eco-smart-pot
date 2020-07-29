@@ -117,6 +117,16 @@ The
 [authentication database](https://docs.mongodb.com/manual/reference/program/mongo/#cmdoption-mongo-authenticationdatabase) 
 must be the database where the user was created.
 
+# Schema
+
+It follows the NoSQL design and data modelling directives. There have been used 
+[patterns and other model relationships](https://docs.mongodb.com/manual/applications/data-models/) 
+to implement the schema. For more information refer to 
+[schema design documentation](https://github.com/laurapm/UBICUA/tree/master/database/schema_design).
+
+The schema has been designed following the requirements of data insertion, and 
+read operations, trying to minimize the impact of certain frequent operations.
+
 # Operations
 
 Once the servers are up and running, several operations can be performed on 
@@ -132,5 +142,3 @@ Each of those types of operations are explained in a different documentation.
 Refer to 
 [Operations Documentation](https://github.com/laurapm/UBICUA/tree/master/database/operations) 
 to know more about this topic.
-
-

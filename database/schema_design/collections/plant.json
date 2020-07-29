@@ -1,0 +1,18 @@
+{
+    "_id": "<objectId>",
+    "common_name": "<string>",
+    "scientific_name": "<string>",
+    "family": "<string>",
+    "temperature": {
+        "min": "<double>",
+        "max": "<double>"
+    },
+    "humidity": {
+        "min": "<double>",
+        "max": "<double>"
+    },
+    "luminosity": {
+        "min": "<double>",
+        "max": "<double>"
+    }
+}

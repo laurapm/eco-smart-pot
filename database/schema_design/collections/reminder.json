@@ -1,0 +1,13 @@
+{
+    "_id": "<objectId>",
+    "device": "<objectId>",
+    "title": "<string>",
+    "message": "<string>",
+    "repeat": "<bool>",
+    "period": "<double>",
+    "last_reminded": "<timestamp>",
+    "final_repetition": { "or": [
+        "<timestamp>" , 
+        "<int>"
+    ]}
+}

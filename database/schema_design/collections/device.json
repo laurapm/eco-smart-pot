@@ -1,0 +1,5 @@
+{
+    "_id": "<objectId>",
+    "plant": "<objectId>",
+    "firmware_update": "<string>"
+}

@@ -1,0 +1,14 @@
+{
+    "_id": "<objectId>",
+    "plant": "<objectId>",
+    "device": "<objectId>",
+    "type": "<string>",
+    "title": "<string>",
+    "action": {
+        "perform": "<string>",
+        "params": "<undefined>"
+    },
+    "request_time": "<timestamp>",
+    "action_time": "<timestamp>",
+    "comment": "<string>"
+}
