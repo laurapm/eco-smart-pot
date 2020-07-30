@@ -6,7 +6,7 @@
     "title": "<string>",
     "action": {
         "perform": "<string>",
-        "params": "<undefined>"
+        "params": ["<undefined>"]
     },
     "request_time": "<timestamp>",
     "action_time": "<timestamp>",

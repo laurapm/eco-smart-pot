@@ -112,15 +112,94 @@ of write and read operations is greatly reduced.
 
 ## Treatment
 
+In order to take care of the plant, some treatments are necessary. For the 
+moment, the only available treatment in this project is watering the plant,
+although some others might be included in the near future.
 
+Information such us when the request was made, or the type of action carried 
+out is what this collection stores. For the action, it is used an standarize 
+JSON file through all the interactions of the project. That being said, the 
+structure used by those documents just store the function that is going to be
+performed and the parameters that function takes.
+
+The overall document look like this:
+
+```json
+treatment
+{
+    "_id": "<objectId>",
+    "plant": "<objectId>",
+    "device": "<objectId>",
+    "type": "<string>",
+    "title": "<string>",
+    "action": {
+        "perform": "<string>",
+        "params": ["<undefined>"]
+    },
+    "request_time": "<timestamp>",
+    "action_time": "<timestamp>",
+    "comment": "<string>"
+}
+```
+
+Each parameter from the function may have different data type. 
 
 ## Reminder
 
+Reminders are linked to each device, so a reminder has to be set manually for 
+all devices. The reminders can repeat the notification, or not. In order to 
+ease having to take into account the dates, it also takes a certain number of 
+repetitions.
 
+Not all the fields are necessary. For example, if the reminder does not repeat,
+the date or the number of repetitions do not need to be set. It can be more 
+easily understood by taking into a look at the 
+[schema](https://github.com/laurapm/UBICUA/tree/master/database/schema_design/design/eco-dark.png).
+The last column of the collection (`NN`) indicates if that key needs to be set.
+
+```json
+{
+    "_id": "<objectId>",
+    "device": "<objectId>",
+    "title": "<string>",
+    "message": "<string>",
+    "repeat": "<bool>",
+    "period": "<double>",
+    "last_reminded": "<timestamp>",
+    "final_repetition": { "or": [
+        "<timestamp>" , 
+        "<int>"
+    ]}
+}
+```
 
 ## Owner
 
+The Ecø service users have an account linked to the webpage and the device (in
+case they have one). 
 
+In this collection there is a One-To-Many relationship from `owner` to the 
+`device` collection. Out of the several available options (_embed_ or 
+_reference_ in the _one_ or in the _many_ side), an array of devices has been 
+referenced in the _one side_. This is usually not the preferred behaviour, 
+altough it is the most suitable for this occasion. For more information 
+regarding this design decision refer to the **relationships section** in the 
+[patterns documentation](https://github.com/laurapm/UBICUA/tree/master/database/schema_design/patterns/) .
+
+```json
+owner
+{
+    "_id": "<objectId>",
+    "device": ["<objectId>"],
+    "username": "<string>",
+    "name": "<string>",
+    "surname": "<string>",
+    "courtesy_title": "<string>",
+    "phone": "<string>",
+    "email": "<string>",
+    "password": "<string>"
+}
+```
 
 ## Model Version
 
