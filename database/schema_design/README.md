@@ -1,9 +1,18 @@
 # Schema
 
+The schema has been designed using relationships and pattern optimization
+for MongoDB (see
+[patterns documentation](https://github.com/laurapm/UBICUA/tree/master/database/schema_design/patterns/) 
+to learn more). Also, the collections have been optimized to reduce the 
+workload on write operations, as an IoT application tends to suffer more from 
+that type of operations.
+
 No free or open-source data modeller has been found that would fit the design 
 of the database schema. Instead, the 
 [Moon Modeller](https://www.datensen.com/download.html) free trial version can
 be a substitute.
+
+The resulting schema is:
 
 ![schema design documentation](https://github.com/laurapm/UBICUA/tree/master/database/schema_design/design/eco-light.png)
 
