@@ -7,9 +7,9 @@ to learn more). Also, the collections have been optimized to reduce the
 workload on write operations, as an IoT application tends to suffer more from 
 that type of operations.
 
-No free or open-source data modeller has been found that would fit the design 
+No free or open-source data modeler has been found that would fit the design 
 of the database schema. Instead, the 
-[Moon Modeller](https://www.datensen.com/download.html) free trial version can
+[Moon Modeler](https://www.datensen.com/download.html) free trial version can
 be a substitute.
 
 The resulting schema is:
@@ -19,7 +19,7 @@ The resulting schema is:
 ## Plant
 
 The main objective of the device is to take care of plants, That is why, all 
-the convenient information must be stored. The behaviour of the device will be 
+the convenient information must be stored. The behavior of the device will be 
 affected by parameters like the acceptable values of temperature, humidity, 
 etc.
 
@@ -55,7 +55,7 @@ values) of that range.
 
 The device stores each Ecø device information. That means knowing which plant 
 it is tracking or the latest software update being installed. This last piece
-of information allows to notificate the owner of the device to receive and 
+of information allows to notify the owner of the device to receive and 
 install the latest firmware update:
 
 ```json
@@ -71,7 +71,7 @@ device
 
 One of the most complex structures to understand in this context. It uses 
 [patters](https://www.mongodb.com/blog/post/building-with-patterns-a-summary) 
-to simplify and reduce the develpment and maintenance complexity (for more 
+to simplify and reduce the development and maintenance complexity (for more 
 information go to 
 [patterns documentation](https://github.com/laurapm/UBICUA/tree/master/database/schema_design/patterns/)
 from this project). It uses the 
@@ -79,7 +79,7 @@ from this project). It uses the
 by grouping the data into chunks of information of one hour in total. That 
 way, by specifying the current day (`date`) and then the `hour`, it is certain 
 that all the information that is going to be loaded into the database has a 
-certain order and structe.
+certain order and structure.
 
 The documents of this collection would have the following shape:
 
@@ -126,7 +126,7 @@ moment, the only available treatment in this project is watering the plant,
 although some others might be included in the near future.
 
 Information such us when the request was made, or the type of action carried 
-out is what this collection stores. For the action, it is used an standarize 
+out is what this collection stores. For the action, it is used an standardize 
 JSON file through all the interactions of the project. That being said, the 
 structure used by those documents just store the function that is going to be
 performed and the parameters that function takes.
@@ -190,8 +190,8 @@ case they have one).
 In this collection there is a One-To-Many relationship from `owner` to the 
 `device` collection. Out of the several available options (_embed_ or 
 _reference_ in the _one_ or in the _many_ side), an array of devices has been 
-referenced in the _one side_. This is usually not the preferred behaviour, 
-altough it is the most suitable for this occasion. For more information 
+referenced in the _one side_. This is usually not the preferred behavior, 
+although it is the most suitable for this occasion. For more information 
 regarding this design decision refer to the **relationships section** in the 
 [patterns documentation](https://github.com/laurapm/UBICUA/tree/master/database/schema_design/patterns/) .
 
@@ -212,7 +212,7 @@ owner
 
 ## Model Version
 
-It simply helps tracking the changes through versions. It is self-explainatory.
+It simply helps tracking the changes through versions. It is self-explanatory.
 It also should help implementing the 
 [schema versioning pattern](https://www.mongodb.com/blog/post/building-with-patterns-the-schema-versioning-pattern).
 

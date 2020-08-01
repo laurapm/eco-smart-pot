@@ -1,28 +1,31 @@
 # Introduction
 
 A Mongo Database has to take into account several factors:
-- DB Objective
-- Relationships
-- Patterns 
+- **DB Objective**
+- **Relationships**
+- **Patterns** 
 
 ## Database Objective
 
-As every IoT application, the data read from the devices is bastly greater than
+As every IoT application, the data read from the devices is vastly greater than
 the data the users request of the information that is obtained from it. 
 
 That being said, it is clear that the main objective is to reduce the load of 
 the write operations as result of the parameters obtained from the Ecø devices.
+That should be one of the main aspects to take into account in order to create 
+a good model for the database. 
 
-In order to achive that, even though some information should _logically_ be 
-stored in just one collection, it will be replicated accross other collections,
-or referenced; or even separated in different collections.
+_Logically_, space occupied in disk should also be another aspect to look at. 
+As well as the development and maintenance difficulty of the code.
 
-Also, to avoid documents occuping too much space, or having to join different
-collections (not recommended in MongoDB) some other data will also be 
-encapsulated in collections that are not entirely related to the data (such as 
-the `owner` and `device` collections).
+In the next sections it will be discussed the design decisions carried out by
+the developers of this project.
 
 ## Relationships
+
+Despite MongoDB being a document based database, it still has relationships
+among collections. To create a relationship between two documents, it is 
+crucial to decide whether to embed or link - it may affect performance.
 
 #### One-to-One
 

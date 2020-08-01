@@ -21,17 +21,17 @@ This is not suitable for IoT applications, where replication and sharding
 are, in most cases, mandatory - and therefore, 
 [horizontal scaling](https://www.techopedia.com/definition/7594/horizontal-scaling)
 is best.
-- The flexibility brough by a NoSQL solution allows for a faster development:
+- The flexibility brought by a NoSQL solution allows for a faster development:
   - Model does not need to be as detailed, it admits fast adaptation of data 
   and model through the different development phases of the project.
   - Allows different data types even for same field, so data types do not need
   to be specified in advanced.
-  - Those data types can be redifined, without the need of changing the whole 
+  - Those data types can be redefined, without the need of changing the whole 
   schema or the information already stored in the database.
 - Also, having so much data coming from so many different devices all at ones
 means that, probably, data consistency is not one of the main pillars of the 
 application - it might be more important to be able to use that information 
-(despite outdated) to use analytic queries, predict behaviours, etc. Once 
+(despite outdated) to use analytic queries, predict behaviors, etc. Once 
 again, NoSQL is more suited for this task.
 
 # Servers Setup
@@ -82,7 +82,7 @@ This also allows connections in replica sets, it is specially useful as in this
 cases it does not connect to the Primary Node, but to the node that has been 
 specified.
 
-To always connect to the primary node, a step forward must be taken. Besided 
+To always connect to the primary node, a step forward must be taken. Besides 
 the host IP Address and Port on where MongoDB server is running, it is also 
 needed the name of the replica set:
 

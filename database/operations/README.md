@@ -58,12 +58,12 @@ method “returns documents,” the method is actually returning a cursor to the
 
 ## Create Operations
 
-After being connected, two different operations can be used: `insertOne` and 
+After being connected, two different operations can be used: `insertOne` and
 `insertMany`. Their names are self-explanatory, not much detail is needed 
 regarding that point.
 
 In both cases, if the `_id` is not specified for a document, MongoDB will 
-automatically asign one. Meaning, writing an `_id` manually for each document
+automatically assign one. Meaning, writing an `_id` manually for each document
 inserted is not mandatory.
 
 Also, if the _collection_ where the document is inserted does not exists, 
@@ -150,7 +150,7 @@ Omit to use the default write concern.
 - `collation` (_document_): _Optional_. 
 [Collation](https://docs.mongodb.com/manual/reference/collation/) allows users
 to specify language-specific rules for string comparison, such as rules for 
-lettercase and accent marks.
+letter-case and accent marks.
 - `arrayFilters` (_array_): _Optional_. An array of filter documents that 
 determine which array elements to modify for an update operation on an array 
 field.
@@ -194,7 +194,7 @@ Omit to use the default write concern.
 - `collation` (_document_): _Optional_. 
 [Collation](https://docs.mongodb.com/manual/reference/collation/) allows users
 to specify language-specific rules for string comparison, such as rules for 
-lettercase and accent marks.
+letter-case and accent marks.
 - `arrayFilters` (_array_): _Optional_. An array of filter documents that 
 determine which array elements to modify for an update operation on an array 
 field.
@@ -229,7 +229,7 @@ Omit to use the default write concern.
 - `collation` (_document_): _Optional_. 
 [Collation](https://docs.mongodb.com/manual/reference/collation/) allows users
 to specify language-specific rules for string comparison, such as rules for 
-lettercase and accent marks.
+letter-case and accent marks.
 - `hint` (_document/string_): _Optional_. A document or string that specifies the 
 [index](https://docs.mongodb.com/manual/indexes/) to use to support the query 
 predicate.
@@ -267,7 +267,7 @@ Omit to use the default write concern.
 - `collation` (_document_): _Optional_. 
 [Collation](https://docs.mongodb.com/manual/reference/collation/) allows users
 to specify language-specific rules for string comparison, such as rules for 
-lettercase and accent marks.
+letter-case and accent marks.
 
 **db.collection.deleteMany()**
 
@@ -283,7 +283,7 @@ Omit to use the default write concern.
 - `collation` (_document_): _Optional_. 
 [Collation](https://docs.mongodb.com/manual/reference/collation/) allows users
 to specify language-specific rules for string comparison, such as rules for 
-lettercase and accent marks.
+letter-case and accent marks.
 
 ---
 
@@ -308,7 +308,7 @@ The operations inside the bulk can be performed
 or 
 [unordered](https://docs.mongodb.com/manual/reference/method/db.collection.bulkWrite/#bulkwrite-example-unordered-bulk-write). 
 It means that ordered operations are executed serially. Therefore, if an error 
-ocurs during the execution of the bulk the reamining operations will not be 
+occurs during the execution of the bulk the remaining operations will not be 
 executed and MongoDB will return an error.
 
 On the other hand, executing an unordered list of operations means that they

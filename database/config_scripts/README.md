@@ -8,7 +8,7 @@ single server.
 Each server has its own configuration file, which are simple text files that 
 allow to encode the different options of each server, does not matter if it is 
 and `mongod` instance or a `mongos` instance. Each configuration file must end 
-with the extention `.conf`. They use **YAML format** - _YAML does not support 
+with the extension `.conf`. They use **YAML format** - _YAML does not support 
 tab characters for indentation: use spaces instead_.
 
 The usage of this kind of files simplifies **large-scale deployments**. For more
@@ -115,13 +115,13 @@ it cannot become primary.
 Contain a copy of the data, but that data can be an earlier of delayed copy of
 the dataset. They are mainly used for recoverability purposes, specially for 
 unsuccessful application upgrades and operator errors. They have a [priority of 0](https://docs.mongodb.com/manual/core/replica-set-priority-0-member/#replica-set-secondary-only-members) 
-and it is adviseable for them to be hidden. They 
+and it is advisable for them to be hidden. They 
 [can vote](https://docs.mongodb.com/manual/reference/replica-configuration/#rsconf.members[n].votes) 
 in elections (if their vote is set to 1).
 - [Arbiter Node](https://docs.mongodb.com/manual/core/replica-set-arbiter/): 
 They cannot become primary, they do not have a copy of the data, but they can 
 vote. It is a solution when another secondary node cannot be added to the 
-replica set. They have exaclty **1** election vote.
+replica set. They have exactly **1** election vote.
 
 Reading operations can be done against any primary or secondary node of the 
 cluster, which is handy for, for example, analytical queries, where it does not
@@ -138,7 +138,7 @@ etc. you are going to find tin the specific documents._)
 
 1. Get [MongoDB Enterprise](https://docs.mongodb.com/manual/installation/) 
 installed, of course (just follow the steps).
-2. Make sure MongoDB has been incleded to you PATH, if not, we highly recommend 
+2. Make sure MongoDB has been included to you PATH, if not, we highly recommend 
 for you to do it.
 3. To avoid messing with the system, create a new folder:
 ```bash
@@ -153,7 +153,7 @@ file.
 mkdir -pv /var/mongodb/db/1
 chmod -Rv 700 /var/mongodb/db/1
 ```
-4. Now, connect to the server by using `mongo` and the necessary paremeters
+4. Now, connect to the server by using `mongo` and the necessary parameters
  - May need the `--host` or `--port` parameters.
 5. Run the 
 [initial configurations steps](https://github.com/laurapm/UBICUA/blob/master/database/config_scripts/init_config.js)
@@ -176,12 +176,12 @@ use admin
 db.shutDownServer()
 ```
 
-7. To enforce the securitity of the new replica set is convenient to use a 
+7. To enforce the security of the new replica set is convenient to use a 
 [keyFile](https://docs.mongodb.com/manual/reference/configuration-options/#security.keyFile).
 To set up this file it is necessary to:
-  - Create the file and give the necessary permisions (specifying the path to 
+  - Create the file and give the necessary permissions (specifying the path to 
   the file).
-  - Give the appropiate permisions to the file.
+  - Give the appropriate permissions to the file.
 
 ```bash
 sudo mkdir -pv /var/mongodb/pki
@@ -237,7 +237,7 @@ rs.add( { host: "localhost:27003" } )
 ```
 
 - The first option is more advisable. Remember, if using different host, 
-replace `localhost` for the appropiate `ip-address`
+replace `localhost` for the appropriate `ip-address`
 
 10. To check that everything is running as it should run the command:
 
