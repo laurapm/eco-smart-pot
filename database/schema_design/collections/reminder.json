@@ -5,9 +5,9 @@
     "message": "<string>",
     "repeat": "<bool>",
     "period": "<double>",
-    "last_reminded": "<timestamp>",
+    "last_reminded": "<date>",
     "final_repetition": { "or": [
-        "<timestamp>" , 
+        "<date>" , 
         "<int>"
     ]}
 }

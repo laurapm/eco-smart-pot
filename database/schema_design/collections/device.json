@@ -1,5 +1,8 @@
 {
     "_id": "<objectId>",
     "plant": "<objectId>",
-    "firmware_update": "<string>"
+    "owner": "<objectId>",
+    "model": "<string>",
+    "firmware_update": "<string>",
+    "registry_date": "<date>"
 }
