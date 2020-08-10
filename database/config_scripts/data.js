@@ -1,3 +1,5 @@
+db = db.getSiblingDB('admin')
+
 db.auth({
     user: "gardener",
     pwd: "eco-app-plant"
