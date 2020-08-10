@@ -248,6 +248,19 @@ rs.status()
 The users and databases previously created in the standalone node should now be
 available in the rest of the nodes.
 
+11. Finally, to add some basic 
+[data](https://github.com/laurapm/UBICUA/blob/master/database/config_scripts/data.js)
+into the cluster, connect to the replica set and execute:
+
+```javascript
+load(./database/config_scripts/data.js)
+```
+
+_Disclaimer_: The command has been executed when connecting from the main 
+folder of the repository. To know where you are when being connected, 
+execute `pwd()` in the Mongo Shell. Also, remember to clone this repo, it will
+make this guide easier to follow.
+
 ## Reconfigure a Node
 
 As it might have been suggested earlier, to reconfigure a running node it is 

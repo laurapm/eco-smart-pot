@@ -6,9 +6,9 @@
     "title": "<string>",
     "action": {
         "perform": "<string>",
-        "params": ["<undefined>"]
+        "params": "<object>"
     },
-    "request_time": "<timestamp>",
-    "action_time": "<timestamp>",
+    "request_time": "<date>",
+    "action_time": "<date>",
     "comment": "<string>"
 }
