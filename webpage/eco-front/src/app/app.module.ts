@@ -12,11 +12,19 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { AppHeaderComponent } from './componentes/app-header/app-header.component';
+import { ShoppingCardComponent } from './componentes/shopping-card/shopping-card.component';
+import { FiltersComponent } from './componentes/shopping-card/filters/filters.component';
+import { ProductListComponent } from './componentes/shopping-card/product-list/product-list.component';
+import { CartListComponent } from './componentes/shopping-card/cart-list/cart-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppHeaderComponent
+    AppHeaderComponent,
+    ShoppingCardComponent,
+    FiltersComponent,
+    ProductListComponent,
+    CartListComponent
   ],
   imports: [
     BrowserModule,
