@@ -2,44 +2,51 @@
 <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark black" [containerInside]="false">
 
   <!-- Navbar brand -->
-  <mdb-navbar-brand>
-    <a class="navbar-brand" href="#"> <links>
-        <a class="nav-item dropdown" dropdown>
-          <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
-            <img  width="40" src="../../../assets/rainforest_logo.png" alt="Rainforest">
-            <span class="caret"></span>
+  <div width="40%">
+    <mdb-navbar-brand>
+      <a class="navbar-brand" href="#"> <links>
+          <a class="nav-item dropdown" dropdown>
+            <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+              <img  width="40" src="../../../assets/rainforest_logo.png" alt="Rainforest">
+              <span class="caret"></span>
+            </a>
+            <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+                <a class="dropdown-item waves-light" mdbWavesEffect href="home">Home</a>
+                <div class="divider dropdown-divider"></div>
+                <a class="dropdown-item waves-light" mdbWavesEffect href="contact">Contact</a>
+                <div class="divider dropdown-divider"></div>
+                <a class="dropdown-item waves-light" mdbWavesEffect href="product">Products</a>
+                <div class="divider dropdown-divider"></div>
+                <a class="dropdown-item waves-light" mdbWavesEffect href="client/area">Client Area</a>
+            </div>
           </a>
-          <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-              <a class="dropdown-item waves-light" mdbWavesEffect href="home">Home</a>
-              <div class="divider dropdown-divider"></div>
-              <a class="dropdown-item waves-light" mdbWavesEffect href="contact">Contact</a>
-              <div class="divider dropdown-divider"></div>
-              <a class="dropdown-item waves-light" mdbWavesEffect href="product">Products</a>
-              <div class="divider dropdown-divider"></div>
-              <a class="dropdown-item waves-light" mdbWavesEffect href="client/area">Client Area</a>
-          </div>
-        </a>
-    </links> </a>
-  </mdb-navbar-brand>
-
-  <div class="mx-auto">
-    <a><img width="200" src="../../../assets/rainforest_text.png" alt="Rainforest"></a>
+      </links> </a>
+    </mdb-navbar-brand>
   </div>
 
-  <!-- Collapsible content -->
-  <links>
-    <!-- Links -->
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item active">
-        <a class="nav-link waves-light" mdbWavesEffect><mdb-icon fas icon="shopping-cart"></mdb-icon><span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link waves-light" mdbWavesEffect><mdb-icon fas icon="user"></mdb-icon> Login</a>
-      </li>
-    </ul>
-    <!-- Links -->
-  </links>
-  <!-- Collapsible content -->
+  <!-- Company Name Tag -->
+  <div class="mx-auto" width="20%">
+    <!-- Compamy Name -->
+    <a><img width="200" src="../../../assets/rainforest_text.png" alt="Rainforest"></a>
+  </div>
+  <!-- Company Name Tag -->
+
+  <div width="40%">
+    <!-- Collapsible content -->
+    <links>
+      <!-- Links -->
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link waves-light" mdbWavesEffect><mdb-icon fas icon="shopping-cart"></mdb-icon><span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-light" mdbWavesEffect href=login><mdb-icon fas icon="user"></mdb-icon> Login</a>
+        </li>
+      </ul>
+      <!-- Links -->
+    </links>
+    <!-- Collapsible content -->
+  </div>
 
 </mdb-navbar>
 <!--/.Navbar-->
