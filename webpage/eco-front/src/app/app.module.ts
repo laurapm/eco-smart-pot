@@ -1,6 +1,8 @@
 import { BrowserModule }           from '@angular/platform-browser';
+import { HttpClientModule }        from '@angular/common/http';
 import { NgModule }                from '@angular/core';
 import { LayoutModule }            from '@angular/cdk/layout';
+import { FormsModule }             from '@angular/forms';
 import { MatToolbarModule }        from '@angular/material/toolbar';
 import { MatButtonModule }         from '@angular/material/button';
 import { MatSidenavModule }        from '@angular/material/sidenav';
@@ -20,6 +22,7 @@ import { FiltersComponent }      from './components/shopping-card/filters/filter
 import { ProductListComponent }  from './components/shopping-card/product-list/product-list.component';
 import { CartListComponent }     from './components/shopping-card/cart-list/cart-list.component';
 import { CartItemComponent }     from './components/shopping-card/cart-list/cart-item/cart-item.component';
+import { ProductItemComponent } from './components/shopping-card/product-list/product-item/product-item.component';
 
 @NgModule({
   declarations: [
@@ -30,12 +33,15 @@ import { CartItemComponent }     from './components/shopping-card/cart-list/cart
     FiltersComponent,
     ProductListComponent,
     CartListComponent,
-    CartItemComponent
+    CartItemComponent,
+    ProductItemComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
