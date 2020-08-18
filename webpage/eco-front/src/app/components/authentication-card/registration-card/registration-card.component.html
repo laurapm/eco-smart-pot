@@ -1,0 +1,102 @@
+<div class="row" style="text-align: justify;">
+  <!-- Card -->
+  <mdb-card>
+    <div class="view rgba-white-slight waves-light view overlay zoom" mdbWavesEffect>
+      <!-- Card img -->
+      <mdb-card-img src="../../../../assets/login_seed.png" class="img-fluid" alt="Register"></mdb-card-img>
+      <a>
+        <div class="mask"></div>
+      </a>
+    </div>
+    <!-- Card content -->
+    <mdb-card-body>
+      <!-- Title -->
+      <mdb-card-title>
+        <h4>Register</h4>
+      </mdb-card-title>
+      <!-- Registration Form -->
+      <form>
+        <!-- User -->
+        <div>
+          <!-- Courtesy Title -->
+          <div class="col-md-2 md-form" style="display: inline-block;">
+            <select class="browser-default custom-select" id="title">
+              <option selected>Courtesy Title</option>
+              <option value="Mr.">Mr.</option>
+              <option value="Mrs.">Mrs.</option>
+              <option value="Ms.">Ms.</option>
+              <option value="Dr.">Dr..</option>
+            </select>
+          </div>
+          <!-- Name -->
+          <div class="col-md-5 md-form" style="display: inline-block;">
+            <input mdbInput minLength="8" maxLength="32" type="text"
+                   class="form-control" id="name">
+            <label for="name">Name</label>
+          </div>
+          <!-- Surname -->
+          <div class="col-md-5 md-form" style="display: inline-block;">
+            <input mdbInput minLength="8" maxLength="32" type="text"
+                   class="form-control" id="surname">
+            <label for="surname">Surname(s)</label>
+          </div>
+        </div>
+        <!-- Username -->
+        <div class="md-form">
+          <mdb-icon fas icon="user" class="prefix"></mdb-icon>
+          <input mdbInput minLength="8" maxLength="32" type="text"
+                class="form-control" id="username">
+          <label for="username">Username</label>
+        </div>
+        <!-- Phone Number -->
+        <div>
+          <div class="col-md-1 md-form" style="display: inline-block;">
+            <mdb-icon fas icon="phone"></mdb-icon>
+          </div>
+          <!-- Country Code -->
+          <div class="col-md-2 md-form" style="display: inline-block;">
+            <input mdbInput min="0" max="999" type="number"
+                class="form-control" id="countryCode">
+            <label for="countryCode">Code</label>
+          </div>
+          <!-- Phone -->
+          <div class="col-md-7 md-form" style="display: inline-block;">
+            <input mdbInput min="000" max="999999999999999" type="number"
+                class="form-control" id="phone">
+            <label for="phone">Phone Number</label>
+          </div>
+        </div>
+        <!-- Email -->
+        <div class="md-form">
+          <mdb-icon fas icon="envelope" class="prefix"></mdb-icon>
+          <input mdbInput minLength="5" maxLength="32" type="text"
+                class="form-control" id="username">
+          <label for="email">Email</label>
+        </div>
+        <!-- Password -->
+        <div class="md-form">
+          <mdb-icon fas icon="lock" class="prefix"></mdb-icon>
+          <input mdbInput minLength="8" maxLength="32" type="password"
+                class="form-control" id="pass">
+          <label for="pass">Type your password</label>
+        </div>
+	      <div class="md-form">
+          <mdb-icon fas icon="lock" class="prefix"></mdb-icon>
+          <input mdbInput minLength="8" maxLength="32" type="password"
+                class="form-control" id="pass2">
+          <label for="pass2">Confirm your password</label>
+        </div>
+
+        <!-- Registration -->
+        <button mdbBtn type="button" color="primary" mdbWavesEffect>
+          Register
+        </button>
+        <!-- Google Registration -->
+        <button mdbBtn type="button" color="primary" mdbWavesEffect>
+          <mdb-icon fab icon="google" class="mr-1"></mdb-icon> Register with Google
+        </button>
+      </form>
+    </mdb-card-body>
+  </mdb-card>
+  <!-- Card -->
+</div>

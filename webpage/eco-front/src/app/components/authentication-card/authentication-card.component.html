@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-md-4" id="inner">
+    <!-- Navigation Bar -->
+    <ul class="nav nav-tabs" id="authentication" role="tablist">
+      <!-- Panel 1 -->
+      <li class="nav-item">
+        <a class="nav-link active" id="register-tab" data-toggle="tab" routerLink="register" role="tab"
+           (click)="onSelected('register-tab')">Register</a>
+      </li>
+      <!-- Panel 2 -->
+      <li class="nav-item">
+        <a class="nav-link" id="login-tab" data-toggle="tab" routerLink="login" role="tab"
+           (click)="onSelected('login-tab')">Log In</a>
+      </li>
+    </ul>
+
+    <!-- Content -->
+    <router-outlet></router-outlet>
+  </div>
+</div>
+

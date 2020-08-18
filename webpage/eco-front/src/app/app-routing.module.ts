@@ -5,16 +5,25 @@ import { HomeCardComponent }           from './components/home-card/home-card.co
 import { ShoppingCardComponent }       from './components/shopping-card/shopping-card.component';
 import { ProductItemComponent }        from './components/shopping-card/product-list/product-item/product-item.component';
 import { AuthenticationCardComponent } from './components/authentication-card/authentication-card.component';
+import { RegistrationCardComponent }   from './components/authentication-card/registration-card/registration-card.component';
+import { LoginCardComponent }          from './components/authentication-card/login-card/login-card.component';
 import { Page404NotFoundComponent }    from './components/page404-not-found/page404-not-found.component';
 
 const routes: Routes = [
   { path: 'home',           component: HomeCardComponent },
   { path: 'product',        component: ShoppingCardComponent },
   { path: 'product/:id',    component: ProductItemComponent },
-  { path: 'authentication', component: AuthenticationCardComponent },
+  { path: 'authentication', component: AuthenticationCardComponent,
+    children: [
+      { path: '', redirectTo: 'register', pathMatch: 'full'},
+      { path: 'register', component: RegistrationCardComponent },
+      { path: 'login',    component: LoginCardComponent }
+    ]
+  },
   { path: '404',            component: Page404NotFoundComponent },
-  { path: '',   redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', redirectTo: '404',  pathMatch: 'full' }
+  //{ path: '',   redirectTo: 'home', pathMatch: 'full' },
+  //{ path: '**', redirectTo: '404',  pathMatch: 'full' }
+
 ];
 
 @NgModule({
