@@ -12,6 +12,12 @@ Therefore, they need to be connected somehow.
 
 # Sub-Projects
 
+Having separated the front-end and the back-end allows to have an independent 
+implementation of each part of the development stack. This means that the same 
+back-end could be use by different application. For example, different web 
+application or phone application - iOS, Android, Windows Phone, etc. but use 
+the same back-end.
+
 ## Front-end
 
 How to create frontend.
