@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.rainforesteco.spring.data.mongodb.models.Owner;
 
-//@Repository
 public interface OwnerRepository extends MongoRepository<Owner, String> 
 {
 	List<Owner> findByName(String name); 	

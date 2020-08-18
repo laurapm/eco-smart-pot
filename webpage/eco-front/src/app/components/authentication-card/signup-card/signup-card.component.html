@@ -21,7 +21,7 @@
           <!-- Courtesy Title -->
           <div class="col-md-2 md-form" style="display: inline-block;">
             <select class="browser-default custom-select" id="title">
-              <option selected>Courtesy Title</option>
+              <option value="null" selected>None</option>
               <option value="Mr.">Mr.</option>
               <option value="Mrs.">Mrs.</option>
               <option value="Ms.">Ms.</option>
@@ -31,13 +31,13 @@
           <!-- Name -->
           <div class="col-md-5 md-form" style="display: inline-block;">
             <input mdbInput minLength="8" maxLength="32" type="text"
-                   class="form-control" id="name">
+                   class="form-control" required id="name">
             <label for="name">Name</label>
           </div>
           <!-- Surname -->
           <div class="col-md-5 md-form" style="display: inline-block;">
             <input mdbInput minLength="8" maxLength="32" type="text"
-                   class="form-control" id="surname">
+                   class="form-control" required id="surname">
             <label for="surname">Surname(s)</label>
           </div>
         </div>
@@ -45,54 +45,40 @@
         <div class="md-form">
           <mdb-icon fas icon="user" class="prefix"></mdb-icon>
           <input mdbInput minLength="8" maxLength="32" type="text"
-                class="form-control" id="username">
+                class="form-control" required id="username">
           <label for="username">Username</label>
         </div>
         <!-- Phone Number -->
-        <div>
-          <div class="col-md-1 md-form" style="display: inline-block;">
-            <mdb-icon fas icon="phone"></mdb-icon>
-          </div>
-          <!-- Country Code -->
-          <div class="col-md-2 md-form" style="display: inline-block;">
-            <input mdbInput min="0" max="999" type="number"
-                class="form-control" id="countryCode">
-            <label for="countryCode">Code</label>
-          </div>
-          <!-- Phone -->
-          <div class="col-md-7 md-form" style="display: inline-block;">
-            <input mdbInput min="000" max="999999999999999" type="number"
-                class="form-control" id="phone">
-            <label for="phone">Phone Number</label>
-          </div>
+        <div class="md-form">
+          <input type="number" minLength="3" maxLength="15" ng2TelInput id="phone">
         </div>
         <!-- Email -->
         <div class="md-form">
           <mdb-icon fas icon="envelope" class="prefix"></mdb-icon>
           <input mdbInput minLength="5" maxLength="32" type="text"
-                class="form-control" id="username">
+                class="form-control" required id="username">
           <label for="email">Email</label>
         </div>
         <!-- Password -->
         <div class="md-form">
           <mdb-icon fas icon="lock" class="prefix"></mdb-icon>
           <input mdbInput minLength="8" maxLength="32" type="password"
-                class="form-control" id="pass">
+                class="form-control" required id="pass">
           <label for="pass">Type your password</label>
         </div>
 	      <div class="md-form">
           <mdb-icon fas icon="lock" class="prefix"></mdb-icon>
           <input mdbInput minLength="8" maxLength="32" type="password"
-                class="form-control" id="pass2">
+                class="form-control" required id="pass2">
           <label for="pass2">Confirm your password</label>
         </div>
 
         <!-- Sign Up -->
-        <button mdbBtn type="button" color="primary" mdbWavesEffect>
+        <button mdbBtn type="submit" color="primary" mdbWavesEffect>
           Sign Up
         </button>
         <!-- Google Sign Up -->
-        <button mdbBtn type="button" color="primary" mdbWavesEffect>
+        <button mdbBtn type="submit" color="primary" mdbWavesEffect>
           <mdb-icon fab icon="google" class="mr-1"></mdb-icon> Sign Up using Google
         </button>
       </form>

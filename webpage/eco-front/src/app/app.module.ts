@@ -9,6 +9,7 @@ import { MatSidenavModule }        from '@angular/material/sidenav';
 import { MatIconModule }           from '@angular/material/icon';
 import { MatListModule }           from '@angular/material/list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Ng2TelInputModule }       from 'ng2-tel-input';
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
@@ -22,7 +23,7 @@ import { HomeCardComponent } from './components/home-card/home-card.component';
 // Authentication
 import { AuthenticationCardComponent } from './components/authentication-card/authentication-card.component';
 import { LoginCardComponent }          from './components/authentication-card/login-card/login-card.component';
-import { RegistrationCardComponent }   from './components/authentication-card/registration-card/registration-card.component';
+import { SignupCardComponent }         from './components/authentication-card/signup-card/signup-card.component';
 // Shopping Cart
 import { ShoppingCardComponent } from './components/shopping-card/shopping-card.component';
 import { FiltersComponent }      from './components/shopping-card/filters/filters.component';
@@ -43,7 +44,7 @@ import { Page404NotFoundComponent } from './components/page404-not-found/page404
     // Authentication
     AuthenticationCardComponent,
     LoginCardComponent,
-    RegistrationCardComponent,
+    SignupCardComponent,
     // Shopping Cart
     ShoppingCardComponent,
     FiltersComponent,
@@ -66,6 +67,7 @@ import { Page404NotFoundComponent } from './components/page404-not-found/page404
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    Ng2TelInputModule,
     MDBBootstrapModule.forRoot()
   ],
   providers: [],
