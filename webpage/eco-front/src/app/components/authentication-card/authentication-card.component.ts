@@ -13,7 +13,7 @@ export class AuthenticationCardComponent implements OnInit {
   }
 
   tabs = [
-    'register-tab',
+    'signup-tab',
     'login-tab'
   ];
 
