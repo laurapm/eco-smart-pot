@@ -1,0 +1,60 @@
+<div style="width: 400px; margin: auto;">
+  <div *ngIf="currentProduct" class="edit-form">
+    <h4>Product</h4>
+    <form>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          [(ngModel)]="currentProduct.name
+          name="name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="description">currentProduct</label>
+        <input
+          type="text"
+          class="form-control"
+          id="description"
+          [(ngModel)]="currentProduct.description"
+          name="description"
+        />
+      </div>
+
+      <div class="form-group">
+        <label><strong>Status:</strong></label>
+        {{ currentProduct.published ? "Published" : "Pending" }}
+      </div>
+    </form>
+
+    <button
+      class="badge badge-primary mr-2"
+      *ngIf="currentProduct.published"
+      (click)="updateStatus(false)"
+    >
+      UnPublish
+    </button>
+    <button
+      *ngIf="!currentProduct.published"
+      class="badge badge-primary mr-2"
+      (click)="updateStatus(true)"
+    >
+      Publish
+    </button>
+    <button
+      type="submit"
+      class="badge badge-success"
+      (click)="updateProduct()"
+    >
+      Update
+    </button>
+    <p>{{ msg }}</p>
+  </div>
+
+  <div *ngIf="!currentProduct">
+    <br />
+    <p> There are no Products yet...</p>
+  </div>
+</div>

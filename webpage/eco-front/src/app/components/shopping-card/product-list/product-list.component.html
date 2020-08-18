@@ -1,1 +1,50 @@
-<p>product-list works!</p>
+<div class="list row">
+  <!--
+  <div class="col">
+    <div class="input-group">
+      <input
+        type="text" class="form-control"
+        placeholder="Search by name"
+        [(ngModel)]="name"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="searchName()"
+        >
+        Search
+        </button>
+    </div>
+  </div> -->
+
+  <div class="col">
+    <ul class="list-group">
+      <li class="list-group-item"
+      *ngFor = "let product of products; let i = index"
+      [class.active] = "i == currentIndex"
+      (click) = "setActiveProduct(product, i)"
+      >
+        {{ product.name}
+      </li>
+    </ul>
+  </div>
+
+  <div class="col">
+    <div *ngIf="currentProduct">
+      <h4> Product </h4>
+      <div>
+        <label> <strong> Name: </strong> </label>
+        {{ currentProduct.name}}
+      </div>
+      <div>
+        <label> <strong> Description: </strong> </label>
+        {{ currentProduct.description}
+      </div>
+      <div>
+        <label> <strong> Status: </strong> </label>
+        {{ currentProduct.available ? "Available" : "Yes"}}
+      </div>
+    </div>
+  </div>
+</div>
