@@ -4,13 +4,19 @@ import com.rainforesteco.spring.data.mongodb.models.Owner;
 import com.rainforesteco.spring.data.mongodb.repositories.OwnerRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +35,29 @@ public class OwnerController
 {
 	@Autowired
 	OwnerRepository ownerRepository;
+	
+	@PostMapping("owners")
+	public ResponseEntity<Owner> createOwner(@RequestBody Owner owner)
+	{
+		try {
+			Owner _owner = ownerRepository.save(
+				new Owner(
+					owner.getUsername(),
+					owner.getName(),
+					owner.getSurname(),
+					owner.getCourtesy_title(),
+					owner.getPhone(),
+					owner.getEmail(),
+					owner.getPassword()
+				)
+			);
+			
+			return new ResponseEntity<>(_owner, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	
 	@GetMapping("owners")
 	public ResponseEntity<List<Owner>> getAllOwners(@RequestParam(required = false) String name) {
@@ -50,57 +79,74 @@ public class OwnerController
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
 	}
-	/*
 	
-	@RequestMapping(method=RequestMethod.GET, value="/owner")
-	public Iterable<Owner> owner() {
-		return ownerRepository.findAll();
+	@GetMapping("owners/{id}")
+	public ResponseEntity<Owner> getOwnerById(@PathVariable("id") String id)
+	{
+		try {
+			Optional<Owner> ownerData = ownerRepository.findById(id);
+			
+			if (ownerData.isPresent()) {
+				return new ResponseEntity<>(ownerData.get(), HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			}
+			
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="/owner")
-	public Owner save(@RequestBody Owner owner) {
-		ownerRepository.save(owner);
-		
-		return owner;
+	@PutMapping("owners/{id}")
+	public ResponseEntity<Owner> updateOwner(@PathVariable("id") String id, @RequestBody Owner owner) 
+	{
+		try {
+			Optional<Owner> ownerData = ownerRepository.findById(id);
+			
+			if (ownerData.isPresent()) 
+			{
+				Owner _owner = ownerData.get();
+				_owner.setUsername(owner.getUsername());
+				_owner.setName(owner.getName());
+				_owner.setSurname(owner.getSurname());
+				_owner.setCourtesy_title(owner.getCourtesy_title());
+				_owner.setPhone(owner.getPhone());
+				_owner.setEmail(owner.getEmail());
+				_owner.setPassword(owner.getPassword());
+				
+				return new ResponseEntity<>(ownerRepository.save(_owner), HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			}
+			
+			
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/owner")
-	public Owner show(@PathVariable String id) {
-		return ownerRepository.findOne(id);
+	@DeleteMapping("owners/{id}")
+	public ResponseEntity<HttpStatus> deleteOwner(@PathVariable("id") String id)
+	{
+		try {
+			ownerRepository.deleteById(id);
+			
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
-	@RequestMapping(method=RequestMethod.PUT, value="/owner")
-	public Owner update(@PathVariable String id, @RequestBody Owner owner) {
-		Owner o = ownerRepository.findOne(id);
-		
-		if(owner.getUsername() != null) 
-			o.setUsername(owner.getUsername());
-		if(owner.getName() != null) 
-			o.setName(owner.getName());
-		if(owner.getSurname() != null) 
-			o.setSurname(owner.getSurname());
-		if(owner.getCourtesy_title() != null) 
-			o.setCourtesy_title(owner.getCourtesy_title());
-		if(owner.getPhone() != null) 
-			o.setPhone(owner.getPhone());
-		if(owner.getEmail() != null) 
-			o.setEmail(owner.getEmail());
-		if(owner.getPassword() != null) 
-			o.setPassword(owner.getPassword());
-		
-		
-		ownerRepository.save(o);
-		return owner;
+	@DeleteMapping("owners")
+	public ResponseEntity<HttpStatus> deleteAllOwners()
+	{
+		try {
+			ownerRepository.deleteAll();
+			
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
-	
-	@RequestMapping(method=RequestMethod.DELETE, value="/owner")
-	public String delete(@PathVariable String id) {
-		Owner owner = ownerRepository.findOne(id);
-		ownerRepository.delete(owner);
-		
-		return "";
-	}
-	*/
 
 }
-

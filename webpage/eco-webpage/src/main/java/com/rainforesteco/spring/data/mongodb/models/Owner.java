@@ -20,10 +20,9 @@ public class Owner
 		
 	}
 	
-	public Owner(String id, String username, String name, String surname, String courtesy_title, String phone,
+	public Owner(String username, String name, String surname, String courtesy_title, String phone,
 			String email, String password) {
 		super();
-		this.id = id;
 		this.username = username;
 		this.name = name;
 		this.surname = surname;
