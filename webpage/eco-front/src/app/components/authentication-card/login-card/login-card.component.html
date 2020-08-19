@@ -15,30 +15,67 @@
         <h4>Login</h4>
       </mdb-card-title>
       <!-- Login Form -->
-      <form>
+      <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()"
+            #f="ngForm" novalidate>
         <!-- User -->
-        <div class="md-form">
+        <div class="form-group">
           <mdb-icon fas icon="user" class="prefix"></mdb-icon>
-          <input mdbInput minLength="4" maxLength="32" type="text"
-                class="form-control" required id="form9">
-          <label for="form9">Type your username or email</label>
+          <input mdbInput type="text" class="form-control" name="user"
+                 [(ngModel)]="form.user" required minlength="4" maxlength="32"
+                 #user="ngModel" id="user">
+          <label for="user">Username or email</label>
+
+          <div class="alert alert-danger" role="alert"
+               *ngIf="f.submitted && user.invalid">
+            User is required!
+          </div>
         </div>
         <!-- Password -->
-        <div class="md-form">
+        <div class="form-group">
           <mdb-icon fas icon="lock" class="prefix"></mdb-icon>
-          <input mdbInput minLength="8" maxLength="32" type="password"
-                class="form-control" required id="form10">
-          <label for="form10">Type your password</label>
+          <input mdbInput type="password" class="form-control" name="password"
+                 [(ngModel)]="form.password" required minlength="5" maxlength="32"
+                 #password="ngModel" id="password">
+          <label for="password">Type your password</label>
+
+          <div class="alert alert-danger" role="alert"
+               *ngIf="f.submitted && password.invalid">
+            <div *ngIf="password.errors.required">Password is required</div>
+            <div *ngIf="password.errors.minlength">
+              Password must be at least 5 characters
+            </div>
+          </div>
         </div>
-        <!-- Normal Login -->
-        <button mdbBtn type="submit" color="primary" mdbWavesEffect>
-          Login
-        </button>
-        <!-- Google Login -->
-        <button mdbBtn type="submit" color="primary" mdbWavesEffect>
-          <mdb-icon fab icon="google" class="mr-1"></mdb-icon> Login with Google
-        </button>
+
+        <!-- Log In -->
+        <div class="form-group">
+          <!-- Normal -->
+          <button mdbBtn type="submit" class="btn btn-primary btn-block"
+                  mdbWavesEffect color="primary" >
+            Log In
+          </button>
+          <!-- Google -->
+          <button mdbBtn type="submit" class="btn btn-primary btn-block"
+                  mdbWavesEffect color="primary">
+            <mdb-icon fab icon="google" class="mr-1"></mdb-icon> Log In using Google
+          </button>
+        </div>
+
+        <div class="form-group">
+          <div
+            class="alert alert-danger"
+            role="alert"
+            *ngIf="f.submitted && isLoginFailed"
+          >
+            Login failed: {{ errorMessage }}
+          </div>
+        </div>
       </form>
+
+      <div class="alert alert-success" *ngIf="isLoggedIn">
+        Logged in as {{ roles }}.
+      </div>
+
     </mdb-card-body>
   </mdb-card>
   <!-- Card -->
