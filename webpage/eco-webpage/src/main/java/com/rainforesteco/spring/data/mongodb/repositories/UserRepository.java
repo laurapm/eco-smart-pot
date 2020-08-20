@@ -3,7 +3,6 @@ package com.rainforesteco.spring.data.mongodb.repositories;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.CrudRepository;
 
 import com.rainforesteco.spring.data.mongodb.models.User;

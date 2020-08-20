@@ -1,4 +1,4 @@
-package org.rainforest.ecowebpage;
+package com.rainforesteco.spring.data.config;
 
 import com.mongodb.*;
 import com.mongodb.client.MongoClient;
@@ -10,11 +10,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoClientDbFactory;
-import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 
 @Configuration
-public class MainConfig 
+public class MongoConfig 
 {
 	@Autowired
     private Environment env;
