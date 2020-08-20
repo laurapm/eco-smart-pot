@@ -53,10 +53,15 @@
           <label for="username">Username</label>
         </div>
         <!-- Phone Number -->
-        <div class="md-form">
-          <input ng2TelInput type="tel" class="form-control" name="phone"
-                 [(ngModel)]="form.phone" required minlength="3" maxlength="15"
-                 #phone="ngModel" id="phone">
+        <div class="row md-form">
+          <div class="col-md-1">
+            <mdb-icon fas icon="phone" class="prefix"></mdb-icon>
+          </div>
+          <div class="col-md-9">
+            <input ng2TelInput type="tel" class="form-control" name="phone"
+                   [(ngModel)]="form.phone" required minlength="3" maxlength="15"
+                   #phone="ngModel" id="phone">
+          </div>
         </div>
         <!-- Email -->
         <div class="md-form">

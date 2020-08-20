@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "owner")
-public class Owner 
+public class User 
 {
 	@Id
 	private String id;
@@ -16,11 +16,11 @@ public class Owner
 	private String email;
 	private String password;
 	
-	public Owner() {
+	public User() {
 		
 	}
 	
-	public Owner(String username, String name, String surname, String courtesy_title, String phone,
+	public User(String username, String name, String surname, String courtesy_title, String phone,
 			String email, String password) {
 		super();
 		this.username = username;

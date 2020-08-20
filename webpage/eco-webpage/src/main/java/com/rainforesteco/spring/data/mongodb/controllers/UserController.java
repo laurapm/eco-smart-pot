@@ -1,7 +1,7 @@
 package com.rainforesteco.spring.data.mongodb.controllers;
 
-import com.rainforesteco.spring.data.mongodb.models.Owner;
-import com.rainforesteco.spring.data.mongodb.repositories.OwnerRepository;
+import com.rainforesteco.spring.data.mongodb.models.User;
+import com.rainforesteco.spring.data.mongodb.repositories.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,72 +22,72 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Rest API Controller for Owner queries to MongDB.
+ * Rest API Controller for User queries against eco database in MongoDB.
  * 
  * @author PabloAceG
- * @date 18/08/2020
+ * @creationDate 18/08/2020
  *
  */
 @CrossOrigin(origins = "http:localhost:8080")
 @RestController
 @RequestMapping("/api")
-public class OwnerController 
+public class UserController 
 {
 	@Autowired
-	OwnerRepository ownerRepository;
+	UserRepository userRepository;
 	
-	@PostMapping("owners")
-	public ResponseEntity<Owner> createOwner(@RequestBody Owner owner)
+	@PostMapping("users")
+	public ResponseEntity<User> createUser(@RequestBody User user)
 	{
 		try {
-			Owner _owner = ownerRepository.save(
-				new Owner(
-					owner.getUsername(),
-					owner.getName(),
-					owner.getSurname(),
-					owner.getCourtesy_title(),
-					owner.getPhone(),
-					owner.getEmail(),
-					owner.getPassword()
+			User _user = userRepository.save(
+				new User(
+					user.getUsername(),
+					user.getName(),
+					user.getSurname(),
+					user.getCourtesy_title(),
+					user.getPhone(),
+					user.getEmail(),
+					user.getPassword()
 				)
 			);
 			
-			return new ResponseEntity<>(_owner, HttpStatus.OK);
+			return new ResponseEntity<>(_user, HttpStatus.OK);
 			
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
-	@GetMapping("owners")
-	public ResponseEntity<List<Owner>> getAllOwners(@RequestParam(required = false) String name) {
+	@GetMapping("users")
+	public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String name) {
 		try {
-			List<Owner> owners = new ArrayList<Owner>();
+			List<User> users = new ArrayList<User>();
 			
 			if (name == null)
-				ownerRepository.findAll().forEach(owners::add);
+				userRepository.findAll().forEach(users::add);
 			else
-				ownerRepository.findByName(name).forEach(owners::add);
+				userRepository.findByName(name).forEach(users::add);
 			
-			if (owners.isEmpty()) {
+			if (users.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
 			
-			return new ResponseEntity<>(owners, HttpStatus.OK);
+			return new ResponseEntity<>(users, HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println(e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
 	}
 	
-	@GetMapping("owners/{id}")
-	public ResponseEntity<Owner> getOwnerById(@PathVariable("id") String id)
+	@GetMapping("users/{id}")
+	public ResponseEntity<User> getUserById(@PathVariable("id") String id)
 	{
 		try {
-			Optional<Owner> ownerData = ownerRepository.findById(id);
+			Optional<User> userData = userRepository.findById(id);
 			
-			if (ownerData.isPresent()) {
-				return new ResponseEntity<>(ownerData.get(), HttpStatus.OK);
+			if (userData.isPresent()) {
+				return new ResponseEntity<>(userData.get(), HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			}
@@ -97,24 +97,24 @@ public class OwnerController
 		}
 	}
 	
-	@PutMapping("owners/{id}")
-	public ResponseEntity<Owner> updateOwner(@PathVariable("id") String id, @RequestBody Owner owner) 
+	@PutMapping("users/{id}")
+	public ResponseEntity<User> updateUser(@PathVariable("id") String id, @RequestBody User user) 
 	{
 		try {
-			Optional<Owner> ownerData = ownerRepository.findById(id);
+			Optional<User> userData = userRepository.findById(id);
 			
-			if (ownerData.isPresent()) 
+			if (userData.isPresent()) 
 			{
-				Owner _owner = ownerData.get();
-				_owner.setUsername(owner.getUsername());
-				_owner.setName(owner.getName());
-				_owner.setSurname(owner.getSurname());
-				_owner.setCourtesy_title(owner.getCourtesy_title());
-				_owner.setPhone(owner.getPhone());
-				_owner.setEmail(owner.getEmail());
-				_owner.setPassword(owner.getPassword());
+				User _user = userData.get();
+				_user.setUsername      (user.getUsername());
+				_user.setName          (user.getName());
+				_user.setSurname       (user.getSurname());
+				_user.setCourtesy_title(user.getCourtesy_title());
+				_user.setPhone         (user.getPhone());
+				_user.setEmail         (user.getEmail());
+				_user.setPassword      (user.getPassword());
 				
-				return new ResponseEntity<>(ownerRepository.save(_owner), HttpStatus.OK);
+				return new ResponseEntity<>(userRepository.save(_user), HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			}
@@ -125,11 +125,11 @@ public class OwnerController
 		}
 	}
 	
-	@DeleteMapping("owners/{id}")
-	public ResponseEntity<HttpStatus> deleteOwner(@PathVariable("id") String id)
+	@DeleteMapping("users/{id}")
+	public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") String id)
 	{
 		try {
-			ownerRepository.deleteById(id);
+			userRepository.deleteById(id);
 			
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
@@ -137,11 +137,11 @@ public class OwnerController
 		}
 	}
 	
-	@DeleteMapping("owners")
-	public ResponseEntity<HttpStatus> deleteAllOwners()
+	@DeleteMapping("users")
+	public ResponseEntity<HttpStatus> deleteAllUsers()
 	{
 		try {
-			ownerRepository.deleteAll();
+			userRepository.deleteAll();
 			
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {

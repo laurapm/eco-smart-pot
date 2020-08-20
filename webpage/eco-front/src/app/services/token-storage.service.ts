@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 
-const TOKEN_KEY = 'auth-token'
+// Disclaimer:
+// Does not support token so far
+
+// const TOKEN_KEY = 'auth-token'
 const USER_KEY  = 'auth-user'
 
 @Injectable({
@@ -14,6 +17,7 @@ export class TokenStorageService {
     window.sessionStorage.clear();
   }
 
+  /**
   public saveToken(token: string): void {
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);
@@ -22,6 +26,7 @@ export class TokenStorageService {
   public getToken(): string {
     return sessionStorage.getItem(TOKEN_KEY);
   }
+  */
 
   public saveUser(user): void {
     window.sessionStorage.removeItem(USER_KEY);
