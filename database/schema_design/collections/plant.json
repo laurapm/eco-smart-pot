@@ -3,9 +3,9 @@
     "common_name": "<string>",
     "scientific_name": "<string>",
     "family": "<string>",
-    "lifesafe_range": [{
+    "lifesafe_range": [ {
         "type": "<string>",
         "min": "<double>",
         "max": "<double>"
-    }]
+    } ]
 }

@@ -6,5 +6,6 @@
     "courtesy_title": "<string>",
     "phone": "<string>",
     "email": "<string>",
-    "password": "<string>"
+    "password": "<string>",
+    "role": "<string>"
 }
