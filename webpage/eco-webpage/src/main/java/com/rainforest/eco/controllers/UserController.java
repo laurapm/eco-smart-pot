@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rainforest.eco.models.User;
 import com.rainforest.eco.repositories.UserRepository;
+import com.rainforest.eco.services.Log;
 
 @Controller
 @EnableAutoConfiguration
@@ -31,7 +32,10 @@ public class UserController
 	@ResponseBody
 	public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String name) 
 	{
+		String LogHeader = "[/users: getAllUsers] ";
+		
 		try {
+			Log.logger.info(LogHeader + "Requested");
 			List<User> users = new ArrayList<User>();
 			
 			if (name == null)
@@ -40,11 +44,14 @@ public class UserController
 				userRepository.findByName(name).forEach(users::add);
 			
 			if (users.isEmpty()) {
+				Log.logger.info(LogHeader + "No users found");
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
 			
+			Log.logger.info(LogHeader + "Successful");
 			return new ResponseEntity<>(users, HttpStatus.OK);
 		} catch (Exception e) {
+			Log.logger.error(LogHeader + "some error ocurred" + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -53,25 +60,34 @@ public class UserController
 	@ResponseBody
 	public ResponseEntity<User> getUserById(@PathVariable("id") String id)
 	{
+		String LogHeader = "[/users/id: getUserById] ";
+		
 		try {
+			Log.logger.info(LogHeader + "Requested");
 			Optional<User> userData = userRepository.findById(id);
 			
 			if (userData.isPresent()) {
+				Log.logger.info(LogHeader + "Successful");
 				return new ResponseEntity<>(userData.get(), HttpStatus.OK);
 			} else {
+				Log.logger.info(LogHeader + "No user found with id:" + id);
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			}
 			
 		} catch (Exception e) {
+			Log.logger.error(LogHeader + "some error ocurred" + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
-	@RequestMapping(value="/users/", method=RequestMethod.PUT)
+	@RequestMapping(value="/users", method=RequestMethod.PUT)
 	@ResponseBody
 	public ResponseEntity<User> updateUser(@RequestParam(required=false) String id, @RequestBody User user) 
 	{
+		String LogHeader = "[/users: updateUser] ";
+		
 		try {
+			Log.logger.info(LogHeader + "Requested");
 			Optional<User> userData; 
 			
 			if (id == null)
@@ -91,12 +107,15 @@ public class UserController
 				_user.setEmail         (user.getEmail());
 				_user.setPassword      (user.getPassword());
 				
+				Log.logger.info(LogHeader + "Successful");
 				return new ResponseEntity<>(userRepository.save(_user), HttpStatus.OK);
 			} else {
+				Log.logger.info(LogHeader + "The user to update has not been found");
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			}
 			
 		} catch (Exception e) {
+			Log.logger.error(LogHeader + "some error ocurred" + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -105,13 +124,18 @@ public class UserController
 	@ResponseBody
 	public ResponseEntity<HttpStatus> deleteUser(@PathVariable("username") String username)
 	{
+		String LogHeader = "[/users/username: deleteUser] ";
+		
 		try {
+			Log.logger.info(LogHeader + "Requested");
 			User user = userRepository.findByUsername(username).get();
 			
 			userRepository.deleteById(user.getId());
 			
+			Log.logger.info(LogHeader + "Successful");
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
+			Log.logger.error(LogHeader + "some error ocurred" + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -120,11 +144,16 @@ public class UserController
 	@ResponseBody
 	public ResponseEntity<HttpStatus> deleteAllUsers()
 	{
+		String LogHeader = "[/deleteAllUsers: deleteAllUsers] ";
+		
 		try {
+			Log.logger.info(LogHeader + "Requested");
 			userRepository.deleteAll();
 			
+			Log.logger.info(LogHeader + "Successful");
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
+			Log.logger.error(LogHeader + "some error ocurred" + e);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
