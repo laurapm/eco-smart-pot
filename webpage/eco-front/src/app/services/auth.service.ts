@@ -18,12 +18,14 @@ export class AuthService {
 
   login(credentials): Observable<any> {
     return this.http.post(AUTH_API + 'login/', {
-      username: credentials.username,
+      user:     credentials.user,
       password: credentials.password
     }, httpOptions);
   }
 
   register(user): Observable<any> {
+    console.log('the service works too')
+
     return this.http.post(AUTH_API + 'signup/', {
       username:       user.username,
       name:           user.name,

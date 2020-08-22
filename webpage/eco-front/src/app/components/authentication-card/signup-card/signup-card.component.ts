@@ -20,17 +20,46 @@ export class SignupCardComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.form.password === this.form.c_password) {
+      var data = new Object({
+        username:       this.form.username,
+        name:           this.form.name,
+        surname:        this.form.surname,
+        courtesy_title: (<HTMLSelectElement>document.getElementById('title')).value,
+        phone:          this.form.phone,
+        email:          this.form.email,
+        password:       this.form.password
+      });
+
+      this.authService.register(data).subscribe(
+        data => {
+          this.isSignedUp     = true;
+          this.isSignUpFailed = false;
+        },
+        err => {
+          this.errorMessage   = err.message;
+          this.isSignUpFailed = true;
+        }
+      )
+
+    } else {
+      this.errorMessage   = "The passwords do not match!";
+      this.isSignUpFailed = true;
+    }
+
+    /*
+    console.log(this.form);
+
     this.authService.register(this.form).subscribe(
       data => {
-        console.log(data);
-        this.isSignedUp   = true;
+        this.isSignedUp     = true;
         this.isSignUpFailed = false;
       },
       err => {
-        this.errorMessage = err.message;
+        this.errorMessage   = err.message;
         this.isSignUpFailed = true;
       }
-    )
+    )*/
   }
 
 }

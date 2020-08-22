@@ -3,7 +3,7 @@
   <mdb-card>
     <div class="view rgba-white-slight waves-light view overlay zoom" mdbWavesEffect>
       <!-- Card img -->
-      <mdb-card-img src="../../../../assets/login_seed.png" class="img-fluid" alt="Sign Up"></mdb-card-img>
+      <mdb-card-img src="../../../../assets/auth_seed.png" class="img-fluid" alt="Sign Up"></mdb-card-img>
       <a>
         <div class="mask"></div>
       </a>
@@ -15,77 +15,54 @@
         <h4>Sign Up</h4>
       </mdb-card-title>
       <!-- Sign Up Form -->
-      <form *ngIf="!isSignedUp" name="form" (ngSubmit)="f.form.valid && onSubmit()"
-            #f="ngForm" novalidate>
-        <!-- User -->
-        <div>
-          <!-- Courtesy Title -->
-          <div class="col-md-2 md-form" style="display: inline-block;">
-            <select class="browser-default custom-select" id="title">
-              <option value="null" selected>-</option>
-              <option value="Mr.">Mr.</option>
-              <option value="Mrs.">Mrs.</option>
-              <option value="Ms.">Ms.</option>
-              <option value="Dr.">Dr..</option>
-            </select>
-          </div>
-          <!-- Name -->
-          <div class="col-md-5 md-form" style="display: inline-block;">
-            <input mdbInput type="text" class="form-control" name="name"
-                   [(ngModel)]="form.name" required minlength="8" maxlength="32"
-                    #name="ngModel" id="name">
-            <label for="name">Name</label>
-          </div>
-          <!-- Surname -->
-          <div class="col-md-5 md-form" style="display: inline-block;">
-            <input mdbInput type="text" class="form-control" name="surname"
-                   [(ngModel)]="form.surname" required minlength="8" maxlength="32"
-                   #surname="ngModel" id="surname">
-            <label for="surname">Surname(s)</label>
-          </div>
-        </div>
+      <form *ngIf="!isSignedUp" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()"
+            name="signupForm" id="signupForm" novalidate>
+
+        <!-- Courtesy Title -->
+        <select class="browser-default custom-select" form="signupForm" id="title">
+          <option value="null" selected>-</option>
+          <option value="Mr.">Mr.</option>
+          <option value="Mrs.">Mrs.</option>
+          <option value="Ms.">Ms.</option>
+          <option value="Dr.">Dr..</option>
+        </select>
+        <!-- Name -->
+        <input mdbInput type="text" class="form-control" name="name"
+                 [(ngModel)]="form.name" required minlength="4" maxlength="32"
+                 #user="ngModel" id="name">
+        <label for="name">Name</label>
+        <!-- Surname -->
+        <input mdbInput type="text" class="form-control" name="surname"
+                 [(ngModel)]="form.surname" required minlength="4" maxlength="32"
+                 #user="ngModel" id="surname">
+        <label for="surname">Surname</label>
         <!-- Username -->
-        <div class="md-form">
-          <mdb-icon fas icon="user" class="prefix"></mdb-icon>
+        <mdb-icon fas icon="user" class="prefix"></mdb-icon>
           <input mdbInput type="text" class="form-control" name="username"
                  [(ngModel)]="form.username" required minlength="8" maxlength="32"
                  #username="ngModel" id="username">
-          <label for="username">Username</label>
-        </div>
+        <label for="username">Username</label>
         <!-- Phone Number -->
-        <div class="row md-form">
-          <div class="col-md-1">
-            <mdb-icon fas icon="phone" class="prefix"></mdb-icon>
-          </div>
-          <div class="col-md-9">
-            <input ng2TelInput type="tel" class="form-control" name="phone"
-                   [(ngModel)]="form.phone" required minlength="3" maxlength="15"
-                   #phone="ngModel" id="phone">
-          </div>
-        </div>
+        <input ng2TelInput type="tel" class="form-control" name="phone"
+               [(ngModel)]="form.phone" required minlength="3" maxlength="15"
+               #phone="ngModel" id="phone">
         <!-- Email -->
-        <div class="md-form">
-          <mdb-icon fas icon="envelope" class="prefix"></mdb-icon>
-          <input mdbInput type="email" class="form-control" name="email"
-                 [(ngModel)]="form.email" required minlength="5" maxlength="32"
-                 #email="ngModel" id="email">
-          <label for="email">Email</label>
-        </div>
+        <mdb-icon fas icon="envelope" class="prefix"></mdb-icon>
+         <input mdbInput type="email" class="form-control" name="email"
+                [(ngModel)]="form.email" required minlength="5" maxlength="32"
+                #email="ngModel" id="email">
+        <label for="email">Email</label>
         <!-- Password -->
-        <div class="md-form">
-          <mdb-icon fas icon="lock" class="prefix"></mdb-icon>
-          <input mdbInput type="password" class="form-control" name="password"
-                 [(ngModel)]="form.password" required minlength="8" maxlength="32"
-                 #password="ngModel" id="password">
-          <label for="password">Type your password</label>
-        </div>
-	      <div class="md-form">
-          <mdb-icon fas icon="lock" class="prefix"></mdb-icon>
-          <input mdbInput type="password" class="form-control" name="c_password"
+        <mdb-icon fas icon="lock" class="prefix"></mdb-icon>
+        <input mdbInput type="password" class="form-control" name="password"
+               [(ngModel)]="form.password" required minlength="8" maxlength="32"
+               #password="ngModel" id="password">
+        <label for="password">Type your password</label>
+        <mdb-icon fas icon="lock" class="prefix"></mdb-icon>
+        <input mdbInput type="password" class="form-control" name="c_password"
                  [(ngModel)]="form.c_password" required minlength="8" maxlength="32"
                  #c_password="ngModel" id="c_password">
-          <label for="c_password">Confirm your password</label>
-        </div>
+        <label for="c_password">Confirm your password</label>
 
         <!-- Sign Up -->
         <div class="form-group">
@@ -101,18 +78,22 @@
           </button>
         </div>
 
-        <!-- Sign Up not Successful -->
-        <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
-          Signup failed!<br />{{ errorMessage }}
+        <div class="form-group">
+          <div
+            class="alert alert-danger"
+            role="alert"
+            *ngIf="f.submitted && isSignUpFailed"
+          >
+            Signup failed: {{ errorMessage }}
+          </div>
         </div>
       </form>
 
       <div class="alert alert-success" *ngIf="isSignedUp">
-        Signed up.
+        Signed in.
       </div>
 
     </mdb-card-body>
-
   </mdb-card>
   <!-- Card -->
 </div>

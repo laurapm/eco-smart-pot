@@ -33,6 +33,8 @@ public class AuthController
 		
 		try {
 			Log.logger.info(LogHeader + "Requested");
+			Log.logger.info(loginRequest.getUser());
+			Log.logger.info(loginRequest.getPassword());
 			Optional<User> userData = userRepository.findByUsername(loginRequest.getUser());
 			
 			if (!userData.isPresent()) {
@@ -65,9 +67,11 @@ public class AuthController
 	@ResponseBody
 	public ResponseEntity<User> signupUser(@RequestBody User user)
 	{
-		String LogHeader = "[/signupUser: loginUser] ";
+		String LogHeader = "[/signup: signupUser] ";
 		
 		try {
+			Log.logger.info(user.toString());
+			
 			Log.logger.info(LogHeader + "Requested");
 			Optional<User> userData = userRepository.findByEmail(user.getEmail());
 			
