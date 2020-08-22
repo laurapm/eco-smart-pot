@@ -1,10 +1,10 @@
-package com.rainforest.ecowebpage;
+package com.rainforest.eco;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class EcoWebpageApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {

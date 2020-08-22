@@ -1,6 +1,5 @@
 package com.rainforest.eco.controllers;
 
-import java.security.MessageDigest;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rainforest.eco.models.LoginRequest;
 import com.rainforest.eco.models.User;
 import com.rainforest.eco.repositories.UserRepository;
+import com.rainforest.eco.services.Operation;
 
 @Controller
 @EnableAutoConfiguration
@@ -40,7 +40,7 @@ public class AuthController
 			}
 			
 			User _user = userData.get();
-			String password = getSha256(loginRequest.getPassword());
+			String password = Operation.getSha256(loginRequest.getPassword());
 			
 			if(password != _user.getPassword()) {
 				return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
@@ -71,7 +71,7 @@ public class AuthController
 						user.getCourtesy_title(),
 						user.getPhone(),
 						user.getEmail(),
-						getSha256(user.getPassword())
+						Operation.getSha256(user.getPassword())
 					)
 				);
 				
@@ -80,19 +80,6 @@ public class AuthController
 			
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	
-	private String getSha256(String message) {
-		try {
-			MessageDigest digest = MessageDigest.getInstance("SHA-256");
-			byte[] hash = digest.digest(message.getBytes("UTF-8"));
-			
-			String shaKey = String.format("%064x", hash);
-			
-			return shaKey;
-		} catch (Exception e) {
-			return null;
 		}
 	}
 }
