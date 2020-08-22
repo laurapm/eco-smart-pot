@@ -41,7 +41,7 @@ export class LoginCardComponent implements OnInit {
         this.reloadPage();
       },
       err => {
-        this.errorMessage  = err.error.message;
+        this.errorMessage  = err.message;
         this.isLoginFailed = true;
       }
     );

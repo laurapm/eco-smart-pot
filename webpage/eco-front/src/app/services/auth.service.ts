@@ -7,9 +7,6 @@ const AUTH_API = 'http://localhost:8080/api/';
 const httpOptions = {
   headers: new HttpHeaders()
     .set('content-type', 'application/json')
-    //.set('Access-Control-Allow-Origin', '*')
-    //.set('Access-Control-Allow-Headers', 'X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method')
-    //.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
 };
 
 @Injectable({
@@ -27,7 +24,7 @@ export class AuthService {
   }
 
   register(user): Observable<any> {
-    return this.http.post(AUTH_API + 'register/', {
+    return this.http.post(AUTH_API + 'signup/', {
       username:       user.username,
       name:           user.name,
       surname:        user.surname,

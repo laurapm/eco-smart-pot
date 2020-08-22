@@ -1,42 +1,32 @@
-package com.rainforesteco.spring.data.mongodb.controllers;
+package com.rainforest.eco.controllers;
 
 import java.security.MessageDigest;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.rainforesteco.spring.data.mongodb.models.User;
-import com.rainforesteco.spring.data.mongodb.payload.requests.LoginRequest;
-import com.rainforesteco.spring.data.mongodb.repositories.UserRepository;
+import com.rainforest.eco.models.LoginRequest;
+import com.rainforest.eco.models.User;
+import com.rainforest.eco.repositories.UserRepository;
 
-/**
- * REST API Controller for Authentication against eco database in MongoDB.
- * 
- * @author pablo
- * @creationDate 19/08/2020
- *
- */
-@CrossOrigin(
-		origins="http:localhost:8080", 
-		methods={RequestMethod.GET,RequestMethod.POST}
-	)
-@RestController
+@Controller
+@EnableAutoConfiguration
 @RequestMapping("/api")
 public class AuthController 
 {
 	@Autowired
 	UserRepository userRepository;
 	
-	@CrossOrigin
-	@PostMapping("/login")
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	@ResponseBody
 	public ResponseEntity<User> loginUser(@RequestBody LoginRequest loginRequest) {
 		try {
 			Optional<User> userData = userRepository.findByUsername(loginRequest.getUser());
@@ -63,6 +53,36 @@ public class AuthController
 		}
 	}
 	
+	@RequestMapping(value="/signup", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<User> createUser(@RequestBody User user)
+	{
+		try {
+			Optional<User> userData = userRepository.findByEmail(user.getEmail());
+			
+			if (userData.isPresent()) {
+				return new ResponseEntity<>(null, HttpStatus.FOUND);
+			} else {
+				User _user = userRepository.save(
+					new User(
+						user.getUsername(),
+						user.getName(),
+						user.getSurname(),
+						user.getCourtesy_title(),
+						user.getPhone(),
+						user.getEmail(),
+						getSha256(user.getPassword())
+					)
+				);
+				
+				return new ResponseEntity<>(_user, HttpStatus.OK);
+			}
+			
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	private String getSha256(String message) {
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -75,6 +95,4 @@ public class AuthController
 			return null;
 		}
 	}
-	
-	
 }

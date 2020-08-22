@@ -1,4 +1,4 @@
-package com.rainforesteco.spring.data.mongodb.payload.requests;
+package com.rainforest.eco.models;
 
 public class LoginRequest 
 {

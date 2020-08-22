@@ -2,18 +2,25 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
-  <artifactId>eco-webpage</artifactId>
+	
+	<artifactId>eco-webpage</artifactId>
 	<name>eco-webpage</name>
 	<description>Ecø smart pot. A Tamagotchi in real life.</description>
-
+	
 	<parent>
-		<groupId>org.rainforest.eco</groupId>
-		<artifactId>parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.3.3.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	<groupId>com.test</groupId>
+	<version>0.0.1-SNAPSHOT</version>
 
-	<dependencies>				
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
@@ -22,21 +29,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<dependency> <!-- might ask for user and password -->
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -48,60 +41,13 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		
-		<dependency>
-		  <groupId>org.apache.httpcomponents</groupId>
-		  <artifactId>httpclient</artifactId>
-		  <scope>test</scope>
-		</dependency>
-		
-		<dependency>
-		    <groupId>log4j</groupId>
-		    <artifactId>log4j</artifactId>
-		    <version>1.2.17</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		
-		<dependency>
-		  <groupId>io.jsonwebtoken</groupId>
-		  <artifactId>jjwt</artifactId>
-		  <version>0.9.1</version>
-		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
-	        	<artifactId>maven-resources-plugin</artifactId>
-	           	<executions>
-	           		<execution>
-	                	<id>copy-resources</id>
-	                   	<phase>validate</phase>
-	                   	<goals><goal>copy-resources</goal></goals>
-	                   	<configuration>
-	                    	<outputDirectory>${project.build.directory}/classes/resources/</outputDirectory>
-	                       	<resources>
-	                        	<resource>
-	                            	<directory>${project.parent.basedir}/frontend/dist/eco-front/</directory>
-	                           	</resource>
-	                       	</resources>
-	                   	</configuration>
-	               	</execution>
-	           	</executions>
-	       	</plugin>
-			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.19.1</version><!--$NO-MVN-MAN-VER$-->
 			</plugin>
 		</plugins>
 	</build>

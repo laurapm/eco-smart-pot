@@ -1,5 +1,6 @@
-package com.rainforesteco.spring.data.mongodb.models;
+package com.rainforest.eco.models;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -7,7 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User 
 {
 	@Id
-	private String id;
+	private ObjectId id;
+	
 	private String username;
 	private String name;
 	private String surname;
@@ -31,13 +33,26 @@ public class User
 		this.email = email;
 		this.password = password;
 	}
+	
+	public User(ObjectId id, String username, String name, String surname, String courtesy_title, String phone,
+			String email, String password) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.name = name;
+		this.surname = surname;
+		this.courtesy_title = courtesy_title;
+		this.phone = phone;
+		this.email = email;
+		this.password = password;
+	}
 
 	public String getId() {
-		return id;
+		return id.toHexString();
 	}
 	
 	public void setId(String id) {
-		this.id = id;
+		this.id = new ObjectId(id);
 	}
 	
 	public String getUsername() {

@@ -15,7 +15,7 @@
         <h4>Sign Up</h4>
       </mdb-card-title>
       <!-- Sign Up Form -->
-      <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()"
+      <form *ngIf="!isSignedUp" name="form" (ngSubmit)="f.form.valid && onSubmit()"
             #f="ngForm" novalidate>
         <!-- User -->
         <div>
@@ -106,6 +106,10 @@
           Signup failed!<br />{{ errorMessage }}
         </div>
       </form>
+
+      <div class="alert alert-success" *ngIf="isSignedUp">
+        Signed up.
+      </div>
 
     </mdb-card-body>
 

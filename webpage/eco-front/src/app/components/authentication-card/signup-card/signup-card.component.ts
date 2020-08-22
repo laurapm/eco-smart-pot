@@ -10,7 +10,7 @@ import { AuthService } from '../../../services/auth.service';
 export class SignupCardComponent implements OnInit {
 
   form: any = { };
-  isSuccessful   = false;
+  isSignedUp     = false;
   isSignUpFailed = false;
   errorMessage = '';
 
@@ -23,11 +23,11 @@ export class SignupCardComponent implements OnInit {
     this.authService.register(this.form).subscribe(
       data => {
         console.log(data);
-        this.isSuccessful   = true;
+        this.isSignedUp   = true;
         this.isSignUpFailed = false;
       },
       err => {
-        this.errorMessage = err.error.message;
+        this.errorMessage = err.message;
         this.isSignUpFailed = true;
       }
     )
