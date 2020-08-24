@@ -18,7 +18,7 @@ db.plant.insert(
             "commonName": "Kalanchoe",
             "scientificName": "Kalanchoe Blossfeldiana",
             "family": "Asteraceae",
-            "lifesafe_range": [
+            "lifesafeRange": [
                 {
                     "type": "temperature",
                     "min": 10.0,
