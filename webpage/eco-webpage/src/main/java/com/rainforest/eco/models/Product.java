@@ -20,9 +20,9 @@ public class Product
 		this.description = description;
 	}
 
-	public Product(ObjectId id, String name, double price, String description) {
+	public Product(String id, String name, double price, String description) {
 		super();
-		this.id = id;
+		this.id = new ObjectId(id);
 		this.name = name;
 		this.price = price;
 		this.description = description;

@@ -82,23 +82,18 @@ public class UserController
 	
 	@RequestMapping(value="/users", method=RequestMethod.PUT)
 	@ResponseBody
-	public ResponseEntity<User> updateUser(@RequestParam(required=false) String id, @RequestBody User user) 
+	public ResponseEntity<User> updateUser(@RequestBody User user) 
 	{
 		String LogHeader = "[/users: updateUser] ";
 		
 		try {
 			Log.logger.info(LogHeader + "Requested");
-			Optional<User> userData; 
-			
-			if (id == null)
-				userData = userRepository.findById(id);
-			else
-				userData = userRepository.findByUsername(user.getUsername());
-			
+			Optional<User> userData = userRepository.findByUsername(user.getUsername());
 			
 			if (userData.isPresent()) 
 			{
 				User _user = userData.get();
+				_user.setId            (user.getId());
 				_user.setUsername      (user.getUsername());
 				_user.setName          (user.getName());
 				_user.setSurname       (user.getSurname());
@@ -120,17 +115,20 @@ public class UserController
 		}
 	}
 	
-	@RequestMapping(value="/users/{username}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/users/{id}", method=RequestMethod.DELETE)
 	@ResponseBody
-	public ResponseEntity<HttpStatus> deleteUser(@PathVariable("username") String username)
+	public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") String id)
 	{
 		String LogHeader = "[/users/username: deleteUser] ";
 		
 		try {
 			Log.logger.info(LogHeader + "Requested");
-			User user = userRepository.findByUsername(username).get();
+			Optional<User> user = userRepository.findById(id);
 			
-			userRepository.deleteById(user.getId());
+			if (user.isPresent()) {
+				Log.logger.info(LogHeader + "The user \"" + user.get().getUsername() + "\" is going to be deleted");
+				userRepository.deleteById(id);
+			}
 			
 			Log.logger.info(LogHeader + "Successful");
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);

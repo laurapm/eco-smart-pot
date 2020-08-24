@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.rainforest.eco.models.LoginRequest;
 import com.rainforest.eco.models.User;
 import com.rainforest.eco.repositories.UserRepository;
+import com.rainforest.eco.requests.LoginRequest;
 import com.rainforest.eco.services.Log;
 import com.rainforest.eco.services.Operation;
 
@@ -69,9 +69,7 @@ public class AuthController
 	{
 		String LogHeader = "[/signup: signupUser] ";
 		
-		try {
-			Log.logger.info(user.toString());
-			
+		try {			
 			Log.logger.info(LogHeader + "Requested");
 			Optional<User> userData = userRepository.findByEmail(user.getEmail());
 			

@@ -1,4 +1,4 @@
-package com.rainforest.eco.models;
+package com.rainforest.eco.requests;
 
 public class LoginRequest 
 {

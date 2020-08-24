@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="model_version")
-public class Model_version 
+public class ModelVersion 
 {
 	@Id
 	private ObjectId id;
@@ -13,15 +13,15 @@ public class Model_version
 	private String version;
 	private String changes;
 	
-	public Model_version( ) { }
+	public ModelVersion( ) { }
 	
-	public Model_version(String version, String changes) {
+	public ModelVersion(String version, String changes) {
 		super();
 		this.version = version;
 		this.changes = changes;
 	}
 
-	public Model_version(ObjectId id, String version, String changes) {
+	public ModelVersion(ObjectId id, String version, String changes) {
 		super();
 		this.id = id;
 		this.version = version;
