@@ -99,7 +99,7 @@ public class PlantController
 				Log.logger.info(LogHeader + "Successful");
 				return new ResponseEntity<>(plantData.get(), HttpStatus.OK);
 			} else {
-				Log.logger.info(LogHeader + "No plant found with id:" + id);
+				Log.logger.info(LogHeader + "No plant found with id: " + id);
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			}
 			

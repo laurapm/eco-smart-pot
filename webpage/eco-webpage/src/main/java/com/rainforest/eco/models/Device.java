@@ -1,7 +1,6 @@
 package com.rainforest.eco.models;
 
-import java.util.Date;
-
+import org.bson.BsonTimestamp;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,16 +15,26 @@ public class Device
 	private ObjectId owner;
 	private String model;
 	private String firmwareUpdate;
-	private Date registryDate;
+	private BsonTimestamp registryDate;
 	
 	public Device( ) { }
 	
-	public Device(ObjectId id, ObjectId plant, ObjectId owner, String model, String firmwareUpdate,
-			Date registryDate) {
+	public Device(String plant, String owner, String model, String firmwareUpdate,
+			BsonTimestamp registryDate) {
 		super();
-		this.id = id;
-		this.plant = plant;
-		this.owner = owner;
+		this.plant = new ObjectId(plant);
+		this.owner = new ObjectId(owner);
+		this.model = model;
+		this.firmwareUpdate = firmwareUpdate;
+		this.registryDate = registryDate;
+	}
+	
+	public Device(String id, String plant, String owner, String model, String firmwareUpdate,
+			BsonTimestamp registryDate) {
+		super();
+		this.id = new ObjectId(id);
+		this.plant = new ObjectId(plant);
+		this.owner = new ObjectId(owner);
 		this.model = model;
 		this.firmwareUpdate = firmwareUpdate;
 		this.registryDate = registryDate;
@@ -71,11 +80,11 @@ public class Device
 		this.firmwareUpdate = firmwareUpdate;
 	}
 
-	public Date getRegistryDate() {
+	public BsonTimestamp getRegistryDate() {
 		return registryDate;
 	}
 
-	public void setRegistryDate(Date registryDate) {
+	public void setRegistryDate(BsonTimestamp registryDate) {
 		this.registryDate = registryDate;
 	}	
 	

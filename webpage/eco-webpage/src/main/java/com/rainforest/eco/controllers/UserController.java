@@ -70,7 +70,7 @@ public class UserController
 				Log.logger.info(LogHeader + "Successful");
 				return new ResponseEntity<>(userData.get(), HttpStatus.OK);
 			} else {
-				Log.logger.info(LogHeader + "No user found with id:" + id);
+				Log.logger.info(LogHeader + "No user found with id: " + id);
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			}
 			

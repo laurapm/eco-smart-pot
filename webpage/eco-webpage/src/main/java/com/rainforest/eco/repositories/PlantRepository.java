@@ -11,7 +11,7 @@ import com.rainforest.eco.models.Plant;
 @Repository
 public interface PlantRepository extends CrudRepository<Plant, String> 
 {
-	Optional<Plant> findByScientificName(String scientific_name);
+	Optional<Plant> findByScientificName(String scientificName);
 	
 	List<Plant> findByFamily(String family);
 }
