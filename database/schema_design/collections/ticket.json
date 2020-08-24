@@ -1,0 +1,6 @@
+{
+    "_id": "<objectId>",
+    "owner": "<objectId>",
+    "product": [ "<objectId>" ],
+    "date": "<date>"
+}

@@ -1,0 +1,6 @@
+{
+    "_id": "<objectId>",
+    "name": "<string>",
+    "price": "<double>",
+    "description": "<string>"
+}

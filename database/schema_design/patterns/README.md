@@ -52,11 +52,11 @@ identifier in both documents.
 
 ##### Examples
 
-It would be the case of the `owner` and its private information (such as the 
+It would be the case of the `user` and its private information (such as the 
 `phone` or the `email` and `password`). In this case it could be separated the 
 information into separate collections if it would be considered as a high 
 security risk, but it would be as a future enhancement. For now the private 
-and common information from the `owner` are going to be kept together for 
+and common information from the `user` are going to be kept together for 
 simplicity reasons.
 
 Another example would be the case of `plant` and the _safety measures_ (that 
@@ -107,7 +107,7 @@ The cases of **1-to-N** relationships using **reference** are easily observed
 in the schema, as they have a line joining the two collections, indicating the
 _one_ as a strip, and the _many_ side as an inverted arrow:
 
-- `owner` and `device`
+- `user` and `device`
 - `device` and `reminder`
 - `device` and `measurements` (mind _one-to-zillions_)
 - `plant` and `device`
@@ -154,19 +154,23 @@ over time and may profit from duplication.
 
 ###### Reference
 
-Prefer referencing over embedding to avoid managing.
-
+Prefer referencing over embedding to avoid managing. 
 ##### Examples
 
-In this situation, there is no implicit case where an N-to-N relationship 
-appears. The cases where two collections have a _many-to-many_ relationship
-thanks to a common intermediate table can not be considered as such. Some of
-those cases would be:
+The most remarkable case would be `ticket` collection, as a middle collection 
+for `user` and `product`. In this case, it is **referenced** the `_id` of the
+_many_ sides into the middle collection, to avoid overcharging the _many_ 
+collections with non-entirely collection-related data.
 
-- `owner` and `reminder`
-- `owner` and `plant`
-- `owner` and `treatment`
-- `owner` and `measurements`
+There are more no-implicit cases where an N-to-N relationship appears. The 
+cases where two collections have a _many-to-many_ relationship thanks to a 
+common intermediate table can not be considered as such. Some of those cases 
+would be:
+
+- `user` and `reminder`
+- `user` and `plant`
+- `user` and `treatment`
+- `user` and `measurements`
 - `device` and `treatment`
 
 ## Patterns

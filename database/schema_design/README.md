@@ -32,18 +32,11 @@ plant
     "common_name": "<string>",
     "scientific_name": "<string>",
     "family": "<string>",
-    "temperature": {
+    "lifesafe_range": [ {
+        "type": "<string>",
         "min": "<double>",
         "max": "<double>"
-    },
-    "humidity": {
-        "min": "<double>",
-        "max": "<double>"
-    },
-    "luminosity": {
-        "min": "<double>",
-        "max": "<double>"
-    }
+    } ]
 }
 ```
 
@@ -63,7 +56,10 @@ device
 {
     "_id": "<objectId>",
     "plant": "<objectId>",
-    "firmware_update": "<string>"
+    "owner": "<objectId>",
+    "model": "<string>",
+    "firmware_update": "<string>",
+    "registry_date": "<date>"
 }
 ```
 
@@ -182,12 +178,12 @@ The last column of the collection (`NN`) indicates if that key needs to be set.
 }
 ```
 
-## Owner
+## User
 
 The Ecø service users have an account linked to the webpage and the device (in
 case they have one). 
 
-In this collection there is a One-To-Many relationship from `owner` to the 
+In this collection there is a One-To-Many relationship from `user` to the 
 `device` collection. Out of the several available options (_embed_ or 
 _reference_ in the _one_ or in the _many_ side), an array of devices has been 
 referenced in the _one side_. This is usually not the preferred behavior, 
@@ -196,17 +192,51 @@ regarding this design decision refer to the **relationships section** in the
 [patterns documentation](https://github.com/laurapm/UBICUA/tree/master/database/schema_design/patterns/) .
 
 ```json
-owner
+user
 {
     "_id": "<objectId>",
-    "device": ["<objectId>"],
     "username": "<string>",
     "name": "<string>",
     "surname": "<string>",
     "courtesy_title": "<string>",
     "phone": "<string>",
     "email": "<string>",
-    "password": "<string>"
+    "password": "<string>",
+    "role": "<string>"
+}
+```
+
+## Product
+
+In the _rainforest_ store there are several products available (and more will 
+be in the future). To store their information, it is kept a very simple 
+structure of the most basic information.
+
+```json
+product
+{
+    "_id": "<objectId>",
+    "name": "<string>",
+    "price": "<double>",
+    "description": "<string>"
+}
+```
+
+## Ticket
+
+It is a way to simplify a _many-to-many_ relationship between `product` and
+`user`. It does not use the MongoDB standard, but there is a reason behind this
+behaviour. This information could make the size of both the `product` and 
+`user` collections exponentially. To avoid that, it is created a different 
+collection where only the data from the _"transactions"_ is kept.
+
+```json
+ticket
+{
+    "_id": "<objectId>",
+    "owner": "<objectId>",
+    "product": [ "<objectId>" ],
+    "date": "<date>"
 }
 ```
 

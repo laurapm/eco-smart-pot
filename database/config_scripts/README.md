@@ -256,6 +256,14 @@ into the cluster, connect to the replica set and execute:
 load(./database/config_scripts/data.js)
 ```
 
+Include other version changes 
+([products]((https://github.com/laurapm/UBICUA/blob/master/database/config_scripts/product_integration.js)) 
+have been included to the webpage store) with:
+
+```javascript
+load(./database/config_scripts/product_integration.js)
+```
+
 _Disclaimer_: The command has been executed when connecting from the main 
 folder of the repository. To know where you are when being connected, 
 execute `pwd()` in the Mongo Shell. Also, remember to clone this repo, it will
