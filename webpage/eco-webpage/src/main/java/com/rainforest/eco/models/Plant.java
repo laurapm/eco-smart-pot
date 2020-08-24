@@ -6,44 +6,46 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.rainforest.eco.models.documents.MinMax;
+
 @Document(collection="plant")
 public class Plant 
 {
 	@Id
 	private ObjectId id;
 	
-	private String common_name;
-	private String scientific_name;
+	private String commonName;
+	private String scientificName;
 	private String family;
-	private List<Document> lifesafe_range;
+	private List<MinMax> lifesafeRange;
 	
 	public Plant( ) { }
 	
-	public Plant(String common_name, String scientific_name, String family,
-			List<Document> lifesafe_range) {
+	public Plant(String commonName, String scientificName, String family,
+			List<MinMax> lifesafeRange) {
 		super();
-		this.common_name = common_name;
-		this.scientific_name = scientific_name;
+		this.commonName = commonName;
+		this.scientificName = scientificName;
 		this.family = family;
-		this.lifesafe_range = lifesafe_range;
+		this.lifesafeRange = lifesafeRange;
 	}
 	
-	public Plant(String id, String common_name, String scientific_name, String family,
-			List<Document> lifesafe_range) {
+	public Plant(String id, String commonName, String scientificName, String family,
+			List<MinMax> lifesafeRange) {
 		super();
 		this.id = new ObjectId(id);
-		this.common_name = common_name;
-		this.scientific_name = scientific_name;
+		this.commonName = commonName;
+		this.scientificName = scientificName;
 		this.family = family;
-		this.lifesafe_range = lifesafe_range;
+		this.lifesafeRange = lifesafeRange;
 	}
 	
-	public void addLifesafeRange(Document doc) {
-		this.lifesafe_range.add(doc);
+	public void addLifesafeRange(MinMax doc) {
+		this.lifesafeRange.add(doc);
 	}
 	
-	public Document getDocumentLifesafeRange(int index) {
-		return this.lifesafe_range.get(index);
+	public MinMax getDocumentLifesafeRange(int index) {
+		return this.lifesafeRange.get(index);
 	}
 
 	public String getId() {
@@ -55,19 +57,19 @@ public class Plant
 	}
 
 	public String getCommonName() {
-		return common_name;
+		return commonName;
 	}
 
 	public void setCommonName(String commonName) {
-		this.common_name = commonName;
+		this.commonName = commonName;
 	}
 
 	public String getScientificName() {
-		return scientific_name;
+		return scientificName;
 	}
 
 	public void setScientificName(String scientificName) {
-		this.scientific_name = scientificName;
+		this.scientificName = scientificName;
 	}
 
 	public String getFamily() {
@@ -78,12 +80,18 @@ public class Plant
 		this.family = family;
 	}
 
-	public List<Document> getLifesafeRange() {
-		return lifesafe_range;
+	public List<MinMax> getLifesafeRange() {
+		return lifesafeRange;
 	}
 
-	public void setLifesafeRange(List<Document> lifesafe_range) {
-		this.lifesafe_range = lifesafe_range;
+	public void setLifesafeRange(List<MinMax> lifesafeRange) {
+		this.lifesafeRange = lifesafeRange;
+	}
+
+	@Override
+	public String toString() {
+		return "Plant [common_name=" + commonName + ", scientific_name=" + scientificName + ", family="
+				+ family + ", lifesafe_range=" + lifesafeRange + "]";
 	}	
 	
 }

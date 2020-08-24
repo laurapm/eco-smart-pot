@@ -20,7 +20,7 @@ public class Treatment
 	private BasicDBList action; // It contains the fields:
 								// String perform
 								// BSON params
-	private Date request_time;
-	private Date action_time;
+	private Date requestTime;
+	private Date actionTime;
 	private String comment;
 }

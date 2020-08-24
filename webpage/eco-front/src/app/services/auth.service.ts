@@ -30,7 +30,6 @@ export class AuthService {
       username:       user.username,
       name:           user.name,
       surname:        user.surname,
-      courtesy_title: user.title,
       phone:          user.phone,
       email:          user.email,
       password:       user.password

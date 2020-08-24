@@ -13,7 +13,6 @@ public class User
 	private String username;
 	private String name;
 	private String surname;
-	private String courtesy_title;
 	private String phone;
 	private String email;
 	private String password;
@@ -22,26 +21,24 @@ public class User
 		
 	}
 	
-	public User(String username, String name, String surname, String courtesy_title, String phone,
+	public User(String username, String name, String surname, String phone,
 			String email, String password) {
 		super();
 		this.username = username;
 		this.name = name;
 		this.surname = surname;
-		this.courtesy_title = courtesy_title;
 		this.phone = phone;
 		this.email = email;
 		this.password = password;
 	}
 	
-	public User(ObjectId id, String username, String name, String surname, String courtesy_title, String phone,
+	public User(ObjectId id, String username, String name, String surname, String phone,
 			String email, String password) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.name = name;
 		this.surname = surname;
-		this.courtesy_title = courtesy_title;
 		this.phone = phone;
 		this.email = email;
 		this.password = password;
@@ -79,14 +76,6 @@ public class User
 		this.surname = surname;
 	}
 	
-	public String getCourtesy_title() {
-		return courtesy_title;
-	}
-	
-	public void setCourtesy_title(String courtesy_title) {
-		this.courtesy_title = courtesy_title;
-	}
-	
 	public String getPhone() {
 		return phone;
 	}
@@ -114,7 +103,7 @@ public class User
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", name=" + name + ", surname=" + surname
-				+ ", courtesy_title=" + courtesy_title + ", phone=" + phone + ", email=" + email + ", password="
+				+ ", phone=" + phone + ", email=" + email + ", password="
 				+ password + "]";
 	}
 	

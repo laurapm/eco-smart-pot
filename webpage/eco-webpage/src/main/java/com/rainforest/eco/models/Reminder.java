@@ -17,13 +17,13 @@ public class Reminder
 	private String message;
 	private boolean repeat;
 	private double period;
-	private Date last_reminded; 
-	private Date final_repetition;
+	private Date lastReminded; 
+	private Date finalRepetition;
 	
 	public Reminder( ) { }
 
 	public Reminder(ObjectId id, ObjectId device, String title, String message, boolean repeat, double period,
-			Date last_reminded, Date final_repetition) {
+			Date lastReminded, Date finalRepetition) {
 		super();
 		this.id = id;
 		this.device = device;
@@ -31,8 +31,8 @@ public class Reminder
 		this.message = message;
 		this.repeat = repeat;
 		this.period = period;
-		this.last_reminded = last_reminded;
-		this.final_repetition = final_repetition;
+		this.lastReminded = lastReminded;
+		this.finalRepetition = finalRepetition;
 	}
 
 	public String getId() {
@@ -83,20 +83,20 @@ public class Reminder
 		this.period = period;
 	}
 
-	public Date getLast_reminded() {
-		return last_reminded;
+	public Date getLastReminded() {
+		return lastReminded;
 	}
 
-	public void setLast_reminded(Date last_reminded) {
-		this.last_reminded = last_reminded;
+	public void setLastReminded(Date lastReminded) {
+		this.lastReminded = lastReminded;
 	}
 
-	public Date getFinal_repetition() {
-		return final_repetition;
+	public Date getFinalRepetition() {
+		return finalRepetition;
 	}
 
-	public void setFinal_repetition(Date final_repetition) {
-		this.final_repetition = final_repetition;
+	public void setFinalRepetition(Date finalRepetition) {
+		this.finalRepetition = finalRepetition;
 	}	
 	
 }

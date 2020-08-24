@@ -88,7 +88,7 @@ public class UserController
 		
 		try {
 			Log.logger.info(LogHeader + "Requested");
-			Optional<User> userData = userRepository.findByUsername(user.getUsername());
+			Optional<User> userData = userRepository.findById(user.getId());
 			
 			if (userData.isPresent()) 
 			{
@@ -97,7 +97,6 @@ public class UserController
 				_user.setUsername      (user.getUsername());
 				_user.setName          (user.getName());
 				_user.setSurname       (user.getSurname());
-				_user.setCourtesy_title(user.getCourtesy_title());
 				_user.setPhone         (user.getPhone());
 				_user.setEmail         (user.getEmail());
 				_user.setPassword      (user.getPassword());
@@ -119,7 +118,7 @@ public class UserController
 	@ResponseBody
 	public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") String id)
 	{
-		String LogHeader = "[/users/username: deleteUser] ";
+		String LogHeader = "[/users/id: deleteUser] ";
 		
 		try {
 			Log.logger.info(LogHeader + "Requested");
@@ -138,7 +137,7 @@ public class UserController
 		}
 	}
 	
-	@RequestMapping(value="/users/", method=RequestMethod.DELETE)
+	@RequestMapping(value="/users", method=RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity<HttpStatus> deleteAllUsers()
 	{

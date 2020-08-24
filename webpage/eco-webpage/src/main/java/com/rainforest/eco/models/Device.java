@@ -15,20 +15,20 @@ public class Device
 	private ObjectId plant;
 	private ObjectId owner;
 	private String model;
-	private String firmware_update;
-	private Date registry_date;
+	private String firmwareUpdate;
+	private Date registryDate;
 	
 	public Device( ) { }
 	
-	public Device(ObjectId id, ObjectId plant, ObjectId owner, String model, String firmware_update,
-			Date registry_date) {
+	public Device(ObjectId id, ObjectId plant, ObjectId owner, String model, String firmwareUpdate,
+			Date registryDate) {
 		super();
 		this.id = id;
 		this.plant = plant;
 		this.owner = owner;
 		this.model = model;
-		this.firmware_update = firmware_update;
-		this.registry_date = registry_date;
+		this.firmwareUpdate = firmwareUpdate;
+		this.registryDate = registryDate;
 	}
 
 	public String getId() {
@@ -63,20 +63,20 @@ public class Device
 		this.model = model;
 	}
 
-	public String getFirmware_update() {
-		return firmware_update;
+	public String getFirmwareUpdate() {
+		return firmwareUpdate;
 	}
 
-	public void setFirmware_update(String firmware_update) {
-		this.firmware_update = firmware_update;
+	public void setFirmwareUpdate(String firmwareUpdate) {
+		this.firmwareUpdate = firmwareUpdate;
 	}
 
-	public Date getRegistry_date() {
-		return registry_date;
+	public Date getRegistryDate() {
+		return registryDate;
 	}
 
-	public void setRegistry_date(Date registry_date) {
-		this.registry_date = registry_date;
+	public void setRegistryDate(Date registryDate) {
+		this.registryDate = registryDate;
 	}	
 	
 }

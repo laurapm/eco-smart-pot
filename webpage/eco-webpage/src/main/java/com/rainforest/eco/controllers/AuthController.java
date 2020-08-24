@@ -82,7 +82,6 @@ public class AuthController
 						user.getUsername(),
 						user.getName(),
 						user.getSurname(),
-						user.getCourtesy_title(),
 						user.getPhone(),
 						user.getEmail(),
 						Operation.getSha256(user.getPassword())

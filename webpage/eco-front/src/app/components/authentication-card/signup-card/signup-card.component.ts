@@ -25,7 +25,6 @@ export class SignupCardComponent implements OnInit {
         username:       this.form.username,
         name:           this.form.name,
         surname:        this.form.surname,
-        courtesy_title: (<HTMLSelectElement>document.getElementById('title')).value,
         phone:          this.form.phone,
         email:          this.form.email,
         password:       this.form.password

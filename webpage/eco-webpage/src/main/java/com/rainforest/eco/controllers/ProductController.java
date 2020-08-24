@@ -191,7 +191,7 @@ public class ProductController
 		
 		try {
 			Log.logger.info(LogHeader + "Requested");
-			Optional<Product> productData = productRepository.findByName(product.getName());
+			Optional<Product> productData = productRepository.findById(product.getId());
 			
 			if (productData.isPresent()) 
 			{
@@ -218,7 +218,7 @@ public class ProductController
 	@ResponseBody
 	public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("id") String id)
 	{
-		String LogHeader = "[/products/name: deleteProduct] ";
+		String LogHeader = "[/products/id: deleteProduct] ";
 		
 		try {
 			Log.logger.info(LogHeader + "Requested");
@@ -241,7 +241,7 @@ public class ProductController
 	@ResponseBody
 	public ResponseEntity<HttpStatus> deleteAllProducts()
 	{
-		String LogHeader = "[/deleteAllProducts: deleteAllProducts] ";
+		String LogHeader = "[/products: deleteAllProducts] ";
 		
 		try {
 			Log.logger.info(LogHeader + "Requested");
