@@ -8,7 +8,7 @@
         "perform": "<string>",
         "params": "<object>"
     },
-    "request_time": "<date>",
-    "action_time": "<date>",
+    "requestTime": "<date>",
+    "actionTime": "<date>",
     "comment": "<string>"
 }

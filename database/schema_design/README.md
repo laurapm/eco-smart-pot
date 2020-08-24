@@ -29,10 +29,10 @@ The collection used goes as follows:
 plant
 {
     "_id": "<objectId>",
-    "common_name": "<string>",
-    "scientific_name": "<string>",
+    "commonName": "<string>",
+    "scientificName": "<string>",
     "family": "<string>",
-    "lifesafe_range": [ {
+    "lifesafeRange": [ {
         "type": "<string>",
         "min": "<double>",
         "max": "<double>"
@@ -58,8 +58,8 @@ device
     "plant": "<objectId>",
     "owner": "<objectId>",
     "model": "<string>",
-    "firmware_update": "<string>",
-    "registry_date": "<date>"
+    "firmwareUpdate": "<string>",
+    "registryDate": "<date>"
 }
 ```
 
@@ -87,22 +87,22 @@ measurements
     "device": "<objectId>",
     "date": "<date>",
     "hour": "<int>",
-    "humidity_int": [{
+    "humidityInt": [{
         "minute": "<int>",
         "measure": {
             "watered": "<bool>",
             "value": ["<int>"]
         }
     }],
-    "humidity_ext": [{
+    "humidityExt": [{
         "minute": "<int>",
         "measure": "<double>"
     }],
-    "luminosity_ext": [{
+    "luminosityExt": [{
         "minute": "<int>",
         "measure": "<int>"
     }],
-    "temperature_ext": [{
+    "temperatureExt": [{
         "minute": "<int>",
         "measure": "<double>"
     }]
@@ -141,8 +141,8 @@ treatment
         "perform": "<string>",
         "params": ["<undefined>"]
     },
-    "request_time": "<timestamp>",
-    "action_time": "<timestamp>",
+    "requestTime": "<date>",
+    "actionTime": "<date>",
     "comment": "<string>"
 }
 ```
@@ -170,11 +170,8 @@ The last column of the collection (`NN`) indicates if that key needs to be set.
     "message": "<string>",
     "repeat": "<bool>",
     "period": "<double>",
-    "last_reminded": "<timestamp>",
-    "final_repetition": { "or": [
-        "<timestamp>" , 
-        "<int>"
-    ]}
+    "lastReminded": "<date>",
+    "finalRepetition": "<date>"
 }
 ```
 
@@ -198,7 +195,6 @@ user
     "username": "<string>",
     "name": "<string>",
     "surname": "<string>",
-    "courtesy_title": "<string>",
     "phone": "<string>",
     "email": "<string>",
     "password": "<string>",
