@@ -1,19 +1,14 @@
 package com.rainforest.eco.controllers;
 
-import static com.mongodb.client.model.Aggregates.match;
-import static com.mongodb.client.model.Filters.and;
-import static com.mongodb.client.model.Filters.gte;
-import static com.mongodb.client.model.Filters.lte;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import org.bson.Document;
-import org.bson.conversions.Bson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,9 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
-import com.rainforest.eco.config.MongoConfig;
 import com.rainforest.eco.models.Product;
 import com.rainforest.eco.repositories.ProductRepository;
 import com.rainforest.eco.requests.PriceRequest;
@@ -38,6 +30,9 @@ public class ProductController
 {
 	@Autowired
 	ProductRepository productRepository;
+	
+	@Autowired
+	MongoTemplate mongoTemplate;
 	
 	@RequestMapping(value="/products", method=RequestMethod.POST)
 	@ResponseBody
@@ -153,22 +148,10 @@ public class ProductController
 		
 		try {
 			Log.logger.info(LogHeader + "Requested");
-			List<Product> products = new ArrayList<Product>();
 			
-			MongoCollection<Document> collection = MongoConfig.getCollection("product");
-			List<Bson> pipeline = Arrays.asList(match(and(gte("price", priceRequest.getMinPrice()), lte("price", priceRequest.getMaxPrice()))));
-			MongoCursor<Document> iterator = collection.aggregate(pipeline).iterator(); 
-			while (iterator.hasNext()) {
-				Document next = iterator.next();
-				products.add(
-					new Product(
-						next.getString("_id"),
-						next.getString("name"),
-						next.getDouble("price"),
-						next.getString("description")
-					)
-				);
-			}		
+			Query query = new Query();
+			query.addCriteria(Criteria.where("price").lte(priceRequest.getMaxPrice()).gte(priceRequest.getMinPrice()));
+			List<Product> products = mongoTemplate.find(query, Product.class);
 			
 			if (!products.isEmpty()) {
 				Log.logger.info(LogHeader + "Successful");

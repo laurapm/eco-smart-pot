@@ -39,24 +39,32 @@ public class UserController
 			Log.logger.info(LogHeader + "Requested");
 			Optional<User> userData = userRepository.findByEmail(user.getEmail());
 			
+			// Email in use
 			if (userData.isPresent()) {
 				Log.logger.info(LogHeader + "Email is already being used");
 				return new ResponseEntity<>(null, HttpStatus.FOUND);
-			} else {
-				User _user = userRepository.save(
-					new User(
-						user.getUsername(),
-						user.getName(),
-						user.getSurname(),
-						user.getPhone(),
-						user.getEmail(),
-						Operation.getSha256(user.getPassword())
-					)
-				);
-				
-				Log.logger.info(LogHeader + "Successful");
-				return new ResponseEntity<>(_user, HttpStatus.OK);
+			} 
+			
+			// Username in use
+			userData = userRepository.findByUsername(user.getUsername());
+			if (userData.isPresent()) {
+				Log.logger.info(LogHeader + "Username is already being used");
+				return new ResponseEntity<>(null, HttpStatus.FOUND);
 			}
+			
+			User _user = userRepository.save(
+				new User(
+					user.getUsername(),
+					user.getName(),
+					user.getSurname(),
+					user.getPhone(),
+					user.getEmail(),
+					Operation.getSha256(user.getPassword())
+				)
+			);
+				
+			Log.logger.info(LogHeader + "Successful");
+			return new ResponseEntity<>(_user, HttpStatus.OK);
 			
 		} catch (Exception e) {
 			Log.logger.error(LogHeader + "some error ocurred: " + e);

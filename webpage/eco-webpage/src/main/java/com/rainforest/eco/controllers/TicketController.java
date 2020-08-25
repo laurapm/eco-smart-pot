@@ -59,7 +59,7 @@ public class TicketController
 	
 	@RequestMapping(value="/tickets", method=RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<List<Ticket>> getAllTickets() 
+	public ResponseEntity<List<Ticket>> getAllTickets()
 	{
 		String LogHeader = "[/tickets: getAllTickets] ";
 		

@@ -38,9 +38,9 @@ public class DeviceController
 		
 		try {
 			Log.logger.info(LogHeader + "Requested");
-			int currentTime = (int) (System.currentTimeMillis() / 1000L);
-			
-			Device _device = deviceRepository.save(
+	
+			int currentTime = (int) (System.currentTimeMillis() / 1000L);		
+			Device _device  = deviceRepository.save(
 				new Device(
 					device.getPlant(),
 					device.getOwner(),

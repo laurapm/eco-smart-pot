@@ -1352,6 +1352,36 @@
 			"name": "user",
 			"item": [
 				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"test\",\r\n    \"name\": \"my\",\r\n    \"surname\": \"ice cream\",\r\n    \"courtesy_title\": \"suck\",\r\n    \"phone\": \"666666666\",\r\n    \"email\": \"something@emial.co\",\r\n    \"password\": \"youprick\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "Create a new user"
+					},
+					"response": []
+				},
+				{
 					"name": "Get All Users",
 					"request": {
 						"method": "GET",
@@ -1427,7 +1457,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/users/5f41abd356058a3c9f2bb9a5",
+							"raw": "http://localhost:8080/api/users/5f45423bf3d8ca64e71c748a",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1436,7 +1466,7 @@
 							"path": [
 								"api",
 								"users",
-								"5f41abd356058a3c9f2bb9a5"
+								"5f45423bf3d8ca64e71c748a"
 							]
 						}
 					},
