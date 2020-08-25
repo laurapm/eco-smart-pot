@@ -1,9 +1,9 @@
 {
     "_id": "<objectId>",
-    "common_name": "<string>",
-    "scientific_name": "<string>",
+    "commonName": "<string>",
+    "scientificName": "<string>",
     "family": "<string>",
-    "lifesafe_range": [ {
+    "lifesafeRange": [ {
         "type": "<string>",
         "min": "<double>",
         "max": "<double>"

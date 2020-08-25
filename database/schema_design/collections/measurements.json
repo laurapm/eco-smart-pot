@@ -4,22 +4,22 @@
     "device": "<objectId>",
     "date": "<date>",
     "hour": "<int>",
-    "humidity_int": [{
+    "humidityInt": [{
         "minute": "<int>",
         "measure": {
             "watered": "<bool>",
             "value": ["<int>"]
         }
     }],
-    "humidity_ext": [{
+    "humidityExt": [{
         "minute": "<int>",
         "measure": "<double>"
     }],
-    "luminosity_ext": [{
+    "luminosityExt": [{
         "minute": "<int>",
         "measure": "<int>"
     }],
-    "temperature_ext": [{
+    "temperatureExt": [{
         "minute": "<int>",
         "measure": "<double>"
     }]
