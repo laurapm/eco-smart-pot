@@ -139,7 +139,12 @@ treatment
     "title": "<string>",
     "action": {
         "perform": "<string>",
-        "params": ["<undefined>"]
+        "params": [
+            {
+                "key": "<string>",
+                "value": "<string>"
+            }
+        ]
     },
     "requestTime": "<date>",
     "actionTime": "<date>",
