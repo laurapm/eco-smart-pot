@@ -264,6 +264,174 @@
 			"protocolProfileBehavior": {}
 		},
 		{
+			"name": "measurements",
+			"item": [
+				{
+					"name": "Create Measurements",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"plant\": \"5f43d6dd48e46bd6a9972626\",\r\n    \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n    \"date\": 1545264000,\r\n    \"hour\": 1,\r\n    \"humidityInt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": {\r\n                \"watered\": false,\r\n                \"value\": [ 50 ]\r\n            }\r\n        },\r\n        {\r\n            \"minute\": 5,\r\n            \"measure\": {\r\n                \"watered\": false,\r\n                \"value\": [ 45 ]\r\n            }\r\n        }\r\n    ],\r\n    \"humidityExt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 21.0\r\n        },\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 21.3\r\n        }\r\n    ],\r\n    \"luminosityExt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 70\r\n        },\r\n        {\r\n            \"minute\": 5,\r\n            \"measure\": 75\r\n        }\r\n    ],\r\n    \"temperatureExt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 19.7\r\n        },\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 20.1\r\n        }\r\n    ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/measurements",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"measurements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Measurements",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/measurements",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"measurements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Measurements By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/measurements/5f453ab9f3d8ca64e71c7471",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"measurements",
+								"5f453ab9f3d8ca64e71c7471"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Measurements",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"5f453ab9f3d8ca64e71c7471\",\r\n    \"plant\": \"5f43d6dd48e46bd6a9972626\",\r\n    \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n    \"date\": 1545264000,\r\n    \"hour\": 1,\r\n    \"humidityInt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": {\r\n                \"watered\": false,\r\n                \"value\": [\r\n                    50\r\n                ]\r\n            }\r\n        },\r\n        {\r\n            \"minute\": 5,\r\n            \"measure\": {\r\n                \"watered\": false,\r\n                \"value\": [\r\n                    45\r\n                ]\r\n            }\r\n        }\r\n    ],\r\n    \"humidityExt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 21.0\r\n        },\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 21.3\r\n        }\r\n    ],\r\n    \"luminosityExt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 70\r\n        },\r\n        {\r\n            \"minute\": 5,\r\n            \"measure\": 75\r\n        }\r\n    ],\r\n    \"temperatureExt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 20.0\r\n        },\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 20.1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/measurements",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"measurements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Measurements",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/measurements/5f453ab9f3d8ca64e71c7471",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"measurements",
+								"5f453ab9f3d8ca64e71c7471"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete All Measurements",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/measurements",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"measurements"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "61fa1779-9cb4-49ff-92a5-3fa7785dbaac",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "571ce72d-3d56-4f9c-874f-3603f4eb060f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "plant",
 			"item": [
 				{
@@ -606,6 +774,196 @@
 						}
 					},
 					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "reminder",
+			"item": [
+				{
+					"name": "Create Reminder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n    \"title\": \"scheduled\",\r\n    \"message\": \"irrigation\",\r\n    \"repeat\": true,\r\n    \"period\": 1.0,\r\n    \"lastReminded\": 1545264000,\r\n    \"finalRepetition\": 1545265000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/reminders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reminders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Reminders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/reminders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reminders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reminder By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/reminders/5f44f982f3d8ca64e71c7431",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reminders",
+								"5f44f982f3d8ca64e71c7431"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reminder By Title",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/reminders/titled/scheduled",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reminders",
+								"titled",
+								"scheduled"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Reminder",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": \"5f44fab2f3d8ca64e71c7434\",\r\n        \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n        \"title\": \"scheduled\",\r\n        \"message\": \"Water your plant, or it will die\",\r\n        \"repeat\": true,\r\n        \"period\": 1.0,\r\n        \"lastReminded\": 1545264000,\r\n        \"finalRepetition\": 1545266000\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/reminders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reminders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Reminder",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/reminders/5f44f982f3d8ca64e71c7431",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reminders",
+								"5f44f982f3d8ca64e71c7431"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete All Reminders",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/reminders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reminders"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4f097579-fb2e-4940-9292-c840cea33ac9",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd8f361f-2d92-4733-ac36-456e19df8b34",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			],
 			"protocolProfileBehavior": {}

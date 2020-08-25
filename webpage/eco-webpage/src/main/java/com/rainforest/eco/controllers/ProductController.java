@@ -110,7 +110,7 @@ public class ProductController
 				Log.logger.info(LogHeader + "Successful");
 				return new ResponseEntity<>(productData.get(), HttpStatus.OK);
 			} else {
-				Log.logger.info(LogHeader + "No product found with id:" + id);
+				Log.logger.info(LogHeader + "No product found with id: " + id);
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			}
 			
@@ -237,7 +237,7 @@ public class ProductController
 		}
 	}
 	
-	@RequestMapping(value="/products/", method=RequestMethod.DELETE)
+	@RequestMapping(value="/products", method=RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity<HttpStatus> deleteAllProducts()
 	{

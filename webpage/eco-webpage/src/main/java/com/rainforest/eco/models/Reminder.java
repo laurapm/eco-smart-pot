@@ -21,12 +21,24 @@ public class Reminder
 	private Date finalRepetition;
 	
 	public Reminder( ) { }
-
-	public Reminder(ObjectId id, ObjectId device, String title, String message, boolean repeat, double period,
+	
+	public Reminder(String device, String title, String message, boolean repeat, double period,
 			Date lastReminded, Date finalRepetition) {
 		super();
-		this.id = id;
-		this.device = device;
+		this.device = new ObjectId(device);
+		this.title = title;
+		this.message = message;
+		this.repeat = repeat;
+		this.period = period;
+		this.lastReminded = lastReminded;
+		this.finalRepetition = finalRepetition;
+	}
+
+	public Reminder(String id, String device, String title, String message, boolean repeat, double period,
+			Date lastReminded, Date finalRepetition) {
+		super();
+		this.id = new ObjectId(id);
+		this.device = new ObjectId(device);
 		this.title = title;
 		this.message = message;
 		this.repeat = repeat;

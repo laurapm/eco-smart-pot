@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/api")
-public class FunnyRepository 
+public class FunnyController 
 {
 	@RequestMapping(value="/hello", method=RequestMethod.GET)
 	@ResponseBody
