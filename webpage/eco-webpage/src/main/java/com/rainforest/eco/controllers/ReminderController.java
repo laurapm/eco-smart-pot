@@ -52,7 +52,7 @@ public class ReminderController
 			return new ResponseEntity<>(_product, HttpStatus.OK);
 			
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -77,7 +77,7 @@ public class ReminderController
 			Log.logger.info(LogHeader + "Successful");
 			return new ResponseEntity<>(reminders, HttpStatus.OK);
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -101,7 +101,7 @@ public class ReminderController
 			}
 			
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -125,7 +125,7 @@ public class ReminderController
 			}
 			
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -160,7 +160,7 @@ public class ReminderController
 			}
 			
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -183,7 +183,7 @@ public class ReminderController
 			Log.logger.info(LogHeader + "Successful");
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -201,7 +201,7 @@ public class ReminderController
 			Log.logger.info(LogHeader + "Successful");
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

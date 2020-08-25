@@ -52,7 +52,7 @@ public class MeasurementsController
 			return new ResponseEntity<>(_measurements, HttpStatus.OK);
 			
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -77,7 +77,7 @@ public class MeasurementsController
 			Log.logger.info(LogHeader + "Successful");
 			return new ResponseEntity<>(measurements, HttpStatus.OK);
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -101,7 +101,7 @@ public class MeasurementsController
 			}
 			
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -137,7 +137,7 @@ public class MeasurementsController
 			}
 			
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -160,7 +160,7 @@ public class MeasurementsController
 			Log.logger.info(LogHeader + "Successful");
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -177,7 +177,7 @@ public class MeasurementsController
 			Log.logger.info(LogHeader + "Successful");
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

@@ -56,7 +56,7 @@ public class TreatmentController
 			
 			
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -81,7 +81,7 @@ public class TreatmentController
 			Log.logger.info(LogHeader + "Successful");
 			return new ResponseEntity<>(treatments, HttpStatus.OK);
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -105,7 +105,7 @@ public class TreatmentController
 			}
 			
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -129,7 +129,7 @@ public class TreatmentController
 			}
 			
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -164,7 +164,7 @@ public class TreatmentController
 			}
 			
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -187,7 +187,7 @@ public class TreatmentController
 			Log.logger.info(LogHeader + "Successful");
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -205,7 +205,7 @@ public class TreatmentController
 			Log.logger.info(LogHeader + "Successful");
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

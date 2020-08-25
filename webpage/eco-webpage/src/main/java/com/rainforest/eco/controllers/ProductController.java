@@ -66,7 +66,7 @@ public class ProductController
 			}
 			
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -91,7 +91,7 @@ public class ProductController
 			Log.logger.info(LogHeader + "Successful");
 			return new ResponseEntity<>(products, HttpStatus.OK);
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -115,7 +115,7 @@ public class ProductController
 			}
 			
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -139,7 +139,7 @@ public class ProductController
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -178,7 +178,7 @@ public class ProductController
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -209,7 +209,7 @@ public class ProductController
 			}
 			
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -232,7 +232,7 @@ public class ProductController
 			Log.logger.info(LogHeader + "Successful");
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -250,7 +250,7 @@ public class ProductController
 			Log.logger.info(LogHeader + "Successful");
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rainforest.eco.models.User;
 import com.rainforest.eco.repositories.UserRepository;
 import com.rainforest.eco.services.Log;
+import com.rainforest.eco.services.Operation;
 
 @Controller
 @EnableAutoConfiguration
@@ -27,6 +28,41 @@ public class UserController
 {
 	@Autowired
 	UserRepository userRepository;
+	
+	@RequestMapping(value="/users", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<User> createUser(@RequestBody User user)
+	{
+		String LogHeader = "[/users: createUser] ";
+		
+		try {
+			Log.logger.info(LogHeader + "Requested");
+			Optional<User> userData = userRepository.findByEmail(user.getEmail());
+			
+			if (userData.isPresent()) {
+				Log.logger.info(LogHeader + "Email is already being used");
+				return new ResponseEntity<>(null, HttpStatus.FOUND);
+			} else {
+				User _user = userRepository.save(
+					new User(
+						user.getUsername(),
+						user.getName(),
+						user.getSurname(),
+						user.getPhone(),
+						user.getEmail(),
+						Operation.getSha256(user.getPassword())
+					)
+				);
+				
+				Log.logger.info(LogHeader + "Successful");
+				return new ResponseEntity<>(_user, HttpStatus.OK);
+			}
+			
+		} catch (Exception e) {
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	
 	@RequestMapping(value="/users", method=RequestMethod.GET)
 	@ResponseBody
@@ -51,7 +87,7 @@ public class UserController
 			Log.logger.info(LogHeader + "Successful");
 			return new ResponseEntity<>(users, HttpStatus.OK);
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -75,7 +111,7 @@ public class UserController
 			}
 			
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -109,7 +145,7 @@ public class UserController
 			}
 			
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -132,7 +168,7 @@ public class UserController
 			Log.logger.info(LogHeader + "Successful");
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -150,7 +186,7 @@ public class UserController
 			Log.logger.info(LogHeader + "Successful");
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred" + e);
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
