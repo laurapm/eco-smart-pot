@@ -7,6 +7,9 @@ import java.util.Optional;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rainforest.eco.models.Treatment;
 import com.rainforest.eco.repositories.TreatmentRepository;
+import com.rainforest.eco.requests.DayRequest;
 import com.rainforest.eco.services.Log;
 
 @Controller
@@ -28,11 +32,14 @@ public class TreatmentController
 	@Autowired
 	TreatmentRepository treatmentRepository;
 	
+	@Autowired
+	MongoTemplate mongoTemplate;
+	
 	@RequestMapping(value="/treatments", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Treatment> createTreatment(@RequestBody Treatment treatment)
 	{
-		String LogHeader = "[/product: createTreatment] ";
+		String LogHeader = "[/treatments: createTreatment] ";
 		
 		try {
 			Log.logger.info(LogHeader + "Requested");
@@ -125,6 +132,34 @@ public class TreatmentController
 				return new ResponseEntity<>(treatments, HttpStatus.OK);
 			} else {
 				Log.logger.info(LogHeader + "No treatments found with for device: " + device);
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			}
+			
+		} catch (Exception e) {
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@RequestMapping(value="/treatments/programmed", method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<List<Treatment>> getTreatmentsProgrammedNextDay(@RequestBody DayRequest today)
+	{
+		String LogHeader = "[/treatments/programmed: getTreatmentsProgrammedNextDay] ";
+		
+		try {
+			Log.logger.info(LogHeader + "Requested");
+			
+			Query query = new Query();
+			query.addCriteria(Criteria.where("device").is(new ObjectId(today.getDevice())));
+			query.addCriteria(Criteria.where("actionTime").gte(today.getToday()).lte(today.getTomorrow()));
+			List<Treatment> treatments = mongoTemplate.find(query, Treatment.class);
+			
+			if (!treatments.isEmpty()) {
+				Log.logger.info(LogHeader + "Successful");
+				return new ResponseEntity<>(treatments, HttpStatus.OK);
+			} else {
+				Log.logger.info(LogHeader + "No treatments found for date: " + today.getToday());
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			}
 			

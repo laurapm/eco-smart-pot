@@ -273,7 +273,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"plant\": \"5f43d6dd48e46bd6a9972626\",\r\n    \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n    \"date\": 1545264000,\r\n    \"hour\": 1,\r\n    \"humidityInt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": {\r\n                \"watered\": false,\r\n                \"value\": [ 50 ]\r\n            }\r\n        },\r\n        {\r\n            \"minute\": 5,\r\n            \"measure\": {\r\n                \"watered\": false,\r\n                \"value\": [ 45 ]\r\n            }\r\n        }\r\n    ],\r\n    \"humidityExt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 21.0\r\n        },\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 21.3\r\n        }\r\n    ],\r\n    \"luminosityExt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 70\r\n        },\r\n        {\r\n            \"minute\": 5,\r\n            \"measure\": 75\r\n        }\r\n    ],\r\n    \"temperatureExt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 19.7\r\n        },\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 20.1\r\n        }\r\n    ]\r\n}\r\n",
+							"raw": "{\r\n    \"plant\": \"5f43d6dd48e46bd6a9972626\",\r\n    \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n    \"date\": 1598515200000,\r\n    \"hour\": 1,\r\n    \"humidityInt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": {\r\n                \"watered\": false,\r\n                \"value\": [ 50 ]\r\n            }\r\n        },\r\n        {\r\n            \"minute\": 5,\r\n            \"measure\": {\r\n                \"watered\": false,\r\n                \"value\": [ 45 ]\r\n            }\r\n        }\r\n    ],\r\n    \"humidityExt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 21.0\r\n        },\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 21.3\r\n        }\r\n    ],\r\n    \"luminosityExt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 70\r\n        },\r\n        {\r\n            \"minute\": 5,\r\n            \"measure\": 75\r\n        }\r\n    ],\r\n    \"temperatureExt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 19.7\r\n        },\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 20.1\r\n        }\r\n    ]\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -331,6 +331,72 @@
 								"api",
 								"measurements",
 								"5f453ab9f3d8ca64e71c7471"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Measurements After Date",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n    \"today\": 1598342400000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/measurements/after",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"measurements",
+								"after"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Measurements Between Dates",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n    \"minDate\": 1598342400000,\r\n    \"maxDate\": 1598774400000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/measurements/between",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"measurements",
+								"between"
 							]
 						}
 					},
@@ -788,7 +854,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n    \"title\": \"scheduled\",\r\n    \"message\": \"irrigation\",\r\n    \"repeat\": true,\r\n    \"period\": 1.0,\r\n    \"lastReminded\": 1545264000,\r\n    \"finalRepetition\": 1545265000\r\n}",
+							"raw": "{\r\n    \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n    \"title\": \"scheduled\",\r\n    \"message\": \"irrigation\",\r\n    \"requestTime\": 1545264000,\r\n    \"remindingTime\": 1545265000\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -852,7 +918,7 @@
 					"response": []
 				},
 				{
-					"name": "Get Reminder By Title",
+					"name": "Get Reminders By Title",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -874,13 +940,46 @@
 					"response": []
 				},
 				{
+					"name": "Get Reminders Programmed",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n    \"today\": 1598454000000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/reminders/programmed",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reminders",
+								"programmed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Update Reminder",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"id\": \"5f44fab2f3d8ca64e71c7434\",\r\n        \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n        \"title\": \"scheduled\",\r\n        \"message\": \"Water your plant, or it will die\",\r\n        \"repeat\": true,\r\n        \"period\": 1.0,\r\n        \"lastReminded\": 1545264000,\r\n        \"finalRepetition\": 1545266000\r\n    }",
+							"raw": "{\r\n        \"id\": \"5f44fab2f3d8ca64e71c7434\",\r\n        \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n        \"title\": \"scheduled\",\r\n        \"message\": \"Water your plant, or it will die\",\r\n        \"requestTime\": 1545264000,\r\n        \"remindingTime\": 1545266000\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -978,7 +1077,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"owner\": \"5f3184bfede1e7f42f37c629\",\r\n    \"item\": [\r\n        {\r\n            \"product\": \"5f43d70848e46bd6a9972631\",\r\n            \"quantity\": 100\r\n        }\r\n    ],\r\n    \"date\": 1598281480073\r\n}\r\n",
+							"raw": "{\r\n    \"owner\": \"5f3184bfede1e7f42f37c629\",\r\n    \"item\": [\r\n        {\r\n            \"product\": \"5f43d70848e46bd6a9972631\",\r\n            \"quantity\": 100,\r\n            \"price\": 0.0\r\n        }\r\n    ],\r\n    \"date\": 1598281480073\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1070,7 +1169,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"5f440283c9699b72f3b98e28\",\r\n    \"owner\": \"5f3184bfede1e7f42f37c629\",\r\n    \"item\": [\r\n        {\r\n            \"product\": \"5f43d70848e46bd6a9972631\",\r\n            \"quantity\": 500\r\n        }\r\n    ],\r\n    \"date\": 1598292611135\r\n}\r\n",
+							"raw": "{\r\n    \"id\": \"5f43d70848e46bd6a9972639\",\r\n    \"owner\": \"5f3184bfede1e7f42f37c629\",\r\n    \"item\": [\r\n        {\r\n            \"product\": \"5f43d70848e46bd6a9972631\",\r\n            \"quantity\": 5,\r\n            \"price\": 0.0\r\n        },\r\n        {\r\n            \"product\": \"5f43d70848e46bd6a9972632\",\r\n            \"quantity\": 1,\r\n            \"price\": 60.0\r\n        }\r\n    ],\r\n    \"date\": 1598281480073\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1168,7 +1267,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": " {\r\n    \"id\": \"5f43d6dd48e46bd6a997262d\",\r\n    \"plant\": \"5f43d6dd48e46bd6a9972626\",\r\n    \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n    \"type\": \"scheduled\",\r\n    \"title\": \"irrigation\",\r\n    \"action\": [\r\n        {\r\n            \"perform\": \"watering\",\r\n            \"params\": [\r\n                {\r\n                    \"value\": \"1 s\",\r\n                    \"key\": \"time\"\r\n                },\r\n                {\r\n                    \"value\": \"min\",\r\n                    \"key\": \"flow\"\r\n                }\r\n            ]\r\n        }\r\n    ],\r\n    \"requestTime\": 0,\r\n    \"actionTime\": 0,\r\n    \"comment\": \"Water the plant due to low pot humidity.\"\r\n}\r\n",
+							"raw": " {\r\n    \"plant\": \"5f43d6dd48e46bd6a9972626\",\r\n    \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n    \"type\": \"scheduled\",\r\n    \"title\": \"irrigation\",\r\n    \"action\": [\r\n        {\r\n            \"perform\": \"watering\",\r\n            \"params\": [\r\n                {\r\n                    \"value\": \"1 s\",\r\n                    \"key\": \"time\"\r\n                },\r\n                {\r\n                    \"value\": \"min\",\r\n                    \"key\": \"flow\"\r\n                }\r\n            ]\r\n        }\r\n    ],\r\n    \"requestTime\": 1598461200000,\r\n    \"actionTime\": 1598515200000,\r\n    \"comment\": \"Water the plant due to low pot humidity.\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1248,6 +1347,39 @@
 								"treatments",
 								"device",
 								"5f43d6dd48e46bd6a9972628"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Treatments Programmed",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n    \"today\": 1598454000000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/treatments/programmed",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"treatments",
+								"programmed"
 							]
 						}
 					},
@@ -1457,7 +1589,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/users/5f45423bf3d8ca64e71c748a",
+							"raw": "http://localhost:8080/api/users/5f454265f3d8ca64e71c748b",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1466,7 +1598,7 @@
 							"path": [
 								"api",
 								"users",
-								"5f45423bf3d8ca64e71c748a"
+								"5f454265f3d8ca64e71c748b"
 							]
 						}
 					},

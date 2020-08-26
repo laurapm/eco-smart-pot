@@ -18,28 +18,28 @@ back-end could be use by different application. For example, different web
 application or phone application - iOS, Android, Windows Phone, etc. but use 
 the same back-end.
 
-## Front-end
+As expected, the **front-end** will contain the UI, the part of the project 
+where the user can interact, make requests, look at the information 
+displayed, etc. It also contains a small part of logic. This logic os just the
+necessary to give access to certain pages, or to manipulate the data obtained
+from a back-end call - the front part of the RESTful API.
 
-How to create frontend.
-
-Download node, ng, etc.
-
-## Back-end
-
-How to create backend.
-
-Download Java, Spring initilizer, etc.
-
-# Architecture
+The **back-end** includes the main logic of the program, and the database where
+data is stored. To connect both, the back-end part of the RESTful API handles 
+the requests from the front, retrieves the data and manipulates it. It also 
+counts with threads for analytical purposes.
 
 These two projects are independent one another. In order for them to interact, 
 the `.jar` created out of the front-end project must be inserted into the 
 back-end project. In order to do so, Maven comes in handy.
 
-### DIY
+# DIY
 
-0. You should follow before the steps to create the Back-end and Front-end 
-projects.
+0. You should follow before the steps to create the 
+[Back-end](https://github.com/laurapm/UBICUA/tree/master/webpage/eco-webpage) 
+and 
+[Front-end](https://github.com/laurapm/UBICUA/tree/master/webpage/eco-front) 
+projects. 
 1. Duplicate the `pom.xml` from the back-end folder to the parent folder. That 
    is, the folder containing both sub-projects.
 2. That file must contain:

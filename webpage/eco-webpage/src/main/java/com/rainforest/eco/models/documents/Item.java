@@ -6,13 +6,15 @@ public class Item
 {
 	private ObjectId product;
 	private int quantity;
+	private double price;
 	
 	public Item( ) { }
 	
-	public Item(String product, int quantity) {
+	public Item(String product, int quantity, double price) {
 		super();
 		this.product = new ObjectId(product);
 		this.quantity = quantity;
+		this.price = price;
 	}
 
 	public String getProduct() {
@@ -29,6 +31,14 @@ public class Item
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
 	}	
 	
 }

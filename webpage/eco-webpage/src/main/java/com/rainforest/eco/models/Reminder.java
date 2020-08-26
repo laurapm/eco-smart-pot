@@ -15,23 +15,18 @@ public class Reminder
 	private ObjectId device;
 	private String title;
 	private String message;
-	private boolean repeat;
-	private double period;
-	private Date lastReminded; 
-	private Date finalRepetition;
+	private Date requestTime; 
+	private Date remindingTime;
 	
 	public Reminder( ) { }
 	
-	public Reminder(String device, String title, String message, boolean repeat, double period,
-			Date lastReminded, Date finalRepetition) {
+	public Reminder(String device, String title, String message, Date requestTime, Date remindingTime) {
 		super();
 		this.device = new ObjectId(device);
 		this.title = title;
 		this.message = message;
-		this.repeat = repeat;
-		this.period = period;
-		this.lastReminded = lastReminded;
-		this.finalRepetition = finalRepetition;
+		this.requestTime = requestTime;
+		this.remindingTime = remindingTime;
 	}
 
 	public Reminder(String id, String device, String title, String message, boolean repeat, double period,
@@ -41,10 +36,8 @@ public class Reminder
 		this.device = new ObjectId(device);
 		this.title = title;
 		this.message = message;
-		this.repeat = repeat;
-		this.period = period;
-		this.lastReminded = lastReminded;
-		this.finalRepetition = finalRepetition;
+		this.requestTime = lastReminded;
+		this.remindingTime = finalRepetition;
 	}
 
 	public String getId() {
@@ -79,36 +72,20 @@ public class Reminder
 		this.message = message;
 	}
 
-	public boolean isRepeat() {
-		return repeat;
+	public Date getRequestTime() {
+		return requestTime;
 	}
 
-	public void setRepeat(boolean repeat) {
-		this.repeat = repeat;
+	public void setRequestTime(Date requestTime) {
+		this.requestTime = requestTime;
 	}
 
-	public double getPeriod() {
-		return period;
+	public Date getRemindingTime() {
+		return remindingTime;
 	}
 
-	public void setPeriod(double period) {
-		this.period = period;
+	public void setRemindingTime(Date remindingTime) {
+		this.remindingTime = remindingTime;
 	}
-
-	public Date getLastReminded() {
-		return lastReminded;
-	}
-
-	public void setLastReminded(Date lastReminded) {
-		this.lastReminded = lastReminded;
-	}
-
-	public Date getFinalRepetition() {
-		return finalRepetition;
-	}
-
-	public void setFinalRepetition(Date finalRepetition) {
-		this.finalRepetition = finalRepetition;
-	}	
 	
 }

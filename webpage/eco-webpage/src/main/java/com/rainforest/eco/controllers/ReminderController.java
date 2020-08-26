@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rainforest.eco.models.Reminder;
 import com.rainforest.eco.repositories.ReminderRepository;
+import com.rainforest.eco.requests.DayRequest;
 import com.rainforest.eco.services.Log;
 
 @Controller
@@ -26,6 +31,9 @@ public class ReminderController
 {
 	@Autowired
 	ReminderRepository reminderRepository;
+	
+	@Autowired
+	MongoTemplate mongoTemplate;
 	
 	@RequestMapping(value="/reminders", method=RequestMethod.POST)
 	@ResponseBody
@@ -41,10 +49,8 @@ public class ReminderController
 					reminder.getDevice(),
 					reminder.getTitle().replace(' ', '-'),
 					reminder.getMessage(),
-					reminder.isRepeat(),
-					reminder.getPeriod(),
-					reminder.getLastReminded(),
-					reminder.getFinalRepetition()
+					reminder.getRequestTime(),
+					reminder.getRemindingTime()
 				)
 			);
 				
@@ -114,13 +120,41 @@ public class ReminderController
 		
 		try {
 			Log.logger.info(LogHeader + "Requested");
-			List<Reminder> productData = reminderRepository.findByTitle(title);
+			List<Reminder> reminderData = reminderRepository.findByTitle(title);
 			
-			if (!productData.isEmpty()) {
+			if (!reminderData.isEmpty()) {
 				Log.logger.info(LogHeader + "Successful");
-				return new ResponseEntity<>(productData, HttpStatus.OK);
+				return new ResponseEntity<>(reminderData, HttpStatus.OK);
 			} else {
 				Log.logger.info(LogHeader + "No reminder found with title: " + title);
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			}
+			
+		} catch (Exception e) {
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@RequestMapping(value="/reminders/programmed", method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<List<Reminder>> getReminderProgrammedNextDay(@RequestBody DayRequest today)
+	{
+		String LogHeader = "[/reminders/programmed: getReminderProgrammedNextDay] ";
+		
+		try {
+			Log.logger.info(LogHeader + "Requested");
+			
+			Query query = new Query();
+			query.addCriteria(Criteria.where("device").is(new ObjectId(today.getDevice())));
+			query.addCriteria(Criteria.where("remindingTime").gte(today.getToday()).lte(today.getTomorrow()));
+			List<Reminder> reminders = mongoTemplate.find(query, Reminder.class);
+			
+			if (!reminders.isEmpty()) {
+				Log.logger.info(LogHeader + "Successful");
+				return new ResponseEntity<>(reminders, HttpStatus.OK);
+			} else {
+				Log.logger.info(LogHeader + "No reminders found for date: " + today.getToday());
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			}
 			
@@ -143,14 +177,12 @@ public class ReminderController
 			if (reminderData.isPresent()) 
 			{
 				Reminder _reminder = reminderData.get();
-				_reminder.setId             (reminder.getId());
-				_reminder.setDevice         (reminder.getDevice());
-				_reminder.setTitle          (reminder.getTitle());
-				_reminder.setMessage        (reminder.getMessage());
-				_reminder.setRepeat         (reminder.isRepeat());
-				_reminder.setPeriod         (reminder.getPeriod());
-				_reminder.setLastReminded   (reminder.getLastReminded());
-				_reminder.setFinalRepetition(reminder.getFinalRepetition());
+				_reminder.setId           (reminder.getId());
+				_reminder.setDevice       (reminder.getDevice());
+				_reminder.setTitle        (reminder.getTitle());
+				_reminder.setMessage      (reminder.getMessage());
+				_reminder.setRequestTime  (reminder.getRequestTime());
+				_reminder.setRemindingTime(reminder.getRemindingTime());
 				
 				Log.logger.info(LogHeader + "Successful");
 				return new ResponseEntity<>(reminderRepository.save(_reminder), HttpStatus.OK);

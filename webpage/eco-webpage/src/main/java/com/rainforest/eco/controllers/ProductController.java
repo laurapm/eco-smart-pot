@@ -115,31 +115,6 @@ public class ProductController
 		}
 	}
 	
-	/*
-	@RequestMapping(value="/products/", method=RequestMethod.GET)
-	@ResponseBody
-	ResponseEntity<Product> getProductByName(@RequestBody String name)
-	{
-		String LogHeader = "[/products: getProductByName] ";
-		
-		try {
-			Log.logger.info(LogHeader + "Requested");
-			Optional<Product> productData = productRepository.findByName(name);
-			
-			if (productData.isPresent()) {
-				Log.logger.info(LogHeader + "Successful");
-				return new ResponseEntity<>(productData.get(), HttpStatus.OK);
-			} else {
-				Log.logger.info(LogHeader + "No product found with name:" + name);
-				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-			}
-		} catch (Exception e) {
-			Log.logger.error(LogHeader + "some error ocurred: " + e);
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	*/
-	
 	@RequestMapping(value="/prices", method=RequestMethod.GET)
 	@ResponseBody
 	ResponseEntity<List<Product>> getProductBetweenPrices(@RequestBody PriceRequest priceRequest) 

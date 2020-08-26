@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.rainforest.eco.models.Measurements;
 import com.rainforest.eco.repositories.MeasurementsRepository;
+import com.rainforest.eco.requests.BetweenDatesRequest;
+import com.rainforest.eco.requests.DayRequest;
 import com.rainforest.eco.services.Log;
 
 @Controller
@@ -25,6 +31,9 @@ public class MeasurementsController
 {
 	@Autowired
 	MeasurementsRepository measurementsRepository;
+	
+	@Autowired
+	MongoTemplate mongoTemplate;
 	
 	@RequestMapping(value="/measurements", method=RequestMethod.POST)
 	@ResponseBody
@@ -97,6 +106,62 @@ public class MeasurementsController
 				return new ResponseEntity<>(measurementsData.get(), HttpStatus.OK);
 			} else {
 				Log.logger.info(LogHeader + "No measurements found with id: " + id);
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			}
+			
+		} catch (Exception e) {
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@RequestMapping(value="/measurements/after", method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<List<Measurements>> getMeasurementsAfterDate(@RequestBody DayRequest date)
+	{
+		String LogHeader = "[/measurements/from: getMeasurementsAfterDate] ";
+		
+		try {
+			Log.logger.info(LogHeader + "Requested");
+			
+			Query query = new Query();
+			query.addCriteria(Criteria.where("device").is(new ObjectId(date.getDevice())));
+			query.addCriteria(Criteria.where("date").gte(date.getToday()));
+			List<Measurements> measurements = mongoTemplate.find(query, Measurements.class);
+			
+			if (!measurements.isEmpty()) {
+				Log.logger.info(LogHeader + "Successful");
+				return new ResponseEntity<>(measurements, HttpStatus.OK);
+			} else {
+				Log.logger.info(LogHeader + "No measures found after date: " + date.getToday());
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			}
+			
+		} catch (Exception e) {
+			Log.logger.error(LogHeader + "some error ocurred: " + e);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@RequestMapping(value="/measurements/between", method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<List<Measurements>> getMeasurementsBetweenDates(@RequestBody BetweenDatesRequest date)
+	{
+		String LogHeader = "[/measurements/between: getMeasurementsAfterDate] ";
+		
+		try {
+			Log.logger.info(LogHeader + "Requested");
+			
+			Query query = new Query();
+			query.addCriteria(Criteria.where("device").is(new ObjectId(date.getDevice())));
+			query.addCriteria(Criteria.where("date").gte(date.getMinDate()).lte(date.getMaxDate()));
+			List<Measurements> measurements = mongoTemplate.find(query, Measurements.class);
+			
+			if (!measurements.isEmpty()) {
+				Log.logger.info(LogHeader + "Successful");
+				return new ResponseEntity<>(measurements, HttpStatus.OK);
+			} else {
+				Log.logger.info(LogHeader + "No measures found between the dates: " + date.getMinDate() + " and " + date.getMaxDate());
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			}
 			
