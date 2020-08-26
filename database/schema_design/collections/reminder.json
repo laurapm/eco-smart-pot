@@ -3,8 +3,6 @@
     "device": "<objectId>",
     "title": "<string>",
     "message": "<string>",
-    "repeat": "<bool>",
-    "period": "<double>",
-    "lastReminded": "<date>",
-    "finalRepetition": "<date>"
+    "requestTime": "<date>",
+    "remindingTime": "<date>"
 }

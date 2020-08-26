@@ -1,6 +1,12 @@
 {
     "_id": "<objectId>",
     "owner": "<objectId>",
-    "product": [ "<objectId>" ],
+    "product": [ 
+        {
+            "item": "<objectId>",
+            "quantity": "<int>",
+            "priceUnit": "<double>"
+        }
+     ],
     "date": "<date>"
 }

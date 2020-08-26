@@ -9,17 +9,9 @@ db = db.getSiblingDB('eco')
 
 db.owner.renameCollection('user')
 
-db.user.update(
-    {},
-    { $set: { "role": "user" } },
-    false,
-    true
-)
-
 db.model_version.insert(
     [
         { version: "0.3.1", date: new Date(), changes: "OWNER is now USER collection."},
-        { version: "0.3.2", date: new Date(), changes: "Added field USER.ROLE. Update USER documents to fit new field."},
     ],
     { "ordered": true }
 )
@@ -76,7 +68,8 @@ db.ticket.insert(
             "item": [
                 {
                     "product": aprobado_id,
-                    "quantity": 2
+                    "quantity": 2,
+                    "priceUnit": 0
                 }
             ],
             "date": new Date()
@@ -86,7 +79,8 @@ db.ticket.insert(
             "item": [
                 {
                     "product": aprobado_id,
-                    "quantity": 1
+                    "quantity": 1,
+                    "priceUnit": 0
                 }
             ],
             "date": new Date()
@@ -96,11 +90,13 @@ db.ticket.insert(
             "item": [
                 {
                     "product": aprobado_id,
-                    "quantity": 5
+                    "quantity": 5,
+                    "priceUnit": 0
                 },
                 {
                     "product": eco_id,
-                    "quantity": 1
+                    "quantity": 1,
+                    "priceUnit": 60.0
                 }
             ],
             "date": new Date()
@@ -111,13 +107,11 @@ db.ticket.insert(
 
 db.model_version.insert(
     [
-        { version: "0.3.1", date: new Date(), changes: "OWNER is now USER collection. Also added field ROLE."},
-        { version: "0.3.2", date: new Date(), changes: "Update USER documents to fit new field."},
         { version: "0.4", date: new Date(), changes: "Include PRODUCT and TICKET collections."},
         { version: "0.4.1", date: new Date(), changes: "TICKET.DATE field added."},
         { version: "0.4.2", date: new Date(), changes: "Bug fixes. Incorrect data type for PRODUCT.DESCRIPTION"},
-        { version: "0.4.3", date: new Date(), changes: "Sub-document for items in TICKET.{ITEM, QUANTITY}."},
-        { version: "0.4.1", date: new Date(), changes: "Bug fixes. Incorrect data type for PRODUCT.DESCRIPTION"}
+        { version: "0.4.3", date: new Date(), changes: "Sub-document for items in TICKET.{ITEM, QUANTITY, PRICEUNIT}."},
+        { version: "0.4.4", date: new Date(), changes: "Other Bug fixes. REMINDER now has the same time fields as TREATMENT"}
     ],
     { "ordered": true }
 )

@@ -168,15 +168,14 @@ easily understood by taking into a look at the
 The last column of the collection (`NN`) indicates if that key needs to be set.
 
 ```json
+reminder
 {
     "_id": "<objectId>",
     "device": "<objectId>",
     "title": "<string>",
     "message": "<string>",
-    "repeat": "<bool>",
-    "period": "<double>",
-    "lastReminded": "<date>",
-    "finalRepetition": "<date>"
+    "requestTime": "<date>",
+    "remindingTime": "<date>"
 }
 ```
 
@@ -235,7 +234,13 @@ ticket
 {
     "_id": "<objectId>",
     "owner": "<objectId>",
-    "product": [ "<objectId>" ],
+    "product": [ 
+        {
+            "item": "<objectId>",
+            "quantity": "<int>",
+            "priceUnit": "<double>"
+        }
+     ],
     "date": "<date>"
 }
 ```
