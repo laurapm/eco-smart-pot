@@ -202,8 +202,7 @@ user
     "surname": "<string>",
     "phone": "<string>",
     "email": "<string>",
-    "password": "<string>",
-    "role": "<string>"
+    "password": "<string>"
 }
 ```
 
