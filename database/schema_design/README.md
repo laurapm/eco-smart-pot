@@ -139,7 +139,12 @@ treatment
     "title": "<string>",
     "action": {
         "perform": "<string>",
-        "params": ["<undefined>"]
+        "params": [
+            {
+                "key": "<string>",
+                "value": "<string>"
+            }
+        ]
     },
     "requestTime": "<date>",
     "actionTime": "<date>",
@@ -197,8 +202,7 @@ user
     "surname": "<string>",
     "phone": "<string>",
     "email": "<string>",
-    "password": "<string>",
-    "role": "<string>"
+    "password": "<string>"
 }
 ```
 

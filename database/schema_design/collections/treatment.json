@@ -4,10 +4,15 @@
     "device": "<objectId>",
     "type": "<string>",
     "title": "<string>",
-    "action": {
+    "action": [ {
         "perform": "<string>",
-        "params": "<object>"
-    },
+        "params": [
+            {
+                "key": "<string>",
+                "value": "<string>"
+            }
+        ]
+    } ],
     "requestTime": "<date>",
     "actionTime": "<date>",
     "comment": "<string>"

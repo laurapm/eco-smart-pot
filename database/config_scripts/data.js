@@ -106,10 +106,16 @@ db.treatment.insert(
             "action": [
                 {
                     "perform": "watering",
-                    "params": {
-                        "time": "5 s",
-                        "flow": "min" // can be: min, max, percentage or a number
-                    }
+                    "params": [ 
+                        {
+                            "k": "time",
+                            "v": "5 s"
+                        },
+                        {
+                            "k": "flow",
+                            "v": "min" // can be: min, max, percentage or a number
+                        }
+                    ]
                 }
             ],
             "requestTime": new Date("<2020-08-06T12:00:00Z>"), // Z means UTC time
