@@ -1,0 +1,16 @@
+{
+  "name": "connectdb",
+  "version": "1.0.0",
+  "description": "This script has the intention to connect the Arduino to a MOngoDB in order to store the data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pablo Acereda García y Laura Pérez Medeiro",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "serialport": "^9.0.1",
+    "socket.io": "^2.3.0"
+  }
+}
