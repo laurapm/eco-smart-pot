@@ -12,6 +12,12 @@ public class DayRequest
 
 	public DayRequest( ) {	}
 	
+	public DayRequest(Date today) {
+		super();
+		this.device = null;
+		this.today = today;
+	}
+	
 	public DayRequest(String device, Date today) {
 		super();
 		this.device = new ObjectId(device);
@@ -38,7 +44,24 @@ public class DayRequest
 	public Date getTomorrow() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(this.today);
-		calendar.add(calendar.DATE, 1);
+		calendar.add(Calendar.DATE, 1);
+		
+		return calendar.getTime();
+	}
+	
+	@SuppressWarnings("static-access")
+	public Date getYestarday() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(this.today);
+		calendar.add(Calendar.DATE, -1);
+		
+		return calendar.getTime();
+	}
+	
+	public Date getHoursBack(int hours) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(this.today);
+		calendar.add(Calendar.HOUR, -hours);
 		
 		return calendar.getTime();
 	}

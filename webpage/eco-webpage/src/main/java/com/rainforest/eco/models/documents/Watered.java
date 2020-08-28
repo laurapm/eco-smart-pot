@@ -31,4 +31,9 @@ public class Watered
 		this.value = value;
 	}	
 	
+	public int getLastValue() {
+		int lastIndex = value.size() - 1;
+		return value.get(lastIndex);
+	}
+	
 }

@@ -1,5 +1,6 @@
 package com.rainforest.eco.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -125,6 +126,67 @@ public class Measurements
 
 	public void setTemperatureExt(List<MeasureDecimal> temperatureExt) {
 		this.temperatureExt = temperatureExt;
+	}
+	
+	public MeasureVariant getLastHumidityInt() {
+		int lastIndex = this.humidityInt.size() - 1;
+		return this.humidityInt.get(lastIndex);
+	}
+	
+	public MeasureDecimal getLastHumidityExt() {
+		int lastIndex = this.humidityExt.size() - 1;
+		return this.humidityExt.get(lastIndex);
+	}
+	
+	public MeasureInteger getLastLuminosityExt() {
+		int lastIndex = this.luminosityExt.size() - 1;
+		return this.luminosityExt.get(lastIndex);
+	}
+	
+	public MeasureDecimal getLastTemperatureExt() {
+		int lastIndex = this.temperatureExt.size() - 1;
+		return this.temperatureExt.get(lastIndex);
+	}
+	
+	public List<Double> getLastNTemperatureExt(int n) {
+		// Store temperature
+		List<Double> temperatures = new ArrayList<Double>();
+		
+		int size = this.temperatureExt.size();
+		// Enough elements stored
+		if (size >= n) {
+			for (int i = 0; i < n; i++) {
+				temperatures.add(this.temperatureExt.get(size - 1 - i).getMeasure());
+			}
+			
+			return temperatures;
+		} else {
+			return null;
+		}
+	}
+	
+	public List<Integer> getLastNHumidityInt(int n) {
+		// Store temperature
+		List<Integer> humidities = new ArrayList<Integer>();
+		
+		int size = this.humidityInt.size();
+		// Enough elements stored
+		if (size >= n) {
+			for (int i = 0; i < n; i++) {
+				humidities.add(this.humidityInt.get(size - 1 - i).getMeasure().getLastValue());
+			}
+			
+			return humidities;
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "Measurements [id=" + id + ", plant=" + plant + ", device=" + device + ", date=" + date + ", hour="
+				+ hour + ", humidityInt=" + humidityInt + ", humidityExt=" + humidityExt + ", luminosityExt="
+				+ luminosityExt + ", temperatureExt=" + temperatureExt + "]";
 	}
 	
 }
