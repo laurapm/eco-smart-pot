@@ -67,8 +67,11 @@ we have prepared for you.
 
 ## Device
 
-Why we used what we used.
+At the first moment, the team decided to use an ESP32 for the project due to it is a low-power system which integrated WiFi and dual-mode Bluetooth. Especially useful tools for the idea we wanted to develop in this project.
 
+But for some technical problems, we had to leave the idea (the ESP are not useful anymore owning to short-circuit in the COM port). So we have to pivot and remake code to use an Arduino UNO as it was the handy device.
+ 
+For further information, check out this [documentation](https://github.com/laurapm/UBICUA/tree/master/device).
 ## Front-end
 
 As it has been mentioned before, MongoDB was a decision made out of what was
