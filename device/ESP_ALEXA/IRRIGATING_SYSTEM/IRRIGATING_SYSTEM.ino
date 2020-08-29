@@ -82,7 +82,6 @@ void loop()
   client.loop();
   // In case MQTT is closed, it starts the service.
   checkMqtt();
- 
 }
 
 /* ------------------------ */
