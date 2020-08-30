@@ -63,6 +63,7 @@ void addItem(double item);
 void trimR();
 void resize(size_t _capacity);
 void removeTail();
+void clearArrayValues();
 
 double getExtHumidity();
 double getExtTemp();
@@ -75,25 +76,46 @@ void setup()
   Serial.begin(9600);         // Serial Port with frecuency
   pinMode(waterPump, OUTPUT); // Waterpump
   dht.begin();                // DHT
-  createList(30);
+  createList(5);
+
+  Serial.println("Init values \n");
+
 
   takeHumidity();
-  Serial.println("Init values \n");
+  takeExternalData();
+  takeAmLigth();
+  
+  Serial.print("INTERNAL HUM: ");
+  Serial.println(intHumidity);
+  Serial.println("EXTERNAL HUM: ");
+  Serial.println(extHumidity);
+  Serial.println("LUM: ");
+  Serial.println(luminosity);
+  Serial.println("TEM: ");
+  Serial.println(extTemp);
+  Serial.println("----Array-----");
+
+  for ( int i = 0; i < 5; i++){
+    Serial.println(arrayHumidity[i]);
+  }
+  Serial.println("---");
+  
+  
   createJSON();
 
   // Warning!: Check you are using the correct library for Simple Timer
-  //  extTimer.setInterval(60000,      takeExternalData);
- humTimer.setInterval(timeControl, takeHumidity);
- // ligth.setInterval   (60000,      takeAmLigth);
-
+  extTimer.setInterval(60000,      takeExternalData);
+  humTimer.setInterval(timeControl, takeHumidity);
+  ligth.setInterval   (60000,      takeAmLigth);
   json.setInterval    (30000,      createJSON);  
+
 }
 
 void loop() 
 {
-  //extTimer.run();
+  extTimer.run();
   humTimer.run();
-  //ligth.run();
+  ligth.run();
   json.run();
 }
 
@@ -148,16 +170,16 @@ void createJSON()
 {
   // Define memory pool for JSON object tree
 
-  Serial.print("JSON TIME: ");
-  Serial.println(timeControl);
+ // Serial.print("JSON TIME: ");
+ // Serial.println(timeControl);
 
-    StaticJsonDocument<200> doc1, doc2;
+    StaticJsonDocument<480> doc1, doc2;
     
     doc1["_id"]="1";
     doc1["_plant"]="ficus";
-    doc1["device"]="arduino";
-    doc1["date"]= "hoy";
-    doc1["hour"]="ahora";
+    doc1["device"]="Arduino UNO";
+    doc1["date"]= "30/08/2020";
+    doc1["hour"]="0";
         
     // JsonArray array = doc2.to<JsonArray>();
     JsonArray datos = doc2.createNestedArray("humidityInt");
@@ -167,8 +189,10 @@ void createJSON()
     measure["watered"]=irrigate;
     // measure["value"]=intHumidity;
     JsonArray value = measure.createNestedArray("value");
-    
-    value.add(arrayHumidity[0]);
+
+    for (int i=0; i < sizeof(arrayHumidity); i++){
+      value.add(arrayHumidity[i]);
+    }
     
 
    JsonArray datosExt = doc2.createNestedArray("humidityExt");
@@ -190,16 +214,15 @@ void createJSON()
     
    serializeJsonPretty(doc1, Serial);
 
-   Serial.println("-------------");
-    for(int i=0; i < sizeof(intHumidity); i++){
-      int valor = arrayHumidity[i];
-      Serial.println(valor);
-    }
-    for(int i=0; i < sizeof(intHumidity); i++){
-      value.add(arrayHumidity[i]);
-      removeTail();
-      trimR();
-    }
+   //Serial.println("-------------");
+   clearArrayValues();
+}
+
+void clearArrayValues()
+{
+  for (int i = 0; i < sizeof(arrayHumidity); i++){
+    removeTail();
+  }
 }
 
 double getExtHumidity()
@@ -208,9 +231,9 @@ double getExtHumidity()
 
   // Check if the read failed and exit early (to try again).
   if (isnan(humidity) ) {
-    // Serial.println("Failed to read from DHT sensor!");
-    delay(1000); // wait a bit
-    return;
+     Serial.println("Failed to read from DHT sensor!");
+    //delay(1000); // wait a bit
+    return 0;
   }
   else{
     return humidity;
@@ -222,9 +245,9 @@ double getExtTemp()
   // By default the temperature is given in Celsius
   double const temperature = dht.readTemperature();
   if (isnan(temperature) ) {
-    // Serial.println("Failed to read from DHT sensor!");
-    delay(1000); // wait a bit
-    return;
+    Serial.println("Failed to read from DHT sensor!");
+    //delay(1000); // wait a bit
+    return -0;
   }
   else{
     return temperature;
@@ -235,8 +258,7 @@ double getHumidity()
 {
   double const readValueYL69 = analogRead(YL69);
   double const convertedPercentage = map(readValueYL69, 0, 1023, 100, 0);
-  addItem(convertedPercentage);
-  //Serial.println(arrayHumidity[0]);
+
   return convertedPercentage;
 }
 
@@ -251,7 +273,7 @@ bool doAction()
     humTimer.setInterval(5000, takeHumidity);
 
     irrigate = true;
-    Serial.println(" y riego");
+   // Serial.println(" y riego");
   }
   else{
      digitalWrite(waterPump, HIGH);
@@ -268,6 +290,8 @@ bool doAction()
   return irrigate;
 }
 
+
+
 double getAmoungLigth()
 {
   int const readLDRvalue = analogRead(LDR);
@@ -278,22 +302,18 @@ double getAmoungLigth()
 
 void takeExternalData()
 {
-  Serial.print("Temp: ");
-  Serial.println(getExtTemp());
-  Serial.print("Hum: ");
-  Serial.println(getExtHumidity());
+  extTemp = getExtTemp();
+  extHumidity = getExtHumidity();
 }
 
 void takeHumidity()
 {
   intHumidity = getHumidity();
+  addItem(intHumidity);
   doAction(); 
-  /*Serial.print("Internal humidity: ");
-  Serial.println(getHumidity());*/
 }
 
 void takeAmLigth()
 {
-  Serial.print("Amoung of ligth: ");
-  Serial.println(getAmoungLigth()); 
+  luminosity = getAmoungLigth(); 
 }
