@@ -2,23 +2,35 @@
 #include "SimpleTimer.h"
 #include "ArduinoJson.h"
 
+#define YL69 A0
+
 #define DHTPIN 2
 #define DHTTYPE DHT22
 
 DHT dht(DHTPIN, DHTTYPE);
 SimpleTimer extTimer;
 SimpleTimer sendJSON;
+SimpleTimer humidity;
 
 double extTem;
 double extHumidity;
+double intHumidity;
+double* arrayHumidity;
+
+bool irrigate = true;
+
+size_t count;
+size_t capacity;
 /*------------------------- */
 /*   F U N C T I O N
  *   D E C L A R A T I O N  */
 /*------------------------- */
 void takeExternalData();
+void takeHumidity();
 
 double getExtHumidity();
 double getExtTemp();
+double getHumidity();
 
 void createJSON();
 void merge(JsonObject dest, JsonObjectConst src);
@@ -29,17 +41,19 @@ void merge(JsonObject dest, JsonObjectConst src);
  *            */    
 
 void setup() {
-  Serial.begin(9600);
 
+  Serial.begin(9600);
   dht.begin();
 
-  extTimer.setInterval(5000, takeExternalData);
+  extTimer.setInterval(6000, takeExternalData);
+  humidity.setInterval(6000, takeHumidity);
   sendJSON.setInterval(15000, createJSON);
 }
 
 void loop() {
   extTimer.run();
   sendJSON.run();
+  humidity.run();
 }
 
 
@@ -52,7 +66,7 @@ void merge(JsonObject dest, JsonObjectConst src) {
 
 void createJSON(){
   
-    StaticJsonDocument<480> doc1, doc2;
+    StaticJsonDocument<220> doc1, doc2;
     
     doc1["_id"]="1";
     doc1["_plant"]="ficus";
@@ -66,17 +80,11 @@ void createJSON(){
     root["minute"]="46";
     JsonObject measure = root.createNestedObject("measure");
     measure["watered"]="123";
-    measure["value"]="[]";
-    /*JsonArray value = measure.createNestedArray("value");
-
-    if (irrigate){
-      for (int i=0; i < 5 ; i++){
-        value.add(arrayHumidity[i]);
-      }
-    }
-    else{
-      value.add(arrayHumidity[0]);
-    }   */  
+    //measure["value"]="[]";
+    JsonArray value = measure.createNestedArray("value");
+    value.add(intHumidity);
+     // value.add(arrayHumidity[0]);
+    
 
    JsonArray datosExt = doc2.createNestedArray("humidityExt");
    JsonObject infoExt = datosExt.createNestedObject();
@@ -98,9 +106,15 @@ void createJSON(){
    serializeJsonPretty(doc1, Serial);
 }
 
+
 void takeExternalData(){
+  //Serial.println("HOLA, HAGO COSAS");
   extTem = getExtTemp();
   extHumidity = getExtHumidity();
+}
+
+void takeHumidity(){
+  intHumidity = getHumidity();
 }
 
 double getExtTemp()
@@ -122,4 +136,11 @@ double getExtHumidity()
     return -99999;
   }
     return humidity;
+}
+
+double getHumidity(){
+  double const readValueYL69 = analogRead(YL69);
+  double const convertedPercentage = map(readValueYL69, 0, 1023, 100, 0);
+
+  return convertedPercentage;
 }
