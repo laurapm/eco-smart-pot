@@ -7,14 +7,18 @@
 #define DHTPIN 2
 #define DHTTYPE DHT22
 
+#define LDR A2
+
 DHT dht(DHTPIN, DHTTYPE);
 SimpleTimer extTimer;
 SimpleTimer sendJSON;
 SimpleTimer humidity;
+SimpleTimer ligth;
 
 double extTem;
 double extHumidity;
 double intHumidity;
+double luminosity;
 double* arrayHumidity;
 
 bool irrigate = true;
@@ -27,10 +31,12 @@ size_t capacity;
 /*------------------------- */
 void takeExternalData();
 void takeHumidity();
+void takeLigth();
 
 double getExtHumidity();
 double getExtTemp();
 double getHumidity();
+double getLigth();
 
 void createJSON();
 void merge(JsonObject dest, JsonObjectConst src);
@@ -66,13 +72,9 @@ void merge(JsonObject dest, JsonObjectConst src) {
 
 void createJSON(){
   
-    StaticJsonDocument<220> doc1, doc2;
-    
-    doc1["_id"]="1";
-    doc1["_plant"]="ficus";
-    doc1["device"]="Arduino UNO";
-    doc1["date"]= "30/08/2020";
-    doc1["hour"]="0";
+    // DynamicJsonDocument doc2(220);
+
+     StaticJsonDocument<480>  doc2;
 
     // JsonArray array = doc2.to<JsonArray>();
     JsonArray datos = doc2.createNestedArray("humidityInt");
@@ -86,26 +88,32 @@ void createJSON(){
      // value.add(arrayHumidity[0]);
     
 
-   JsonArray datosExt = doc2.createNestedArray("humidityExt");
-   JsonObject infoExt = datosExt.createNestedObject();
-   infoExt["minute"]="112";
-   infoExt["measure"]=extHumidity; 
+   if (extHumidity != -99999){
+     JsonArray datosExt = doc2.createNestedArray("humidityExt");
+     JsonObject infoExt = datosExt.createNestedObject();
+     infoExt["minute"]="112";
+     infoExt["measure"]=extHumidity; 
+   }
 
    JsonArray lumExt = doc2.createNestedArray("luminosityExt");
    JsonObject infoLum = lumExt.createNestedObject();
-   infoLum["minute"]="223";
-   infoLum["measure"]="213";
+   infoLum["minute"]="213";
+   infoLum["measure"]=luminosity;
 
-   JsonArray tempExt = doc2.createNestedArray("temperatureExt");
-   JsonObject infoTemExt = tempExt.createNestedObject();
-   infoTemExt["minute"]="335";
-   infoTemExt["measure"]=extTem;
+   if (extTem != -9898){
+      JsonArray tempExt = doc2.createNestedArray("temperatureExt");
+      JsonObject infoTemExt = tempExt.createNestedObject();
+      infoTemExt["minute"]="335";
+      infoTemExt["measure"]=extTem;
+   }
+   
     
-   merge(doc1.as<JsonObject>(), doc2.as<JsonObject>());
+  // merge(doc1.as<JsonObject>(), doc2.as<JsonObject>());
     
-   serializeJsonPretty(doc1, Serial);
+   serializeJsonPretty(doc2, Serial);
+   Serial.println("");
+   delay(500);
 }
-
 
 void takeExternalData(){
   //Serial.println("HOLA, HAGO COSAS");
@@ -115,6 +123,10 @@ void takeExternalData(){
 
 void takeHumidity(){
   intHumidity = getHumidity();
+}
+
+void takeLigth(){
+ luminosity = getLigth();
 }
 
 double getExtTemp()
@@ -143,4 +155,11 @@ double getHumidity(){
   double const convertedPercentage = map(readValueYL69, 0, 1023, 100, 0);
 
   return convertedPercentage;
+}
+
+double getLigth(){
+  int const readLDRvalue = analogRead(LDR);
+  int ligth = map(readLDRvalue, 0, 370, 0, 100);
+
+  return ligth;
 }

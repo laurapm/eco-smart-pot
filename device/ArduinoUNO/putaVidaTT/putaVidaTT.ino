@@ -155,7 +155,9 @@ void createJSON()
  // Serial.print("JSON TIME: ");
  // Serial.println(timeControl);
 
-    StaticJsonDocument<480> doc1, doc2;
+    DynamicJsonDocument doc1(480), doc2(210);
+
+   // StaticJsonDocument<480> doc1, doc2;
     
     doc1["_id"]="1";
     doc1["_plant"]="ficus";
