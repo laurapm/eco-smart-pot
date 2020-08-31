@@ -80,28 +80,15 @@ void setup()
 
   Serial.println("Init values \n");
 
+  timeControl = 60000;
 
   takeHumidity();
   takeExternalData();
   takeAmLigth();
   
-  Serial.print("INTERNAL HUM: ");
-  Serial.println(intHumidity);
-  Serial.println("EXTERNAL HUM: ");
-  Serial.println(extHumidity);
-  Serial.println("LUM: ");
-  Serial.println(luminosity);
-  Serial.println("TEM: ");
-  Serial.println(extTemp);
-  Serial.println("----Array-----");
 
-  for ( int i = 0; i < 5; i++){
-    Serial.println(arrayHumidity[i]);
-  }
-  Serial.println("---");
   
-  
-  createJSON();
+  //createJSON();
 
   // Warning!: Check you are using the correct library for Simple Timer
   extTimer.setInterval(60000,      takeExternalData);
@@ -117,6 +104,7 @@ void loop()
   humTimer.run();
   ligth.run();
   json.run();
+
 }
 
 void createList(size_t _capacity)
@@ -190,8 +178,13 @@ void createJSON()
     // measure["value"]=intHumidity;
     JsonArray value = measure.createNestedArray("value");
 
-    for (int i=0; i < sizeof(arrayHumidity); i++){
-      value.add(arrayHumidity[i]);
+    if (irrigate){
+      for (int i=0; i < 5 ; i++){
+        value.add(arrayHumidity[i]);
+      }
+    }
+    else{
+      value.add(arrayHumidity[0]);
     }
     
 
@@ -208,7 +201,7 @@ void createJSON()
    JsonArray tempExt = doc2.createNestedArray("temperatureExt");
    JsonObject infoTemExt = tempExt.createNestedObject();
    infoTemExt["minute"]="335";
-   infoTemExt["measure"]=extTemp;
+   infoTemExt["measure"]=extTemp; 
     
    merge(doc1.as<JsonObject>(), doc2.as<JsonObject>());
     
@@ -216,11 +209,12 @@ void createJSON()
 
    //Serial.println("-------------");
    clearArrayValues();
+
 }
 
 void clearArrayValues()
 {
-  for (int i = 0; i < sizeof(arrayHumidity); i++){
+  for (int i = 0; i < 5; i++){
     removeTail();
   }
 }
