@@ -40,6 +40,7 @@ import { ProfileInfoComponent } from './components/client-area-card/profile-info
 import { MeasurementsComponent } from './components/client-area-card/measurements/measurements.component';
 import { AFunnyChartComponent } from './components/client-area-card/charts/a-funny-chart/a-funny-chart.component';
 import { MeasurementsChartComponent } from './components/client-area-card/charts/measurements-chart/measurements-chart.component';
+//import { DetailsComponent } from './components/details/details.component';
 
 @NgModule({
   declarations: [
@@ -61,13 +62,15 @@ import { MeasurementsChartComponent } from './components/client-area-card/charts
     ProductItemComponent,
     // Errors
     Page404NotFoundComponent,
+    // Client Area
     ClientAreaCardComponent,
     DevicesListComponent,
     NotificationsComponent,
     ProfileInfoComponent,
     MeasurementsComponent,
     AFunnyChartComponent,
-    MeasurementsChartComponent
+    MeasurementsChartComponent,
+    //DetailsComponent
   ],
   imports: [
     AppRoutingModule,
