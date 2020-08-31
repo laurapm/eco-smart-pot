@@ -33,6 +33,7 @@ import { CartItemComponent }     from './components/shopping-card/cart-list/cart
 import { ProductItemComponent }  from './components/shopping-card/product-list/product-item/product-item.component';
 // Errors
 import { Page404NotFoundComponent } from './components/page404-not-found/page404-not-found.component';
+import { DetailsComponent } from './components/details/details.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { Page404NotFoundComponent } from './components/page404-not-found/page404
     CartItemComponent,
     ProductItemComponent,
     // Errors
-    Page404NotFoundComponent
+    Page404NotFoundComponent,
+    DetailsComponent
   ],
   imports: [
     AppRoutingModule,
