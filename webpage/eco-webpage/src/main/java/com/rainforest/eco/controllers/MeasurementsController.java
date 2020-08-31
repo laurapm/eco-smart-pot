@@ -116,7 +116,7 @@ public class MeasurementsController
 		}
 	}
 	
-	@RequestMapping(value="/measurements/after", method=RequestMethod.GET)
+	@RequestMapping(value="/measurements/after", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<List<Measurements>> getMeasurementsAfterDate(@RequestBody DayRequest date)
 	{
@@ -144,7 +144,7 @@ public class MeasurementsController
 		}
 	}
 	
-	@RequestMapping(value="/measurements/between", method=RequestMethod.GET)
+	@RequestMapping(value="/measurements/between", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<List<Measurements>> getMeasurementsBetweenDates(@RequestBody BetweenDatesRequest date)
 	{

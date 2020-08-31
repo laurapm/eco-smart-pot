@@ -136,7 +136,7 @@ public class ReminderController
 		}
 	}
 	
-	@RequestMapping(value="/reminders/programmed", method=RequestMethod.GET)
+	@RequestMapping(value="/reminders/programmed", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<List<Reminder>> getReminderProgrammedNextDay(@RequestBody DayRequest today)
 	{

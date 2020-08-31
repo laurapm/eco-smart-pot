@@ -1,10 +1,10 @@
 package com.rainforest.eco.controllers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.bson.BsonTimestamp;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -46,7 +46,7 @@ public class DeviceController
 					device.getOwner(),
 					device.getModel(),
 					device.getFirmwareUpdate(),
-					new BsonTimestamp(currentTime, 0)
+					new Date(currentTime)
 				)
 			);
 				

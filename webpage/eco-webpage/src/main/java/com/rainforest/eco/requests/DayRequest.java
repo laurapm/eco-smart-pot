@@ -5,7 +5,7 @@ import java.util.Date;
 
 import org.bson.types.ObjectId;
 
-public class DayRequest 
+public class DayRequest
 {
 	private ObjectId device;
 	private Date today;

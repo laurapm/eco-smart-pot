@@ -33,6 +33,13 @@ import { CartItemComponent }     from './components/shopping-card/cart-list/cart
 import { ProductItemComponent }  from './components/shopping-card/product-list/product-item/product-item.component';
 // Errors
 import { Page404NotFoundComponent } from './components/page404-not-found/page404-not-found.component';
+import { ClientAreaCardComponent } from './components/client-area-card/client-area-card.component';
+import { DevicesListComponent } from './components/client-area-card/devices-list/devices-list.component';
+import { NotificationsComponent } from './components/client-area-card/notifications/notifications.component';
+import { ProfileInfoComponent } from './components/client-area-card/profile-info/profile-info.component';
+import { MeasurementsComponent } from './components/client-area-card/measurements/measurements.component';
+import { AFunnyChartComponent } from './components/client-area-card/charts/a-funny-chart/a-funny-chart.component';
+import { MeasurementsChartComponent } from './components/client-area-card/charts/measurements-chart/measurements-chart.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +60,14 @@ import { Page404NotFoundComponent } from './components/page404-not-found/page404
     CartItemComponent,
     ProductItemComponent,
     // Errors
-    Page404NotFoundComponent
+    Page404NotFoundComponent,
+    ClientAreaCardComponent,
+    DevicesListComponent,
+    NotificationsComponent,
+    ProfileInfoComponent,
+    MeasurementsComponent,
+    AFunnyChartComponent,
+    MeasurementsChartComponent
   ],
   imports: [
     AppRoutingModule,

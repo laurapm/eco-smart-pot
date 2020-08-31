@@ -1,0 +1,19 @@
+.grid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-areas:
+  "header header"
+  "a1 a2";
+}
+
+.header {
+  grid-area: header;
+}
+
+.a1 {
+  grid-area: a1;
+}
+
+.a2 {
+  grid-area: a2;
+}

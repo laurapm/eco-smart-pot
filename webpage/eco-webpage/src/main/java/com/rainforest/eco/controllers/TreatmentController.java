@@ -141,7 +141,7 @@ public class TreatmentController
 		}
 	}
 	
-	@RequestMapping(value="/treatments/programmed", method=RequestMethod.GET)
+	@RequestMapping(value="/treatments/programmed", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<List<Treatment>> getTreatmentsProgrammedNextDay(@RequestBody DayRequest today)
 	{

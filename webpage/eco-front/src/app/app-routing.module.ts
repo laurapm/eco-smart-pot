@@ -7,6 +7,7 @@ import { ProductItemComponent }        from './components/shopping-card/product-
 import { AuthenticationCardComponent } from './components/authentication-card/authentication-card.component';
 import { SignupCardComponent }         from './components/authentication-card/signup-card/signup-card.component';
 import { LoginCardComponent }          from './components/authentication-card/login-card/login-card.component';
+import { ClientAreaCardComponent }     from './components/client-area-card/client-area-card.component';
 import { Page404NotFoundComponent }    from './components/page404-not-found/page404-not-found.component';
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: 'login',  component: LoginCardComponent }
     ]
   },
+  { path: 'profile',        component:ClientAreaCardComponent },
   { path: '404',            component: Page404NotFoundComponent },
   //{ path: '',   redirectTo: 'home', pathMatch: 'full' },
   //{ path: '**', redirectTo: '404',  pathMatch: 'full' }

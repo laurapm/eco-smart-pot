@@ -1,0 +1,39 @@
+<div>
+  <div *ngIf="devices">
+    <div *ngIf="plants">
+      <mdb-card>
+        <h3>My Devices</h3>
+        <ul class="devices">
+          <li *ngFor="let device of devices"
+            [class.selected]="device === selectedDevice"
+            (click)="onSelect(device)"
+          >
+            <span class="badge">{{device.model}}</span>{{plants.get(device.plant).commonName}}
+          </li>
+        </ul>
+      </mdb-card>
+    </div>
+  </div>
+
+  <div *ngIf="selectedDevice" style="width: 100%; overflow:auto;">
+    <mdb-card>
+      <mdb-card-title>
+        <h2>{{selectedDevice.model | uppercase}} Details</h2>
+      </mdb-card-title>
+
+      <mdb-card-body>
+        <div><span style="font-weight: bold;">id: </span>    {{selectedDevice.id}}</div>
+        <div><span style="font-weight: bold;">Model: </span> {{selectedDevice.model}}</div>
+        <div><span style="font-weight: bold;">Plant: </span> {{selectedDevice.plant}}
+          <div *ngIf="selectedPlant">
+            <div style="margin-left: 7%;"><span style="font-weight: bold;">Common Name: </span> {{selectedPlant.commonName}}</div>
+            <div style="margin-left: 7%;"><span style="font-weight: bold;">Scientific Name: </span> {{selectedPlant.scientificName}}</div>
+            <div style="margin-left: 7%;"><span style="font-weight: bold;">Family: </span> {{selectedPlant.family}}</div>
+          </div>
+        </div>
+        <div><span style="font-weight: bold;">Registry Date: </span>  {{selectedDevice.registryDate.toString()}}</div>
+        <div><span style="font-weight: bold;">Firmware Update: </span>{{selectedDevice.firmwareUpdate}}</div>
+      </mdb-card-body>
+    </mdb-card>
+  </div>
+</div>

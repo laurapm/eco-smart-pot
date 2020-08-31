@@ -1,0 +1,15 @@
+.grid {
+  display: grid;
+  grid-template-rows: 50% 50%;
+  grid-template-areas:
+    "a1"
+    "a2"
+}
+
+.a1 {
+  grid-area: a1;
+}
+
+.a2 {
+  grid-area: a2;
+}
