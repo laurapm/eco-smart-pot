@@ -34,8 +34,6 @@ export class LoginCardComponent implements OnInit {
         // this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUser(data);
 
-        console.log(data);
-
         this.isLoginFailed = false;
         this.isLoggedIn    = true;
         this.reloadPage();

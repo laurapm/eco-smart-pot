@@ -115,7 +115,7 @@ public class ProductController
 		}
 	}
 	
-	@RequestMapping(value="/prices", method=RequestMethod.GET)
+	@RequestMapping(value="/prices", method=RequestMethod.POST)
 	@ResponseBody
 	ResponseEntity<List<Product>> getProductBetweenPrices(@RequestBody PriceRequest priceRequest) 
 	{

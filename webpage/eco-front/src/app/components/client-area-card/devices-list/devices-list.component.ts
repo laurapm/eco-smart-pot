@@ -26,9 +26,6 @@ export class DevicesListComponent implements OnInit {
     this.selectedDevice = device;
     this.deviceEmitter.emit(device);
     this.selectedPlant = this.plants.get(this.selectedDevice.plant);
-
-    console.log(this.selectedDevice.registryDate);
-    console.log(new Date(this.selectedDevice.registryDate));
   }
 
 }

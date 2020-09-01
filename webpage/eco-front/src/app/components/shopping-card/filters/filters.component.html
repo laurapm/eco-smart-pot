@@ -1,4 +1,4 @@
-<div class="col-md-5">
+<div>
 <!-- Card -->
 <mdb-card>
   <div class="view rgba-white-slight waves-light" mdbWavesEffect>
@@ -8,24 +8,30 @@
   <mdb-card-body>
     <!--Title-->
     <mdb-card-title>
-      <h5> Filter products by price </h5>
+      <h3> Filters </h3>
     </mdb-card-title>
 
+    <hr>
+
+    <mdb-card-title>
+      <h6>Between Prices</h6>
+    </mdb-card-title>
     <!--Body-->
     <mdb-card-text>
       <div class="form-group">
         <label for="from"> From </label>
-        <input type="number" id="from" class="form-control">
+        <input type="number" id="from" #from class="form-control">
       </div>
 
       <div class="form-group">
         <label for="from"> To </label>
-        <input type="number" id="to" class="form-control">
+        <input type="number" id="to" #to class="form-control">
       </div>
     </mdb-card-text>
 
     <!-- Button -->
-    <button mdbBtn type="button" color="elegant" block="true" size="lg" mdbWavesEffect>
+    <button mdbBtn type="button" color="elegant" block="true" size="lg"
+            (click)="searchBetweenPrices()" mdbWavesEffect>
       Search
     </button>
   </mdb-card-body>

@@ -1,6 +1,5 @@
-import { ProductsService   } from '../../../services/products.service';
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Product } from 'src/app/models/product';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -8,52 +7,41 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductListComponent implements OnInit {
 
+  @Output() addProduct = new EventEmitter();
+  @Input('products') products: Product[] = [];
+  selectedProduct: Product;
 
-  products: any;
-  currentProduct = null;
-  currentIndex = -1;
-  name = '';
-
-  constructor(private pruductsService: ProductsService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.retrieveProducts();
   }
 
-  retrieveProducts(): void{
-    this.pruductsService.getAll()
-      .subscribe(
-        data => {
-          this.products = data;
-          console.log(data);
-        },
-        error => {
-          console.log(error);
-        }
-      );
+  getImagePath(name: string): string {
+    let path: string;
+
+    if (name === 'eco smart pot') {
+      // Thanks to https://www.gadgette.com/2016/04/18/planty-is-a-smart-and-connected-plant-pot/
+      // for the image for the smart pot
+      path = '../../../../assets/smart-pot.jpg'
+    } else if (name === 'red pot') {
+      path = '../../../../assets/red-pot.jpg'
+    } else if (name === 'blue pot') {
+      path = '../../../../assets/blue-pot.jpg'
+    } else if (name === 'green pot') {
+      path = '../../../../assets/green-pot.jpg'
+    } else if (name === 'pink pot') {
+      path = '../../../../assets/pink-pot.jpg'
+    } else if (name === 'aprobado') {
+      path = '../../../../assets/passed-exam.jpg'
+    } else {
+      path = '../../../../assets/no-image.jpg'
+    }
+
+    return path;
   }
 
-  refreshList(): void {
-    this.retrieveProducts();
-    this.currentProduct = null;
-    this.currentIndex = -1;
+  onSelect(product: Product): void {
+    this.addProduct.emit(product);
   }
 
-  setActiveProduct(product, index): void {
-    this.currentProduct = product;
-    this.currentIndex = index;
-  }
-
-  searchName():void {
-    this.pruductsService.findByName(this.name)
-      .subscribe(
-        data => {
-          this.products = data;
-          console.log(data);
-        },
-        error => {
-          console.log(error);
-        }
-      );
-  }
 }

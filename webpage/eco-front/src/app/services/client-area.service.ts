@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Observable, ObservedValueOf } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { Device }             from '../models/device';
@@ -8,7 +8,7 @@ import { Plant }              from '../models/plant';
 import { Reminder }           from '../models/reminder';
 import { Treatment }          from '../models/treatment';
 import { Measurements }       from '../models/measurements';
-import { HandleErrorService } from '../services/handle-error.service';
+import { HandleErrorService } from './handle-error.service';
 
 const API = 'http://localhost:8080/api'
 

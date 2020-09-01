@@ -156,11 +156,20 @@ export class ClientAreaCardComponent implements OnInit {
 
         data.forEach( (element: Measurements) => {
           // Internal Humidity
-          // TODO:
+          element.humidityInt.forEach( measure => {
+            info.humidityInt.data.push(measure.measure);
+            info.humidityInt.labels.push(element.hour + ":" + measure.minute);
+          });
           // External Humidity
-          // TODO:
+          element.humidityExt.forEach( measure => {
+            info.humidityExt.data.push(measure.measure);
+            info.humidityExt.labels.push(element.hour + ":" + measure.minute);
+          });
           // External Luminosity
-          // TODO:
+          element.luminosityExt.forEach( measure => {
+            info.luminosity.data.push(measure.measure);
+            info.luminosity.labels.push(element.hour + ":" + measure.minute);
+          });
           // External Temperature
           element.temperatureExt.forEach( measure => {
             info.temperature.data.push(measure.measure);

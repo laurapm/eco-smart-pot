@@ -1,0 +1,21 @@
+.products {
+  margin: 0 0 2em 0;
+  list-style-type: none;
+  padding: 0;
+  width: 15em;
+}
+
+.products li {
+  cursor: pointer;
+  position: relative;
+  background-color: #EEE;
+  margin: .5em;
+  padding: .3em 0;
+  border-radius: 4px;
+}
+
+.products li:hover {
+  color: #607D8B;
+  background-color: #DDD;
+  left: .1em;
+}

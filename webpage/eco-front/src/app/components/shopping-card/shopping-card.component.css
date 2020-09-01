@@ -1,0 +1,19 @@
+.grid {
+  display: grid;
+  grid-template-columns: 20% 56% 20%;
+  grid-template-areas:
+    "a1 a2 a3";
+  column-gap: 2%;
+}
+
+.a1 {
+  grid-area: a1;
+}
+
+.a2 {
+  grid-area: a2;
+}
+
+.a3 {
+  grid-area: a3;
+}

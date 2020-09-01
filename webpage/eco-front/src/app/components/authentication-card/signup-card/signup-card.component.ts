@@ -46,19 +46,6 @@ export class SignupCardComponent implements OnInit {
       this.isSignUpFailed = true;
     }
 
-    /*
-    console.log(this.form);
-
-    this.authService.register(this.form).subscribe(
-      data => {
-        this.isSignedUp     = true;
-        this.isSignUpFailed = false;
-      },
-      err => {
-        this.errorMessage   = err.message;
-        this.isSignUpFailed = true;
-      }
-    )*/
   }
 
 }

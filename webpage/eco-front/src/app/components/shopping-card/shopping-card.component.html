@@ -1,12 +1,14 @@
-<div id="page" class="row">
-  <div class="col">
-    <app-filters></app-filters>
+<div class="grid">
+  <!-- Filters -->
+  <div class="g a1">
+    <app-filters (emitBetweenPrices)="addProducts($event)"></app-filters>
   </div>
-  <div class="col">
-    <app-product-list></app-product-list>
-    <app-product-item></app-product-item>
+  <!-- Products -->
+  <div class="g a2">
+    <app-product-list [products]=products (addProduct)="cart.addProduct($event)"></app-product-list>
   </div>
-  <div class="col">
-    <app-cart-list></app-cart-list>
+  <!-- Cart -->
+  <div class="g a3">
+    <app-cart-list #cart></app-cart-list>
   </div>
 </div>
