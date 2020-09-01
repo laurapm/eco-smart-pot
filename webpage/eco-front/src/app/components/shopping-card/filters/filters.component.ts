@@ -23,19 +23,22 @@ export class FiltersComponent implements OnInit {
     let maxPrice: number = this.to.nativeElement.valueAsNumber;
 
     var products = [];
+    if (minPrice <= maxPrice) {
+      this.api.getProductsBetweenPrices(minPrice, maxPrice).subscribe(
+        data => {
+          data.forEach( (element: Product) => {
+            products.push(element);
+          });
 
-    this.api.getProductsBetweenPrices(minPrice, maxPrice).subscribe(
-      data => {
-        data.forEach( (element: Product) => {
-          products.push(element);
-        });
-
-        this.emitProducts(products);
-      },
-      err => {
-        console.error(err.message);
-      }
-    );
+          this.emitProducts(products);
+        },
+        err => {
+          console.error(err.message);
+        }
+      );
+    } else {
+      alert("Cannot filter if the minimum price if bigger than the maximum price!");
+    }
   }
 
   emitProducts(products: Product[]): void {

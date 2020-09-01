@@ -39,7 +39,7 @@ export class LoginCardComponent implements OnInit {
         this.isLoginFailed = false;
         this.isLoggedIn    = true;
 
-        this.goToHome()
+        this.goToProfile()
       },
       err => {
         this.errorMessage  = err.message;
@@ -52,7 +52,7 @@ export class LoginCardComponent implements OnInit {
     this.router.navigate(['404']);
   }
 
-  goToHome(): void {
+  goToProfile(): void {
     this.router.navigate(['profile']);
   }
 

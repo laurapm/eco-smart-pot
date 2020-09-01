@@ -3,6 +3,7 @@ import { Product } from 'src/app/models/product';
 import { ProductsService } from 'src/app/services/products.service';
 import { TicketRequest } from 'src/app/models/ticketRequest';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-cart-list',
@@ -16,6 +17,8 @@ export class CartListComponent implements OnInit {
   purchaseSuccessfully: boolean = false;
   purchaseWentWrong: boolean    = false;
 
+  user: User = null;
+
   errorMessage = '';
 
   constructor(
@@ -23,6 +26,11 @@ export class CartListComponent implements OnInit {
     private api: ProductsService) { }
 
   ngOnInit(): void {
+    this.getUser()
+  }
+
+  getUser(): void {
+    this.user = this.token.getUser();
   }
 
   addProduct(product: Product): void {
@@ -82,36 +90,41 @@ export class CartListComponent implements OnInit {
   }
 
   payCart(): void {
-
-    let item:any[] = [];
-    this.products.forEach( element => {
-      item.push({
-        product: element.product.id,
-        quantity: element.quantity,
-        priceUnit: element.product.price
+    if (this.user != null) {
+      let item:any[] = [];
+      this.products.forEach( element => {
+        item.push({
+          product: element.product.id,
+          quantity: element.quantity,
+          priceUnit: element.product.price
+        });
       });
-    });
 
-    let ticket: TicketRequest = {
-      owner: "5f43d6dd48e46bd6a9972627", // this.token.getUser().id;
-      item: item,
-      date: new Date()
-    };
+      let ticket: TicketRequest = {
+        owner: this.user.id,
+        item: item,
+        date: new Date()
+      };
 
-    this.api.buyProducts(ticket).subscribe(
-      data => {
-        this.purchaseSuccessfully = true;
-        this.purchaseWentWrong    = false;
-        this.products   = new Map();
-        this.totalPrice = 0;
-      },
-      err => {
-        this.purchaseSuccessfully = false;
-        this.purchaseWentWrong    = true;
-        this.errorMessage  = err.message;
-        console.error(this.errorMessage);
-      }
-    );
+      this.api.buyProducts(ticket).subscribe(
+        data => {
+          this.purchaseSuccessfully = true;
+          this.purchaseWentWrong    = false;
+          this.products   = new Map();
+          this.totalPrice = 0;
+        },
+        err => {
+          this.purchaseSuccessfully = false;
+          this.purchaseWentWrong    = true;
+          this.errorMessage  = err.message;
+          console.error(this.errorMessage);
+        }
+      );
+    } else {
+      alert("No user logged in. The payment cannot be added to your account.")
+    }
+
+
   }
 
 }

@@ -36,8 +36,8 @@ export class AppHeaderComponent {
 
   closeSession(): void {
     this.tokenStorage.signOut();
-    this.router.navigate(['404']);
     this.toShow = true;
+    alert("User signed out");
   }
 
 }

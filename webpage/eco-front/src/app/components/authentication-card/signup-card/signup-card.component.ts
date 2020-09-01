@@ -42,7 +42,7 @@ export class SignupCardComponent implements OnInit {
           this.isSignedUp     = true;
           this.isSignUpFailed = false;
 
-          console.log(data);
+          this.goToProfile()
         },
         err => {
           this.errorMessage   = err.message;
@@ -59,6 +59,10 @@ export class SignupCardComponent implements OnInit {
 
   onSubmitGoogle(): void {
     this.router.navigate(['404']);
+  }
+
+  goToProfile(): void {
+    this.router.navigate(['profile']);
   }
 
 }
