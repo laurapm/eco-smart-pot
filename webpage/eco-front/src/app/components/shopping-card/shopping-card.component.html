@@ -1,0 +1,14 @@
+<div class="grid">
+  <!-- Filters -->
+  <div class="g a1">
+    <app-filters (emitBetweenPrices)="addProducts($event)"></app-filters>
+  </div>
+  <!-- Products -->
+  <div class="g a2">
+    <app-product-list [products]=products (addProduct)="cart.addProduct($event)"></app-product-list>
+  </div>
+  <!-- Cart -->
+  <div class="g a3">
+    <app-cart-list #cart></app-cart-list>
+  </div>
+</div>

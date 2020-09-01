@@ -1,0 +1,53 @@
+<div *ngIf="selected">
+  <div class="grid">
+    <div class="g a1" style="overflow: auto;">
+      <mdb-card>
+        <!-- Title -->
+        <mdb-card-title>
+          <h4>Treatments</h4>
+        </mdb-card-title>
+        <!-- Body -->
+        <mdb-card-body>
+          <div *ngIf="treatments.size > 0; else elseTreatment">
+            <ul class="treatments">
+              <li *ngFor="let treatment of treatments | keyvalue">
+                <div><span style="font-weight: bold;">{{treatment.value.title}}</span></div>
+                <div><span style="font-weight: bold;">Execution Time: </span>{{treatment.value.actionTime}}</div>
+                <div><span style="font-weight: bold;">Comment: </span>{{treatment.value.comment}}</div>
+              </li>
+            </ul>
+          </div>
+          <ng-template #elseTreatment>
+            <h5>There are no treatments programmed!</h5>
+          </ng-template>
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+
+    <!-- Reminders -->
+    <div class="g a2" style="overflow: auto;">
+      <mdb-card>
+        <!-- Title -->
+        <mdb-card-title>
+          <h4>Reminders</h4>
+        </mdb-card-title>
+        <!-- Body -->
+        <mdb-card-body>
+          <div *ngIf="reminders.size > 0; else elseReminder">
+            <ul class="reminders">
+              <li *ngFor="let reminder of reminders | keyvalue">
+                <div><span style="font-weight: bold;">{{reminder.value.title}}</span></div>
+                <div><span style="font-weight: bold;">Message: </span>{{reminder.value.message}}</div>
+                <div><span style="font-weight: bold;">Reminding Time: </span>{{reminder.value.remindingTime}}</div>
+              </li>
+            </ul>
+          </div>
+          <ng-template #elseReminder>
+            <h5>There are no reminders set!
+            </h5>
+          </ng-template>
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+  </div>
+</div>

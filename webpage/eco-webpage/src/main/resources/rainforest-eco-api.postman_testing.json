@@ -1,0 +1,1632 @@
+{
+	"info": {
+		"_postman_id": "36f67023-6f5f-412e-8932-500ab376762c",
+		"name": "rainforest-eco",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "authentication",
+			"item": [
+				{
+					"name": "LogIn User",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": \"pablo.acereda@eco.com\",\r\n    \"password\": \"acereda\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SignUp User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"test\",\r\n    \"name\": \"my\",\r\n    \"surname\": \"ice cream\",\r\n    \"courtesy_title\": \"suck\",\r\n    \"phone\": \"666666666\",\r\n    \"email\": \"something@emial.co\",\r\n    \"password\": \"youprick\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"signup"
+							]
+						},
+						"description": "Create a new user"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "device",
+			"item": [
+				{
+					"name": "Create Device",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"plant\": \"5f43d6dd48e46bd6a9972626\",\r\n    \"owner\": \"5f43d6dd48e46bd6a9972627\",\r\n    \"model\": \"eco-pot-2021\",\r\n    \"firmwareUpdate\": \"1.3\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/devices",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"devices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Devices",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/devices",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"devices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Device By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/devices/5f43d6dd48e46bd6a9972628",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"devices",
+								"5f43d6dd48e46bd6a9972628"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Devices By Owner",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/devices/owned/5f43d6dd48e46bd6a9972627",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"devices",
+								"owned",
+								"5f43d6dd48e46bd6a9972627"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Device",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"5f43f81dc9699b72f3b98de5\",\r\n    \"plant\": \"5f43d6dd48e46bd6a9972626\",\r\n    \"owner\": \"5f43d6dd48e46bd6a9972627\",\r\n    \"model\": \"eco-pot-2021\",\r\n    \"firmwareUpdate\": \"1.5\",\r\n    \"registryDate\": {\r\n        \"value\": 6864603008940900353,\r\n        \"time\": 1598289937,\r\n        \"bsonType\": \"TIMESTAMP\",\r\n        \"inc\": 1,\r\n        \"array\": false,\r\n        \"null\": false,\r\n        \"boolean\": false,\r\n        \"binary\": false,\r\n        \"double\": false,\r\n        \"number\": false,\r\n        \"regularExpression\": false,\r\n        \"javaScriptWithScope\": false,\r\n        \"objectId\": false,\r\n        \"decimal128\": false,\r\n        \"string\": false,\r\n        \"int64\": false,\r\n        \"int32\": false,\r\n        \"dbpointer\": false,\r\n        \"symbol\": false,\r\n        \"dateTime\": false,\r\n        \"document\": false,\r\n        \"javaScript\": false,\r\n        \"timestamp\": true\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/devices",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"devices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Device",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/devices/5f43f976c9699b72f3b98de7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"devices",
+								"5f43f976c9699b72f3b98de7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete All Devices",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/devices",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"devices"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "297b2b1b-ab94-4ce3-b5ee-263b29d4ee43",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "a91d2220-de0d-4b3c-888b-ff8369b96b69",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "measurements",
+			"item": [
+				{
+					"name": "Create Measurements",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"plant\": \"5f43d6dd48e46bd6a9972626\",\r\n    \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n    \"date\": 1598515200000,\r\n    \"hour\": 1,\r\n    \"humidityInt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": {\r\n                \"watered\": false,\r\n                \"value\": [ 50 ]\r\n            }\r\n        },\r\n        {\r\n            \"minute\": 5,\r\n            \"measure\": {\r\n                \"watered\": false,\r\n                \"value\": [ 45 ]\r\n            }\r\n        }\r\n    ],\r\n    \"humidityExt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 21.0\r\n        },\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 21.3\r\n        }\r\n    ],\r\n    \"luminosityExt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 70\r\n        },\r\n        {\r\n            \"minute\": 5,\r\n            \"measure\": 75\r\n        }\r\n    ],\r\n    \"temperatureExt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 19.7\r\n        },\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 20.1\r\n        }\r\n    ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/measurements",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"measurements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Measurements",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/measurements",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"measurements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Measurements By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/measurements/5f453ab9f3d8ca64e71c7471",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"measurements",
+								"5f453ab9f3d8ca64e71c7471"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Measurements After Date",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n    \"today\": 1598342400000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/measurements/after",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"measurements",
+								"after"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Measurements Between Dates",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n    \"minDate\": 1598342400000,\r\n    \"maxDate\": 1598774400000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/measurements/between",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"measurements",
+								"between"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Measurements",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"5f453ab9f3d8ca64e71c7471\",\r\n    \"plant\": \"5f43d6dd48e46bd6a9972626\",\r\n    \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n    \"date\": 1545264000,\r\n    \"hour\": 1,\r\n    \"humidityInt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": {\r\n                \"watered\": false,\r\n                \"value\": [\r\n                    50\r\n                ]\r\n            }\r\n        },\r\n        {\r\n            \"minute\": 5,\r\n            \"measure\": {\r\n                \"watered\": false,\r\n                \"value\": [\r\n                    45\r\n                ]\r\n            }\r\n        }\r\n    ],\r\n    \"humidityExt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 21.0\r\n        },\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 21.3\r\n        }\r\n    ],\r\n    \"luminosityExt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 70\r\n        },\r\n        {\r\n            \"minute\": 5,\r\n            \"measure\": 75\r\n        }\r\n    ],\r\n    \"temperatureExt\": [\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 20.0\r\n        },\r\n        {\r\n            \"minute\": 0,\r\n            \"measure\": 20.1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/measurements",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"measurements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Measurements",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/measurements/5f453ab9f3d8ca64e71c7471",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"measurements",
+								"5f453ab9f3d8ca64e71c7471"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete All Measurements",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/measurements",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"measurements"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "61fa1779-9cb4-49ff-92a5-3fa7785dbaac",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "571ce72d-3d56-4f9c-874f-3603f4eb060f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "plant",
+			"item": [
+				{
+					"name": "Create Plant",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"family\": \"invented\",\r\n    \"commonName\": \"heart\",\r\n    \"scientificName\": \"Your Heart\",\r\n    \"lifesafeRange\": [\r\n        {\r\n            \"type\": \"temperature\",\r\n            \"min\": 0.0,\r\n            \"max\": 99.0\r\n        },\r\n        {\r\n            \"type\": \"humidity\",\r\n            \"min\": 0.0,\r\n            \"max\": 99.0\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/plants",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"plants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Plants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/plants",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"plants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Plant By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/plants/5f3184bfede1e7f42f37c628",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"plants",
+								"5f3184bfede1e7f42f37c628"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Plant",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"5f43d9244115f77b5f5157e1\",\r\n    \"commonName\": \"heart\",\r\n    \"scientificName\": \"My Heart\",\r\n    \"family\": \"invented\",\r\n    \"lifesafeRange\": [\r\n        {\r\n            \"type\": \"temperature\",\r\n            \"min\": 0.0,\r\n            \"max\": 99.0\r\n        },\r\n        {\r\n            \"type\": \"humidity\",\r\n            \"min\": 0.0,\r\n            \"max\": 99.0\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/plants",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"plants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Plant",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/plants/5f4448aff3d8ca64e71c73fd",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"plants",
+								"5f4448aff3d8ca64e71c73fd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete All Plants ",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/plants",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"plants"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1734473d-3222-47dd-9f56-062beb422940",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "d635dc18-318a-46cc-a0f7-2c07b976ef3f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"eco dumb pot\",\r\n    \"price\": 0.0,\r\n    \"description\": \"It does nothing, but it kind of cute.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/products/5f3e4c83725542bce3a7eea3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"5f3e4c83725542bce3a7eea3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products Between Prices",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"minPrice\": 0,\r\n    \"maxPrice\": 20\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/prices",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"prices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"5f3e4c83725542bce3a7eea1\",\r\n    \"name\": \"eco smart pot\",\r\n    \"price\": 60.0,\r\n    \"description\": \"Rainforest best product. A little something so you don't have to worry about your plants. Like a Tamagotchi, but in real life.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/products/5f43884d3c6f1c5a5b6b56eb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"5f43884d3c6f1c5a5b6b56eb"
+							]
+						},
+						"description": "The id (after xxx/api/products{id}) must be replaced on every execution."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete All Products",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "reminder",
+			"item": [
+				{
+					"name": "Create Reminder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n    \"title\": \"scheduled\",\r\n    \"message\": \"irrigation\",\r\n    \"requestTime\": 1545264000,\r\n    \"remindingTime\": 1545265000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/reminders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reminders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Reminders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/reminders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reminders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reminder By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/reminders/5f44f982f3d8ca64e71c7431",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reminders",
+								"5f44f982f3d8ca64e71c7431"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reminders By Title",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/reminders/titled/scheduled",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reminders",
+								"titled",
+								"scheduled"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reminders Programmed",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n    \"today\": 1598454000000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/reminders/programmed",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reminders",
+								"programmed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Reminder",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": \"5f44fab2f3d8ca64e71c7434\",\r\n        \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n        \"title\": \"scheduled\",\r\n        \"message\": \"Water your plant, or it will die\",\r\n        \"requestTime\": 1545264000,\r\n        \"remindingTime\": 1545266000\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/reminders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reminders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Reminder",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/reminders/5f44f982f3d8ca64e71c7431",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reminders",
+								"5f44f982f3d8ca64e71c7431"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete All Reminders",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/reminders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reminders"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4f097579-fb2e-4940-9292-c840cea33ac9",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd8f361f-2d92-4733-ac36-456e19df8b34",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "ticket",
+			"item": [
+				{
+					"name": "Create Ticket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"owner\": \"5f3184bfede1e7f42f37c629\",\r\n    \"item\": [\r\n        {\r\n            \"product\": \"5f43d70848e46bd6a9972631\",\r\n            \"quantity\": 100,\r\n            \"price\": 0.0\r\n        }\r\n    ],\r\n    \"date\": 1598281480073\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/tickets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"tickets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Tickets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/tickets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"tickets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Ticket By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/tickets/5f43d70848e46bd6a9972637",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"tickets",
+								"5f43d70848e46bd6a9972637"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tickets By Owner",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/tickets/owned/5f3184c0ede1e7f42f37c62b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"tickets",
+								"owned",
+								"5f3184c0ede1e7f42f37c62b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Ticket",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"5f43d70848e46bd6a9972639\",\r\n    \"owner\": \"5f3184bfede1e7f42f37c629\",\r\n    \"item\": [\r\n        {\r\n            \"product\": \"5f43d70848e46bd6a9972631\",\r\n            \"quantity\": 5,\r\n            \"price\": 0.0\r\n        },\r\n        {\r\n            \"product\": \"5f43d70848e46bd6a9972632\",\r\n            \"quantity\": 1,\r\n            \"price\": 60.0\r\n        }\r\n    ],\r\n    \"date\": 1598281480073\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/tickets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"tickets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Ticket",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/tickets/5f440283c9699b72f3b98e28",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"tickets",
+								"5f440283c9699b72f3b98e28"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete All Tickets",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/tickets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"tickets"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "52f79603-eb8c-4b02-937c-7a4214035480",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6fd002ce-a9c5-464f-ba2f-9577b6692b8f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "treatment",
+			"item": [
+				{
+					"name": "Create Treatment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n    \"plant\": \"5f43d6dd48e46bd6a9972626\",\r\n    \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n    \"type\": \"scheduled\",\r\n    \"title\": \"irrigation\",\r\n    \"action\": [\r\n        {\r\n            \"perform\": \"watering\",\r\n            \"params\": [\r\n                {\r\n                    \"value\": \"1 s\",\r\n                    \"key\": \"time\"\r\n                },\r\n                {\r\n                    \"value\": \"min\",\r\n                    \"key\": \"flow\"\r\n                }\r\n            ]\r\n        }\r\n    ],\r\n    \"requestTime\": 1598461200000,\r\n    \"actionTime\": 1598515200000,\r\n    \"comment\": \"Water the plant due to low pot humidity.\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/treatments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"treatments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Treatments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/treatments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"treatments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Treatment By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/treatments/5f43d6dd48e46bd6a997262d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"treatments",
+								"5f43d6dd48e46bd6a997262d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Treatments By Device",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/treatments/device/5f43d6dd48e46bd6a9972628",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"treatments",
+								"device",
+								"5f43d6dd48e46bd6a9972628"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Treatments Programmed",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n    \"today\": 1598454000000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/treatments/programmed",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"treatments",
+								"programmed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Treatment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"5f43d6dd48e46bd6a997262d\",\r\n    \"plant\": \"5f43d6dd48e46bd6a9972626\",\r\n    \"device\": \"5f43d6dd48e46bd6a9972628\",\r\n    \"type\": \"scheduled\",\r\n    \"title\": \"irrigation\",\r\n    \"action\": [\r\n        {\r\n            \"perform\": \"watering\",\r\n            \"params\": [\r\n                {\r\n                    \"value\": \"1 s\",\r\n                    \"key\": \"time\"\r\n                },\r\n                {\r\n                    \"value\": \"min\",\r\n                    \"key\": \"flow\"\r\n                }\r\n            ]\r\n        }\r\n    ],\r\n    \"requestTime\": 1598281480073,\r\n    \"actionTime\": 1598281566473,\r\n    \"comment\": \"Water the plant due to low pot humidity.\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/treatments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"treatments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Treatment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/treatments/5f444149c4ee5052232be681",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"treatments",
+								"5f444149c4ee5052232be681"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete All Treatments",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/devices",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"devices"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "60e9881c-f952-4b90-978a-084b4e10ff37",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "0e961e28-47a6-4546-926e-2f13479e9dc5",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"test\",\r\n    \"name\": \"my\",\r\n    \"surname\": \"ice cream\",\r\n    \"courtesy_title\": \"suck\",\r\n    \"phone\": \"666666666\",\r\n    \"email\": \"something@emial.co\",\r\n    \"password\": \"youprick\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "Create a new user"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users/5f3184c0ede1e7f42f37c62b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"5f3184c0ede1e7f42f37c62b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"5f43d6dd48e46bd6a9972629\",\r\n    \"username\": \"pablo.acereda\",\r\n    \"name\": \"Pablo\",\r\n    \"surname\": \"Acereda Garcia\",\r\n    \"phone\": \"000000001\",\r\n    \"email\": \"pablo.acereda@eco.com\",\r\n    \"password\": \"3410a597eaaa5894e92b2b51bc3934aa80d58c30f3efcc802826ad9ea1506992\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users/5f454265f3d8ca64e71c748b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"5f454265f3d8ca64e71c748b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete All Users",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,20 @@
+<div *ngIf="measurements; else elseMeasurements">
+  <h4>Last 24h measurements</h4>
+  <div class="grid">
+    <div class="g a1 center">
+      <app-measurements-chart [dataset]="measurements.humidityInt" [colors]="colorHumInt"></app-measurements-chart>
+    </div>
+    <div class="g a2 center">
+      <app-measurements-chart [dataset]="measurements.humidityExt" [colors]="colorHumExt"></app-measurements-chart>
+    </div>
+    <div class="g a3 center">
+      <app-measurements-chart [dataset]="measurements.luminosity" [colors]="colorLum"></app-measurements-chart>
+    </div>
+    <div class="g a4 center">
+      <app-measurements-chart [dataset]="measurements.temperature" [colors]="colorTemp"></app-measurements-chart>
+    </div>
+  </div>
+</div>
+<ng-template #elseMeasurements>
+  <h5>Please select a device to get more information</h5>
+</ng-template>

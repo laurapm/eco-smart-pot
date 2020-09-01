@@ -1,0 +1,32 @@
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 49% 49%;
+  grid-template-rows: 50% 50%;
+  grid-template-areas:
+    "a1 a2"
+    "a3 a4";
+  column-gap: 2%;
+  row-gap:    2%;
+}
+
+.a1 {
+  grid-area: a1;
+}
+
+.a2 {
+  grid-area: a2;
+}
+
+.a3 {
+  grid-area: a3;
+}
+
+.a4 {
+  grid-area: a4;
+}
+

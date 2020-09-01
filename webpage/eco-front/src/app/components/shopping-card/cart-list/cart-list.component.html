@@ -1,0 +1,81 @@
+<div class="list-group">
+  <mdb-card>
+    <!-- Title -->
+    <mdb-card-title class="title">
+      <h3>Shopping Cart</h3>
+    </mdb-card-title>
+    <!-- Cart -->
+    <mdb-card-body>
+      <ul class="cart">
+        <li *ngFor="let p of products.values(); trackBy: trackByFn">
+          <mdb-card>
+            <mdb-card-body>
+              <!-- Product Name -->
+              <div>
+                <span style="font-weight: bold;">Product: </span>
+                {{p.product.name}}
+              </div>
+              <!-- Increase Item-->
+              <!--
+              <div class="div-right">
+                <button mdbBtn type="button" color="light" size="sm"
+                        onclick="addItem(p.product.id)" mdbWavesEffect>
+                  <mdb-icon fas icon="plus"></mdb-icon>
+                </button>
+              </div>
+              -->
+              <div>
+                <!-- Price -->
+                <span style="font-weight: bold; display: inline-block;">Price: </span>
+                {{p.product.price}}
+                <mdb-icon style="display: inline-block;" fas icon="euro-sign"></mdb-icon>
+                <!-- Quantity -->
+                <span style="margin-left: 2em; font-weight: bold; display: inline-block;">Quantity: </span>
+                {{p.quantity}}
+              </div>
+              <div>
+                <!-- Decrease Item -->
+                <!--
+                <button mdbBtn class="div-right" type="button" color="light" size="sm"
+                        onclick="removeItem(p.product.id)" mdbWavesEffect>
+                  <mdb-icon fas icon="minus"></mdb-icon>
+                </button>
+                -->
+              </div>
+            </mdb-card-body>
+          </mdb-card>
+        </li>
+      </ul>
+    </mdb-card-body>
+
+    <hr>
+
+    <!-- Total Price -->
+    <mdb-card-text>
+      <div>
+        <div class="div-left">
+          <h5 style="font-weight: bold; display: inline-block;">Total Price: </h5>
+          {{totalPrice}}
+          <mdb-icon style="display: inline-block;" fas icon="euro-sign"></mdb-icon>
+        </div>
+        <div class="div-right">
+          <button mdbBtn type="button" color="elegant"
+                  (click)="payCart()" mdbWavesEffect>
+            Pay
+          </button>
+        </div>
+      </div>
+    </mdb-card-text>
+  </mdb-card>
+</div>
+<div *ngIf="purchaseSuccessfully">
+  <div class="alert alert-success" role="alert">
+    Your purchase was carried out successfully!
+  </div>
+</div>
+
+<div *ngIf="purchaseWentWrong">
+  <div class="alert alert-danger" role="alert">
+    Some error ocurred while processing your transaction!
+  </div>
+</div>

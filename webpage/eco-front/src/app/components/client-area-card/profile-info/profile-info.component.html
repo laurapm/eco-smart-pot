@@ -1,0 +1,18 @@
+<div *ngIf="user">
+  <div class="grid">
+    <div class="g header">
+      <h3>Personal Info.</h3>
+    </div>
+    <div class="g a1">
+      <div><span style="font-weight: bold;">id: </span>{{user.id}}</div>
+      <div><span style="font-weight: bold;">username: </span>{{user.username}}</div>
+      <div><span style="font-weight: bold;">name: </span>{{user.name}}</div>
+      <div><span style="font-weight: bold;">surname: </span>{{user.surname}}</div>
+    </div>
+    <div class="g a2">
+      <div></div>
+      <div><span style="font-weight: bold;">phone: </span>{{user.phone}}</div>
+      <div><span style="font-weight: bold;">email: </span>{{user.email}}</div>
+    </div>
+  </div>
+</div>

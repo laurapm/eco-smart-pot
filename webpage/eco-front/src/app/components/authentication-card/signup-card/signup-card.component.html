@@ -1,0 +1,91 @@
+<div class="row" style="text-align: justify;">
+  <!-- Card -->
+  <mdb-card>
+    <div class="view rgba-white-slight waves-light view overlay zoom" mdbWavesEffect>
+      <!-- Card img -->
+      <mdb-card-img src="../../../../assets/auth_seed.png" class="img-fluid" alt="Sign Up"></mdb-card-img>
+      <a>
+        <div class="mask"></div>
+      </a>
+    </div>
+    <!-- Card content -->
+    <mdb-card-body>
+      <!-- Title -->
+      <mdb-card-title>
+        <h4>Sign Up</h4>
+      </mdb-card-title>
+      <!-- Sign Up Form -->
+      <form *ngIf="!isSignedUp" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()"
+            name="signupForm" id="signupForm" novalidate>
+
+        <!-- Name -->
+        <input mdbInput type="text" class="form-control" name="name"
+                 [(ngModel)]="form.name" required minlength="4" maxlength="32"
+                 #user="ngModel" id="name">
+        <label for="name">Name</label>
+        <!-- Surname -->
+        <input mdbInput type="text" class="form-control" name="surname"
+                 [(ngModel)]="form.surname" required minlength="4" maxlength="32"
+                 #user="ngModel" id="surname">
+        <label for="surname">Surname</label>
+        <!-- Username -->
+        <mdb-icon fas icon="user" class="prefix"></mdb-icon>
+          <input mdbInput type="text" class="form-control" name="username"
+                 [(ngModel)]="form.username" required minlength="8" maxlength="32"
+                 #username="ngModel" id="username">
+        <label for="username">Username</label>
+        <!-- Phone Number -->
+        <input ng2TelInput type="tel" class="form-control" name="phone"
+               [(ngModel)]="form.phone" required minlength="3" maxlength="15"
+               #phone="ngModel" id="phone">
+        <!-- Email -->
+        <mdb-icon fas icon="envelope" class="prefix"></mdb-icon>
+         <input mdbInput type="email" class="form-control" name="email"
+                [(ngModel)]="form.email" required minlength="5" maxlength="32"
+                #email="ngModel" id="email">
+        <label for="email">Email</label>
+        <!-- Password -->
+        <mdb-icon fas icon="lock" class="prefix"></mdb-icon>
+        <input mdbInput type="password" class="form-control" name="password"
+               [(ngModel)]="form.password" required minlength="8" maxlength="32"
+               #password="ngModel" id="password">
+        <label for="password">Type your password</label>
+        <mdb-icon fas icon="lock" class="prefix"></mdb-icon>
+        <input mdbInput type="password" class="form-control" name="c_password"
+                 [(ngModel)]="form.c_password" required minlength="8" maxlength="32"
+                 #c_password="ngModel" id="c_password">
+        <label for="c_password">Confirm your password</label>
+
+        <!-- Sign Up -->
+        <div class="form-group">
+          <!-- Normal -->
+          <button mdbBtn type="submit" class="btn btn-primary btn-block"
+                  (click)="onSubmit()" mdbWavesEffect color="primary" >
+            Sign Up
+          </button>
+          <!-- Google -->
+          <button mdbBtn type="submit" class="btn btn-primary btn-block"
+                  (click)="onSubmitGoogle()" mdbWavesEffect color="primary">
+            <mdb-icon fab icon="google" class="mr-1"></mdb-icon> Sign Up using Google
+          </button>
+        </div>
+
+        <div class="form-group">
+          <div
+            class="alert alert-danger"
+            role="alert"
+            *ngIf="f.submitted && isSignUpFailed"
+          >
+            Signup failed: {{ errorMessage }}
+          </div>
+        </div>
+      </form>
+
+      <div class="alert alert-success" *ngIf="isSignedUp">
+        Signed in.
+      </div>
+
+    </mdb-card-body>
+  </mdb-card>
+  <!-- Card -->
+</div>

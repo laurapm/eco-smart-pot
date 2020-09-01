@@ -1,0 +1,37 @@
+<div style="align-content: flex-start;">
+  <h3>Products</h3>
+  <!-- Product List -->
+  <div *ngIf="products; else elseProductList">
+    <ul class="products">
+      <li *ngFor="let product of products"
+        [class.selected]="product === selectedProduct"
+        (click)="onSelect(product)"
+        class="thumbnail"
+      >
+        <mdb-card>
+          <!-- Card img -->
+          <div class="view rgba-white-slight waves-light" mdbWavesEffect>
+            <mdb-card-img src={{getImagePath(product.name)}} alt="Product" style="height: 10%; width: 10%;"></mdb-card-img>
+            <a><div class="mask"></div></a>
+          </div>
+          <!-- Card content -->
+          <mdb-card-body>
+            <!-- Title -->
+            <mdb-card-title>
+              <h5>{{product.name}}</h5>
+            </mdb-card-title>
+            <!-- Text -->
+            <mdb-card-text style="text-align: left;">
+              <h6 style="display: inline-block;">{{product.price}}</h6>
+              <mdb-icon style="display: inline-block;" fas icon="euro-sign"></mdb-icon>
+            </mdb-card-text>
+          </mdb-card-body>
+        </mdb-card>
+      </li>
+    </ul>
+  </div>
+  <!-- No Products -->
+  <ng-template #elseProductList>
+    <h4>No product available yet!</h4>
+  </ng-template>
+</div>
