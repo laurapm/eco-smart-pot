@@ -2,7 +2,6 @@
   margin: 0 0 2em 0;
   list-style-type: none;
   padding: 0;
-  width: 15em;
 }
 
 .products li {
@@ -12,6 +11,8 @@
   margin: .5em;
   padding: .3em 0;
   border-radius: 4px;
+  width: 15em;
+  float: left;
 }
 
 .products li:hover {

@@ -20,7 +20,7 @@ export class ProductListComponent implements OnInit {
     let path: string;
 
     if (name === 'eco smart pot') {
-      // Thanks to https://www.gadgette.com/2016/04/18/planty-is-a-smart-and-connected-plant-pot/
+      // Thanks to https://trippyneeds.com/products/piano-pot-touch-sensitive-smart-musical-flower-pot-blueooth
       // for the image for the smart pot
       path = '../../../../assets/smart-pot.jpg'
     } else if (name === 'red pot') {
