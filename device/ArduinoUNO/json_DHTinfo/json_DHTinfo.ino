@@ -77,8 +77,10 @@ void createJSON(){
   
     // DynamicJsonDocument doc2(220);
 
-     StaticJsonDocument<480>  doc2;
-
+  StaticJsonDocument<480> doc1, doc2;
+  JsonObject dev=doc1.to<JsonObject>();
+  doc1["device"] = "5f4d3798d0df9a7447ca25e2";
+     
     // JsonArray array = doc2.to<JsonArray>();
     JsonArray datos = doc2.createNestedArray("humidityInt");
     JsonObject root = datos.createNestedObject();
@@ -111,9 +113,9 @@ void createJSON(){
    }
    
     
-  // merge(doc1.as<JsonObject>(), doc2.as<JsonObject>());
+  merge(doc1.as<JsonObject>(), doc2.as<JsonObject>());
     
-   serializeJsonPretty(doc2, Serial);
+   serializeJson(doc1, Serial);
    Serial.println("");
    delay(500);
 }

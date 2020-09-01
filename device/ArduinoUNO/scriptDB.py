@@ -44,7 +44,7 @@ while True:
     match_filter = {
         "_id": id,
         "plant": plant,
-        "device": "Arduino UNO",
+        "device": "",
         "date":  date,
         "hour": hour
     }
@@ -54,6 +54,12 @@ while True:
 
         if serial_info:
             info = json.loads(serial_info)
+
+            match_filter["device"] = ObjectId(info["device"])
+            info.pop("device")
+
+            print(info)
+
             values = { "$push": info}
 
             minute = (int) (5* round(dt.minute/5))
