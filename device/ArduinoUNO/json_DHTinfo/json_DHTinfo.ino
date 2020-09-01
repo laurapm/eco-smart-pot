@@ -9,6 +9,8 @@
 
 #define LDR A2
 
+#define waterPump A5
+
 DHT dht(DHTPIN, DHTTYPE);
 SimpleTimer extTimer;
 SimpleTimer sendJSON;
@@ -21,7 +23,7 @@ double intHumidity;
 double luminosity;
 double* arrayHumidity;
 
-bool irrigate = true;
+bool irrigate;
 
 size_t count;
 size_t capacity;
@@ -33,14 +35,15 @@ void takeExternalData();
 void takeHumidity();
 void takeLigth();
 
+void createJSON();
+void merge(JsonObject dest, JsonObjectConst src);
+
 double getExtHumidity();
 double getExtTemp();
 double getHumidity();
 double getLigth();
 
-void createJSON();
-void merge(JsonObject dest, JsonObjectConst src);
-
+bool isIrrigating();
 
 /*            *
  * MAIN CODE  *
@@ -51,9 +54,9 @@ void setup() {
   Serial.begin(9600);
   dht.begin();
 
-  extTimer.setInterval(6000, takeExternalData);
-  humidity.setInterval(6000, takeHumidity);
-  sendJSON.setInterval(15000, createJSON);
+  extTimer.setInterval(10000, takeExternalData);
+  humidity.setInterval(10000, takeHumidity);
+  sendJSON.setInterval(20000, createJSON);
 }
 
 void loop() {
@@ -81,7 +84,7 @@ void createJSON(){
     JsonObject root = datos.createNestedObject();
     root["minute"]="46";
     JsonObject measure = root.createNestedObject("measure");
-    measure["watered"]="123";
+    measure["watered"]= irrigate;
     //measure["value"]="[]";
     JsonArray value = measure.createNestedArray("value");
     value.add(intHumidity);
@@ -123,6 +126,7 @@ void takeExternalData(){
 
 void takeHumidity(){
   intHumidity = getHumidity();
+  isIrrigating();
 }
 
 void takeLigth(){
@@ -162,4 +166,20 @@ double getLigth(){
   int ligth = map(readLDRvalue, 0, 370, 0, 100);
 
   return ligth;
+}
+
+
+bool isIrrigating(){
+  if (intHumidity <= 35){
+    digitalWrite(waterPump, LOW);
+    humidity.setInterval(5000, takeHumidity);
+    irrigate =  true;
+  }
+  else{
+    digitalWrite(waterPump, HIGH);
+    humidity.setInterval(10000, takeHumidity);
+    irrigate = false;
+  }
+
+  return irrigate;
 }

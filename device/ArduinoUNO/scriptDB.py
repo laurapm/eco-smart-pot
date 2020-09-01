@@ -4,43 +4,81 @@ Created on Sat Aug 22 19:03:07 2020
 @author: laura
 """
 
-
-import serial
 import time
 import datetime
+import serial
+import json
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 
-# Configuration
-serial_port          = 'C:/Windows/System32/drivers/usbser.sys'
-mongodb_host         = 'ch1r0n.duckdns.org'
-mongodb_db           = 'eco'
-temperature_location = "TestingTemp"
+# COONECTION TO MONGODB
+uri = "mongodb://gardener:eco-app-plant@ch1r0n.duckdns.org:10072,ch1r0n.duckdns.org:20072,ch1r0n.duckdns.org:30072/admin"
 
-# Connect to Serial Port for communication
+client = MongoClient(uri)
+mongodb_db  = "eco"
+db          = client[mongodb_db]
+collection  = db['measurements']
+
+# DEFINE SERIAL PORT
+serial_port  = "/dev/ttyACM0"
 ser = serial.Serial(serial_port, 9600, timeout=0)
 
-# Connect to MongoDB
-client = MongoClient(mongodb_host, 27017)
-db = client[mongodb_db]
-collection = db['templog']
+id = ObjectId()
+generationHour = datetime.datetime.today().hour
 
-# Setup a loop to send Temperature values at fixed intervals in seconds
-fixed_interval = 10
 while True:
-    try:
-        # Temperature value obtained from Arduino + LM35 Temp Sensor
-        temp_string = ser.readline().rstrip()
+    # Data for define the match filter
+    dt = datetime.datetime.today()
+    year    = dt.year
+    month   = dt.month
+    day     = dt.day
+    hour    = dt.hour
 
-        # If we received a measurement, print it and send it to MongoDB.
-        if temp_string:
-            temperature_c = float(temp_string)
-            doc_id = collection.insert_one({ 'temperature': temperature_c,
-                                             'datetime': datetime.datetime.now(),
-                                             'location': temperature_location}).inserted_id
-            print (str(doc_id) + ': ' + str(temperature_c) + ',' + temperature_location)
+    d    = datetime.datetime(year, month, day, hour)
+    date = time.mktime(d.timetuple()) * 1000
+
+    if generationHour != hour:
+        id =  ObjectId()
+        generationHour = hour
+
+    match_filter = {
+        "_id": id,
+        "plant":" Kalanchoe",
+        "device": "Arduino UNO",
+        "date":  date,
+        "hour": hour
+    }
+
+    try:
+        serial_info = ser.readline()
+
+        if serial_info:
+            info = json.loads(serial_info)
+            values = { "$push": info}
+
+            print(info)
+
+            print("DESPUES")
+
+            minute = (int) (5* round(dt.minute/5))
+
+            info["humidityInt"][0]["minute"]    = minute
+            info["humidityExt"][0]["minute"]    = minute
+            info["luminosityExt"][0]["minute"]  = minute
+            info["temperatureExt"][0]["minute"] = minute
+
+            doc = collection.update(match_filter,values,upsert=True)
+
+            print(info)
+
+        else:
+            print("Waiting\n")
+
     except serial.SerialTimeoutException:
-        print('Error! Could not read the Temperature Value from unit')
-    except ValueError:
-        print('Error! Could not convert temperature to float')
+        print("Error! Could not read data from serial port")
+
     finally:
-        time.sleep(fixed_interval)
+        time.sleep(15)
+
+
+
