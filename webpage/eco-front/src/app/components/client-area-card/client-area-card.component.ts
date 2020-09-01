@@ -18,12 +18,13 @@ export class ClientAreaCardComponent implements OnInit {
 
   devices: Device[] = [ ];
 
-  plants:     Map<string, Plant>     = new Map;
-  reminders:  Map<string, Reminder>  = new Map;
-  treatments: Map<string, Treatment> = new Map;
-  measurements: Map<string, any> = new Map;
+  plants:       Map<string, Plant>     = new Map;
+  reminders:    Map<string, Reminder>  = new Map;
+  treatments:   Map<string, Treatment> = new Map;
+  measurements: Map<string, any>       = new Map;
 
-  userProfile: User;
+  isAuthenticated: boolean = false;
+  userProfile: User = null;
   selectedDevice: Device;
   selectedMeasure: any;
 
@@ -36,24 +37,23 @@ export class ClientAreaCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUser();
-    this.getDevices();
+    console.log(this.userProfile);
+    if (this.userProfile != null) {
+      this.getDevices();
+    } else {
+      console.log('got mistaken');
+    }
   }
 
   getUser(): void {
-    this.userProfile = //this.token.getUser();
-    {
-      id: "id",
-      username: "some.one",
-      name: "some",
-      surname: "one",
-      phone: "123456789",
-      email: "some.one@eco.org",
-      password: "123546789"
-    };
+    this.userProfile = this.token.getUser();
+    this.isAuthenticated = this.userProfile != null;
+    console.log(this.userProfile);
+    console.log(this.isAuthenticated);
   }
 
   getDevices(): void {
-    const user_id = '5f43d6dd48e46bd6a9972627';//this.token.getUser().id;
+    const user_id = this.token.getUser().id;
 
     this.api.getDevices(user_id).subscribe(
       data => {

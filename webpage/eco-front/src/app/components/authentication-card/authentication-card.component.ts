@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
   selector: 'app-authentication-card',
@@ -7,15 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthenticationCardComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  authenticated: boolean = false;
 
   tabs = [
     'signup-tab',
     'login-tab'
   ];
+
+  constructor(private token: TokenStorageService) { }
+
+  ngOnInit(): void {
+    this.getUser();
+  }
+
+  getUser(): void {
+    this.authenticated = this.token.getUser() != null;
+  }
 
   onSelected(s: string): void {
     this.tabs.forEach(tab => {

@@ -1,38 +1,42 @@
-<div class="grid" style="text-align: justify;">
-  <!--
-    Nothing goes here, it is just a simple way to create some spacing
-    between the two columns.
-    The grid goes like this:
-    a1    a2
-    a3    a2
-    a4    a5
+<div *ngIf="isAuthenticated; else elseNotLogin">
+  <div class="grid" style="text-align: justify;">
+    <!--
+      Nothing goes here, it is just a simple way to create some spacing
+      between the two columns.
+      The grid goes like this:
+      a1    a2
+      a3    a2
+      a4    a5
 
-    Translated to:
-    Personal Info     Devices List
-    Notifications     Device Info
-    A+ Chart          Measurements
-  -->
-  <!-- Personal Info -->
-  <div class="g a1">
-    <app-profile-info [user]=userProfile></app-profile-info>
-  </div>
-  <!-- Devices List -->
-  <div class="g a2">
-    <app-devices-list [devices]=devices [plants]=plants (deviceEmitter)="onEmission($event)"></app-devices-list>
-  </div>
-  <!-- Notifications -->
-  <div class="g a3">
-    <app-notifications [reminders]=reminders [treatments]=treatments [selectedDevice]=selectedDevice></app-notifications>
-  </div>
-  <!-- A+ Chart -->
-  <div class="g a4">
-    <div class="col-md-8">
-      <app-a-funny-chart></app-a-funny-chart>
+      Translated to:
+      Personal Info     Devices List
+      Notifications     Device Info
+      A+ Chart          Measurements
+    -->
+    <!-- Personal Info -->
+    <div class="g a1">
+      <app-profile-info [user]=userProfile></app-profile-info>
+    </div>
+    <!-- Devices List -->
+    <div class="g a2">
+      <app-devices-list [devices]=devices [plants]=plants (deviceEmitter)="onEmission($event)"></app-devices-list>
+    </div>
+    <!-- Notifications -->
+    <div class="g a3">
+      <app-notifications [reminders]=reminders [treatments]=treatments [selectedDevice]=selectedDevice></app-notifications>
+    </div>
+    <!-- A+ Chart -->
+    <div class="g a4">
+      <div class="col-md-8">
+        <app-a-funny-chart></app-a-funny-chart>
+      </div>
+    </div>
+    <!-- Measurements Analytics -->
+    <div class="g a5">
+      <app-measurements [measurements]="selectedMeasure"></app-measurements>
     </div>
   </div>
-  <!-- Measurements Analytics -->
-  <div class="g a5">
-    <app-measurements [measurements]="selectedMeasure"></app-measurements>
-  </div>
 </div>
-
+<div #elseNotLogin>
+  <app-page401-unauthorized></app-page401-unauthorized>
+</div>

@@ -38,6 +38,9 @@ import { ProfileInfoComponent } from './components/client-area-card/profile-info
 import { MeasurementsComponent } from './components/client-area-card/measurements/measurements.component';
 import { AFunnyChartComponent } from './components/client-area-card/charts/a-funny-chart/a-funny-chart.component';
 import { MeasurementsChartComponent } from './components/client-area-card/charts/measurements-chart/measurements-chart.component';
+import { Page401UnauthorizedComponent } from './components/page401-unauthorized/page401-unauthorized.component';
+import { Page403ForbiddenComponent } from './components/page403-forbidden/page403-forbidden.component';
+import { Page202AcceptedComponent } from './components/page202-accepted/page202-accepted.component';
 //import { DetailsComponent } from './components/details/details.component';
 
 @NgModule({
@@ -66,6 +69,9 @@ import { MeasurementsChartComponent } from './components/client-area-card/charts
     MeasurementsComponent,
     AFunnyChartComponent,
     MeasurementsChartComponent,
+    Page401UnauthorizedComponent,
+    Page403ForbiddenComponent,
+    Page202AcceptedComponent,
   ],
   imports: [
     AppRoutingModule,

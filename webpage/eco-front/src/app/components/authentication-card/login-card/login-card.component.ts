@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { AuthService }         from '../../../services/auth.service'
 import { TokenStorageService } from '../../../services/token-storage.service'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'login-card',
@@ -17,7 +18,8 @@ export class LoginCardComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private tokenStorage: TokenStorageService) { }
+    private tokenStorage: TokenStorageService,
+    private router: Router) { }
 
   ngOnInit(): void {
 
@@ -28,7 +30,7 @@ export class LoginCardComponent implements OnInit {
     */
   }
 
-  onSubmit():void {
+  onSubmit(): void {
     this.authService.login(this.form).subscribe(
       data => {
         // this.tokenStorage.saveToken(data.accessToken);
@@ -36,7 +38,8 @@ export class LoginCardComponent implements OnInit {
 
         this.isLoginFailed = false;
         this.isLoggedIn    = true;
-        this.reloadPage();
+
+        this.goToHome()
       },
       err => {
         this.errorMessage  = err.message;
@@ -45,8 +48,12 @@ export class LoginCardComponent implements OnInit {
     );
   }
 
-  reloadPage(): void {
-    window.location.reload();
+  onSubmitGoogle(): void {
+    this.router.navigate(['404']);
+  }
+
+  goToHome(): void {
+    this.router.navigate(['profile']);
   }
 
 }

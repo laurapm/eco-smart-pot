@@ -18,7 +18,7 @@
                   <div class="divider dropdown-divider"></div>
                   <a class="dropdown-item waves-light" mdbWavesEffect href="product">Products</a>
                   <div class="divider dropdown-divider"></div>
-                  <a class="dropdown-item waves-light" mdbWavesEffect href="client/area">Client Area</a>
+                  <a class="dropdown-item waves-light" mdbWavesEffect href="profile">Client Area</a>
               </div>
             </a>
         </links> </a>
@@ -37,11 +37,18 @@
       <links>
         <!-- Links -->
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
+          <!--
+          <li class="nav-item">
             <a class="nav-link waves-light" mdbWavesEffect><mdb-icon fas icon="shopping-cart"></mdb-icon><span class="sr-only">(current)</span></a>
           </li>
+          -->
           <li class="nav-item">
-            <a class="nav-link waves-light" mdbWavesEffect href=authentication><mdb-icon fas icon="user"></mdb-icon> Login</a>
+            <a class="nav-link waves-light" ng-show="toShow" mdbWavesEffect href=authentication>
+              <mdb-icon fas icon="user"></mdb-icon> Login
+            </a>
+          </li>
+          <li class="nav-item">
+            <span class="nav-link waves-light" ng-hide="toShow" mdbWavesEffect (click)="closeSession()" href=home><mdb-icon fas icon="power-off"></mdb-icon></span>
           </li>
         </ul>
         <!-- Links -->

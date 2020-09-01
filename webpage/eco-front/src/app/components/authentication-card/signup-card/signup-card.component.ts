@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from '../../../services/auth.service';
+import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
   selector: 'signup-card',
@@ -14,7 +16,10 @@ export class SignupCardComponent implements OnInit {
   isSignUpFailed = false;
   errorMessage = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private tokenStorage: TokenStorageService,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -32,20 +37,28 @@ export class SignupCardComponent implements OnInit {
 
       this.authService.register(data).subscribe(
         data => {
+          this.tokenStorage.saveUser(data);
+
           this.isSignedUp     = true;
           this.isSignUpFailed = false;
+
+          console.log(data);
         },
         err => {
           this.errorMessage   = err.message;
           this.isSignUpFailed = true;
         }
-      )
+      );
 
     } else {
       this.errorMessage   = "The passwords do not match!";
       this.isSignUpFailed = true;
     }
 
+  }
+
+  onSubmitGoogle(): void {
+    this.router.navigate(['404']);
   }
 
 }
