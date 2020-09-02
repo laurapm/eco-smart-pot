@@ -7,13 +7,23 @@
 	<name>eco-webpage</name>
 	<description>Ecø smart pot. A Tamagotchi in real life.</description>
 	
+	<!-- 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.3.3.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
-	<groupId>com.test</groupId>
+	-->
+	
+	<parent>
+		<groupId>org.rainforest.eco</groupId>
+		<artifactId>parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	
+	
+	<groupId>com.rainforest</groupId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
@@ -81,6 +91,24 @@
 
 	<build>
 		<plugins>
+			<plugin>
+	        	<artifactId>maven-resources-plugin</artifactId>
+	           	<executions>
+	           		<execution>
+	                	<id>copy-resources</id>
+	                   	<phase>validate</phase>
+	                   	<goals><goal>copy-resources</goal></goals>
+	                   	<configuration>
+	                    	<outputDirectory>${project.build.directory}/classes/resources/</outputDirectory>
+	                       	<resources>
+	                        	<resource>
+	                            	<directory>${project.parent.basedir}/frontend/dist/eco-front/</directory>
+	                           	</resource>
+	                       	</resources>
+	                   	</configuration>
+	               	</execution>
+	           	</executions>
+	       	</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

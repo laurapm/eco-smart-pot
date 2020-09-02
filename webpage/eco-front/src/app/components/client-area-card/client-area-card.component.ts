@@ -37,19 +37,14 @@ export class ClientAreaCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUser();
-    console.log(this.userProfile);
     if (this.userProfile != null) {
       this.getDevices();
-    } else {
-      console.log('got mistaken');
     }
   }
 
   getUser(): void {
     this.userProfile = this.token.getUser();
     this.isAuthenticated = this.userProfile != null;
-    console.log(this.userProfile);
-    console.log(this.isAuthenticated);
   }
 
   getDevices(): void {

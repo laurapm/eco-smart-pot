@@ -29,6 +29,19 @@ public class UserController
 	@Autowired
 	UserRepository userRepository;
 	
+	/**
+	 * Create a new user.
+	 * 
+	 * @param user User
+	 * - Username (string)
+	 * - Name (string)
+	 * - Surname (string)
+	 * - Phone (string)
+	 * - Email (string)
+	 * - Password (string) -> codification made inside code.
+	 * 
+	 * @return Status code and User created.
+	 */
 	@RequestMapping(value="/users", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<User> createUser(@RequestBody User user)
@@ -36,6 +49,7 @@ public class UserController
 		String LogHeader = "[/users: createUser] ";
 		
 		try {
+			// Email cannot be in use
 			Log.logger.info(LogHeader + "Requested");
 			Optional<User> userData = userRepository.findByEmail(user.getEmail());
 			
@@ -45,13 +59,15 @@ public class UserController
 				return new ResponseEntity<>(null, HttpStatus.FOUND);
 			} 
 			
-			// Username in use
+			// Username cannot be in use
 			userData = userRepository.findByUsername(user.getUsername());
+			// Username in use
 			if (userData.isPresent()) {
 				Log.logger.info(LogHeader + "Username is already being used");
 				return new ResponseEntity<>(null, HttpStatus.FOUND);
 			}
 			
+			// Create user
 			User _user = userRepository.save(
 				new User(
 					user.getUsername(),
@@ -63,6 +79,7 @@ public class UserController
 				)
 			);
 				
+			// Return user
 			Log.logger.info(LogHeader + "Successful");
 			return new ResponseEntity<>(_user, HttpStatus.OK);
 			
@@ -72,6 +89,18 @@ public class UserController
 		}
 	}
 	
+	/**
+	 * 
+	 * @param name
+	 * @return Status code and List of users:
+	 * User:
+	 * - Username (string)
+	 * - Name (string)
+	 * - Surname (string)
+	 * - Phone (string)
+	 * - Email (string)
+	 * - Password (string) -> codification made inside code.
+	 */
 	@RequestMapping(value="/users", method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String name) 
@@ -79,12 +108,16 @@ public class UserController
 		String LogHeader = "[/users: getAllUsers] ";
 		
 		try {
+			// Storage structure
 			Log.logger.info(LogHeader + "Requested");
 			List<User> users = new ArrayList<User>();
 			
+			// Also allows to seach the users with a certain name
 			if (name == null)
+				// Find all users
 				userRepository.findAll().forEach(users::add);
 			else
+				// Finds users with name
 				userRepository.findByName(name).forEach(users::add);
 			
 			if (users.isEmpty()) {
@@ -100,6 +133,19 @@ public class UserController
 		}
 	}
 	
+	/**
+	 * Finds the user with the specified id.
+	 * 
+	 * @param id User's id
+	 * 
+	 * @return Status code and User:
+	 * - Username (string)
+	 * - Name (string)
+	 * - Surname (string)
+	 * - Phone (string)
+	 * - Email (string)
+	 * - Password (string) -> codification made inside code.
+	 */
 	@RequestMapping(value="/users/{id}", method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<User> getUserById(@PathVariable("id") String id)
@@ -107,6 +153,7 @@ public class UserController
 		String LogHeader = "[/users/id: getUserById] ";
 		
 		try {
+			// Find user with id
 			Log.logger.info(LogHeader + "Requested");
 			Optional<User> userData = userRepository.findById(id);
 			
@@ -124,6 +171,19 @@ public class UserController
 		}
 	}
 	
+	/**
+	 * Update one user's information.
+	 * 
+	 * @param user User:
+	 * - Username (string)
+	 * - Name (string)
+	 * - Surname (string)
+	 * - Phone (string)
+	 * - Email (string)
+	 * - Password (string) -> codification made inside code.
+	 * 
+	 * @return Status code and User updated.
+	 */
 	@RequestMapping(value="/users", method=RequestMethod.PUT)
 	@ResponseBody
 	public ResponseEntity<User> updateUser(@RequestBody User user) 
@@ -131,11 +191,13 @@ public class UserController
 		String LogHeader = "[/users: updateUser] ";
 		
 		try {
+			// Find user with id
 			Log.logger.info(LogHeader + "Requested");
 			Optional<User> userData = userRepository.findById(user.getId());
 			
 			if (userData.isPresent()) 
 			{
+				// Update user data
 				User _user = userData.get();
 				_user.setId            (user.getId());
 				_user.setUsername      (user.getUsername());
@@ -158,6 +220,13 @@ public class UserController
 		}
 	}
 	
+	/**
+	 * Deletes the user that has id.
+	 * 
+	 * @param id User id.
+	 * 
+	 * @return Just the status code.
+	 */
 	@RequestMapping(value="/users/{id}", method=RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") String id)
@@ -165,9 +234,11 @@ public class UserController
 		String LogHeader = "[/users/id: deleteUser] ";
 		
 		try {
+			// Find user with id
 			Log.logger.info(LogHeader + "Requested");
 			Optional<User> user = userRepository.findById(id);
 			
+			// Delete user
 			if (user.isPresent()) {
 				Log.logger.info(LogHeader + "The user \"" + user.get().getUsername() + "\" is going to be deleted");
 				userRepository.deleteById(id);
@@ -181,6 +252,11 @@ public class UserController
 		}
 	}
 	
+	/**
+	 * Deletes all users.
+	 * 
+	 * @return Just the status code.
+	 */
 	@RequestMapping(value="/users", method=RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity<HttpStatus> deleteAllUsers()

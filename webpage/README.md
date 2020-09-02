@@ -252,3 +252,11 @@ projects.
 		<module>eco-webpage</module>
     </modules>
    ```
+
+   7. Run:
+
+    ```bash
+	mvn clean install
+	cd eco-webpage
+	mvn spring-boot:run
+	```

@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/api")
 public class FunnyController 
 {
+	/**
+	 * Welcomes the developer aceessing the API.
+	 * 
+	 * @return Welcome message
+	 */
 	@RequestMapping(value="/hello", method=RequestMethod.GET)
 	@ResponseBody
 	public String hello() {

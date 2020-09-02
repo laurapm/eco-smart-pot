@@ -7,7 +7,7 @@ import { Product } from '../models/product';
 import { TicketRequest } from '../models/ticketRequest';
 import { HandleErrorService } from './handle-error.service';
 
-const API = 'http://localhost:8080/api';
+const API = 'http://ch1r0n.duckdns.org:8888/api/';
 
 const httpOptions = {
   headers: new HttpHeaders()

@@ -1,0 +1,17 @@
+[Unit]
+Description=Spring Boot Application for Eco Project. Launches the API and the analytical threads.
+After=auditd.service systemd-user-sessions.service time-sync.target
+
+[Service]
+User=root
+TimeoutStartSec=0
+Type=simple
+KillMode=process
+WorkingDirectory=/UBICUA/webpage/eco-webpage
+ExecStart=mvn spring-boot:run
+Restart=always
+RestartSec=2
+LimitNOFILE=5555
+
+[Install]
+WantedBy=multi-user.target

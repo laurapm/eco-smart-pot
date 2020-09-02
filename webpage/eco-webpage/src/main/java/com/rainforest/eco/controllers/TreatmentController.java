@@ -35,6 +35,24 @@ public class TreatmentController
 	@Autowired
 	MongoTemplate mongoTemplate;
 	
+	/**
+	 * Creates a new treatment.
+	 * 
+	 * @param treatment Treatment
+	 * - Plant (string)
+	 * - Device (string)
+	 * - Type (string)
+	 * - Title (string)
+	 * - Action:
+	 *     - Perform (string)
+	 *     - Params: List of
+	 *         - k (string)
+	 *         - v (string)
+	 * - requestTime (date)
+	 * - actionTime (date)
+	 * 
+	 * @return Status Response and Treatment
+	 */
 	@RequestMapping(value="/treatments", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Treatment> createTreatment(@RequestBody Treatment treatment)
@@ -44,7 +62,7 @@ public class TreatmentController
 		try {
 			Log.logger.info(LogHeader + "Requested");
 			
-			
+			// Create new Treatment
 			Treatment _treatment = treatmentRepository.save(
 				new Treatment(
 					treatment.getPlant(),
@@ -68,6 +86,22 @@ public class TreatmentController
 		}
 	}
 	
+	/**
+	 * Return all treatments. 
+	 * 
+	 * @return Status Response and List ofTreatment
+	 * - Plant (string)
+	 * - Device (string)
+	 * - Type (string)
+	 * - Title (string)
+	 * - Action:
+	 *     - Perform (string)
+	 *     - Params: List of
+	 *         - k (string)
+	 *         - v (string)
+	 * - requestTime (date)
+	 * - actionTime (date)
+	 */
 	@RequestMapping(value="/treatments", method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<List<Treatment>> getAllTreatments() 
@@ -78,6 +112,7 @@ public class TreatmentController
 			Log.logger.info(LogHeader + "Requested");
 			List<Treatment> treatments = new ArrayList<Treatment>();
 			
+			// Return all treatments
 			treatmentRepository.findAll().forEach(treatments::add);
 			
 			if (treatments.isEmpty()) {
@@ -93,6 +128,24 @@ public class TreatmentController
 		}
 	}
 	
+	/**
+	 * Get treatment by id.
+	 * 
+	 * @param id Treatment id
+	 * 
+	 * @return List of Treatments
+	 * - Plant (string)
+	 * - Device (string)
+	 * - Type (string)
+	 * - Title (string)
+	 * - Action:
+	 *     - Perform (string)
+	 *     - Params: List of
+	 *         - k (string)
+	 *         - v (string)
+	 * - requestTime (date)
+	 * - actionTime (date)
+	 */
 	@RequestMapping(value="/treatments/{id}", method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<Treatment> getTreatmentById(@PathVariable("id") String id)
@@ -100,9 +153,11 @@ public class TreatmentController
 		String LogHeader = "[/treatments/id: getTreatmentById] ";
 		
 		try {
+			// Finds treatment by id
 			Log.logger.info(LogHeader + "Requested");
 			Optional<Treatment> treatmentData = treatmentRepository.findById(id);
 			
+			// Treatment present
 			if (treatmentData.isPresent()) {
 				Log.logger.info(LogHeader + "Successful");
 				return new ResponseEntity<>(treatmentData.get(), HttpStatus.OK);
@@ -117,6 +172,24 @@ public class TreatmentController
 		}
 	}
 	
+	/**
+	 * Return treatments by device.
+	 * 
+	 * @param device Device id
+	 * 
+	 * @return Status Response and Treatment
+	 * - Plant (string)
+	 * - Device (string)
+	 * - Type (string)
+	 * - Title (string)
+	 * - Action:
+	 *     - Perform (string)
+	 *     - Params: List of
+	 *         - k (string)
+	 *         - v (string)
+	 * - requestTime (date)
+	 * - actionTime (date)
+	 */
 	@RequestMapping(value="/treatments/device/{id}", method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<List<Treatment>> getAllTreatmentsByDevice(@PathVariable("id") String device)
@@ -124,9 +197,11 @@ public class TreatmentController
 		String LogHeader = "[/treatments/device/id: getAllTreatmentsByDevice] ";
 		
 		try {
+			// Get by device
 			Log.logger.info(LogHeader + "Requested");
 			List<Treatment> treatments = treatmentRepository.findByDevice(new ObjectId(device));
 			
+			// Is present
 			if (!treatments.isEmpty()) {
 				Log.logger.info(LogHeader + "Successful");
 				return new ResponseEntity<>(treatments, HttpStatus.OK);
@@ -141,6 +216,26 @@ public class TreatmentController
 		}
 	}
 	
+	/**
+	 * Treatments programmed for for next 24h.
+	 * 
+	 * @param today DayRequest
+	 * - device (string)
+	 * - today (date)
+	 * 
+	 * @return Status response and List of Treatments
+	 * - Plant (string)
+	 * - Device (string)
+	 * - Type (string)
+	 * - Title (string)
+	 * - Action:
+	 *     - Perform (string)
+	 *     - Params: List of
+	 *         - k (string)
+	 *         - v (string)
+	 * - requestTime (date)
+	 * - actionTime (date)
+	 */
 	@RequestMapping(value="/treatments/programmed", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<List<Treatment>> getTreatmentsProgrammedNextDay(@RequestBody DayRequest today)
@@ -150,11 +245,14 @@ public class TreatmentController
 		try {
 			Log.logger.info(LogHeader + "Requested");
 			
+			// WHERE DEVICE = device
+			//       DATE BETWEEN today AND tomorrow
 			Query query = new Query();
 			query.addCriteria(Criteria.where("device").is(new ObjectId(today.getDevice())));
 			query.addCriteria(Criteria.where("actionTime").gte(today.getToday()).lte(today.getTomorrow()));
 			List<Treatment> treatments = mongoTemplate.find(query, Treatment.class);
 			
+			// Has values
 			if (!treatments.isEmpty()) {
 				Log.logger.info(LogHeader + "Successful");
 				return new ResponseEntity<>(treatments, HttpStatus.OK);
@@ -169,6 +267,24 @@ public class TreatmentController
 		}
 	}
 	
+	/**
+	 * Update a treatment.
+	 * 
+	 * @param treatment Treatment
+	 * - Plant (string)
+	 * - Device (string)
+	 * - Type (string)
+	 * - Title (string)
+	 * - Action:
+	 *     - Perform (string)
+	 *     - Params: List of
+	 *         - k (string)
+	 *         - v (string)
+	 * - requestTime (date)
+	 * - actionTime (date) 
+	 * 
+	 * @return The treatment updated
+	 */
 	@RequestMapping(value="/treatments", method=RequestMethod.PUT)
 	@ResponseBody
 	public ResponseEntity<Treatment> updateTreatment(@RequestBody Treatment treatment) 
@@ -176,11 +292,13 @@ public class TreatmentController
 		String LogHeader = "[/treatments: updateTreatment] ";
 		
 		try {
+			// Find treatment to update
 			Log.logger.info(LogHeader + "Requested");
 			Optional<Treatment> productData = treatmentRepository.findById(treatment.getId());
 			
 			if (productData.isPresent()) 
 			{
+				// Update values
 				Treatment _treatment = productData.get();
 				_treatment.setId         (treatment.getId());
 				_treatment.setPlant      (treatment.getPlant());
@@ -191,6 +309,7 @@ public class TreatmentController
 				_treatment.setActionTime (treatment.getActionTime());
 				_treatment.setComment    (treatment.getComment());
 				
+				// Write changes
 				Log.logger.info(LogHeader + "Successful");
 				return new ResponseEntity<>(treatmentRepository.save(_treatment), HttpStatus.OK);
 			} else {
@@ -204,6 +323,13 @@ public class TreatmentController
 		}
 	}
 	
+	/**
+	 * Delete treatment.
+	 * 
+	 * @param id Treatment id
+	 * 
+	 * @return Response status
+	 */
 	@RequestMapping(value="/treatments/{id}", method=RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity<HttpStatus> deleteTreatment(@PathVariable("id") String id)
@@ -211,9 +337,11 @@ public class TreatmentController
 		String LogHeader = "[/treatments/id: deleteTreatment] ";
 		
 		try {
+			// Find treatment to delete
 			Log.logger.info(LogHeader + "Requested");
 			Optional<Treatment> product = treatmentRepository.findById(id);
 			
+			// Deletes if exists
 			if (product.isPresent()) {
 				Log.logger.info(LogHeader + "The treatment \"" + product.get().getTitle() + "\" is going to be deleted");
 				treatmentRepository.deleteById(id);
@@ -227,6 +355,11 @@ public class TreatmentController
 		}
 	}
 	
+	/**
+	 * Delete all treatments.
+	 * 
+	 * @return Response status
+	 */
 	@RequestMapping(value="/treatments/", method=RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity<HttpStatus> deleteAllTreatments()
@@ -234,6 +367,7 @@ public class TreatmentController
 		String LogHeader = "[/treatments: deleteAllTreatments] ";
 		
 		try {
+			// Delete all treatments
 			Log.logger.info(LogHeader + "Requested");
 			treatmentRepository.deleteAll();
 			
