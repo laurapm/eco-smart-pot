@@ -33,7 +33,6 @@ import com.rainforest.eco.repositories.TreatmentRepository;
 import com.rainforest.eco.requests.DayRequest;
 import com.rainforest.eco.services.Log;
 
-
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/api")
@@ -61,13 +60,13 @@ public class AnalyticalController
 			DayRequest day = new DayRequest(new Date(System.currentTimeMillis()));
 			
 			// Query to return measurements from the last 24h
-			List<Measurements> measurements  = getMeasurementsToAnalyze(day.getYestarday(), day.getHoursBack(2));
+			List<Measurements> measurements  = getMeasurementsToAnalyze(day.getYestarday(), day.getToday());
 			Map<String, List<MinMax>> plants = getMappedPlantRanges();
 			
 			// Interpret measurements
 			Measurements last = null;
-			boolean done      = false;
-			boolean needsNext = false;
+			boolean done      = false; // Does not need to look at more measurements
+			boolean needsNext = false; // Needs more measurements
 			for (Measurements m : measurements) {
 				if (done && last != null) {
 					done = last.getDevice().equals(m.getDevice());
@@ -114,6 +113,11 @@ public class AnalyticalController
 								treatmentRepository.save(treatment);
 								Log.logger.info("Treatment Prescribed");
 							}
+							
+							// Treatments have been prescribed. Unless there 
+							// is any change in the following treatment section
+							// this device does not need any more treatments.
+							done = true;
 						} else {
 							Log.logger.info("Needs next");
 							needsNext = true;
@@ -147,10 +151,11 @@ public class AnalyticalController
 						} else {
 							Log.logger.info("Needs next");
 							needsNext = true;
+							done = false;
 						}
 					// Needs measures from different hours
 					} else {
-						
+						Log.logger.info("Needs more information");
 					}
 				}
 				// Gets next measure
@@ -168,8 +173,10 @@ public class AnalyticalController
 	private List<Measurements> getMeasurementsToAnalyze(Date min, Date max) {
 		List<Measurements> measurements = new ArrayList<Measurements>();
 		
+		Log.logger.info("Measurements between dates and ordered requested");
+		
 		Query query = new Query();
-		query.addCriteria(Criteria.where("date").gte(min).lte(max));//.gte(1598464800000L)
+		query.addCriteria(Criteria.where("date").gte(min).lte(max));
 		Sort deviceSort = Sort.by(Sort.Direction.DESC, "device");
 		Sort dateSort   = Sort.by(Sort.Direction.DESC, "date");
 		Sort hourSort   = Sort.by(Sort.Direction.DESC, "hour");

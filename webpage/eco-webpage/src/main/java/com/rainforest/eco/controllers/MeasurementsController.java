@@ -120,7 +120,7 @@ public class MeasurementsController
 	@ResponseBody
 	public ResponseEntity<List<Measurements>> getMeasurementsAfterDate(@RequestBody DayRequest date)
 	{
-		String LogHeader = "[/measurements/from: getMeasurementsAfterDate] ";
+		String LogHeader = "[/measurements/after: getMeasurementsAfterDate] ";
 		
 		try {
 			Log.logger.info(LogHeader + "Requested");

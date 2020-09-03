@@ -10,7 +10,7 @@ import { Treatment }          from '../models/treatment';
 import { Measurements }       from '../models/measurements';
 import { HandleErrorService } from './handle-error.service';
 
-const API = 'http://ch1r0n.duckdns.org:8888/api/';
+const API = 'http://localhost:8080/api'//'http://ch1r0n.duckdns.org:8888/api/';
 
 const httpOptions = {
   headers: new HttpHeaders()

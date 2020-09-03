@@ -33,6 +33,9 @@ public class TreatmentThread implements Runnable
 			con.setRequestMethod("GET");
 			con.setRequestProperty("Content-Type", "application/json");
 			
+			int responseCode = con.getResponseCode();
+			Log.logger.info("The process finished with code: " + responseCode);
+			
 			con.disconnect();
 			
 			Log.logger.info("Returning measurements");
