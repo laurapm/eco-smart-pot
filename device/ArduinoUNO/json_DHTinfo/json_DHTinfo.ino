@@ -2,21 +2,25 @@
 #include "SimpleTimer.h"
 #include "ArduinoJson.h"
 
-#define YL69 A0
+#define YL69 A0         // Analog pin for moisture sensor
 
-#define DHTPIN 2
+#define DHTPIN 2       // Digital pin for external temperature and humidity 
 #define DHTTYPE DHT22
 
-#define LDR A2
+#define LDR A2        // Analog pin for LDR
 
-#define waterPump A5
+#define waterPump A5  // Analog pin for waterpum
 
+// Init DHT sensor
 DHT dht(DHTPIN, DHTTYPE);
+
+// Create timers
 SimpleTimer extTimer;
 SimpleTimer sendJSON;
 SimpleTimer humidity;
 SimpleTimer ligth;
 
+// Varuiables for measurements
 double extTem;
 double extHumidity;
 double intHumidity;
@@ -25,8 +29,6 @@ double* arrayHumidity;
 
 bool irrigate;
 
-size_t count;
-size_t capacity;
 /*------------------------- */
 /*   F U N C T I O N
  *   D E C L A R A T I O N  */
@@ -67,32 +69,36 @@ void loop() {
 
 
 /************  A U X I L I A R       F U N C T I O N S  ************/
+
+// Funcion that diven two JSON return another with the combination of both
 void merge(JsonObject dest, JsonObjectConst src) {
    for (auto kvp : src) {
      dest[kvp.key()] = kvp.value();
    }
 }
 
+// Returns the JSON file which contains device and measurements data
 void createJSON(){
-  
-    // DynamicJsonDocument doc2(220);
+    // Init JSON files as Static elements which 480 of size
+    StaticJsonDocument<480> doc1, doc2;
 
-  StaticJsonDocument<480> doc1, doc2;
-  JsonObject dev=doc1.to<JsonObject>();
-  doc1["device"] = "5f4d3798d0df9a7447ca25e2";
+    // First document that only contains id device info
+    JsonObject dev=doc1.to<JsonObject>();
+    doc1["device"] = "5f4d3798d0df9a7447ca25e2";
      
-    // JsonArray array = doc2.to<JsonArray>();
+    // Second document which contains all  the measurements
+    // Minute value is replaced before in the Python script
     JsonArray datos = doc2.createNestedArray("humidityInt");
     JsonObject root = datos.createNestedObject();
     root["minute"]="46";
     JsonObject measure = root.createNestedObject("measure");
     measure["watered"]= irrigate;
-    //measure["value"]="[]";
     JsonArray value = measure.createNestedArray("value");
     value.add(intHumidity);
-     // value.add(arrayHumidity[0]);
     
 
+  // In case DHT returns an allowed value, the information 
+  // is add to the document, otherwise it is omited
    if (extHumidity != -99999){
      JsonArray datosExt = doc2.createNestedArray("humidityExt");
      JsonObject infoExt = datosExt.createNestedObject();
@@ -112,16 +118,19 @@ void createJSON(){
       infoTemExt["measure"]=extTem;
    }
    
-    
-  merge(doc1.as<JsonObject>(), doc2.as<JsonObject>());
-    
+    // Both documents are merged  
+    merge(doc1.as<JsonObject>(), doc2.as<JsonObject>());
+
+   // Send JSON to Serial port
    serializeJson(doc1, Serial);
    Serial.println("");
    delay(500);
 }
 
+// Take Functions are only functions that call other functions
+// that returns the data
+
 void takeExternalData(){
-  //Serial.println("HOLA, HAGO COSAS");
   extTem = getExtTemp();
   extHumidity = getExtHumidity();
 }
@@ -135,6 +144,8 @@ void takeLigth(){
  luminosity = getLigth();
 }
 
+
+// Get measurements values 
 double getExtTemp()
 {
   // By default the temperature is given in Celsius
@@ -171,6 +182,7 @@ double getLigth(){
 }
 
 
+// Function that activate waterpump in case the plant need water
 bool isIrrigating(){
   if (intHumidity <= 35){
     digitalWrite(waterPump, LOW);

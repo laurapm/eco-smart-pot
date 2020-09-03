@@ -63,8 +63,7 @@ while True:
                 )
             match_filter["plant"] = ObjectId(dev["plant"])   # Adding plant inside the match filter
 
-            # Measurements to add
-            values = { "$push": info}
+
 
             minute = (int) (5* round(dt.minute/5))           # Measurements are taken every 5 minutes,
                                                              # for that it is used a 5-based time system
@@ -72,6 +71,14 @@ while True:
             info["humidityExt"][0]["minute"]    = minute
             info["luminosityExt"][0]["minute"]  = minute
             info["temperatureExt"][0]["minute"] = minute
+
+            info["humidityInt"] = {"$each":info["humidityInt"]}
+            info["humidityExt"] = {"$each":info["humidityExt"]}
+            info["luminosityExt"] = {"$each":info["luminosityExt"]}
+            info["temperatureExt"] = {"$each":info["temperatureExt"]}
+
+            # Measurements to add
+            values = { "$push": info}
 
             # Update operation
             doc = collection.update(match_filter,values,upsert=True)    # The upsert value is used to generate a new
@@ -87,6 +94,6 @@ while True:
         print("Error! Could not read data from serial port")
 
     finally:
-        time.sleep(30)
+        time.sleep(60)
 
 
