@@ -249,7 +249,7 @@ public class TreatmentController
 			//       DATE BETWEEN today AND tomorrow
 			Query query = new Query();
 			query.addCriteria(Criteria.where("device").is(new ObjectId(today.getDevice())));
-			query.addCriteria(Criteria.where("actionTime").gte(today.getToday()).lte(today.getTomorrow()));
+			query.addCriteria(Criteria.where("actionTime").gte(today.getHoursBack(1)).lte(today.getTomorrow()));
 			List<Treatment> treatments = mongoTemplate.find(query, Treatment.class);
 			
 			// Has values

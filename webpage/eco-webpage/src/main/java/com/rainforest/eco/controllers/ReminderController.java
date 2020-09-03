@@ -147,7 +147,7 @@ public class ReminderController
 			
 			Query query = new Query();
 			query.addCriteria(Criteria.where("device").is(new ObjectId(today.getDevice())));
-			query.addCriteria(Criteria.where("remindingTime").gte(today.getToday()).lte(today.getTomorrow()));
+			query.addCriteria(Criteria.where("remindingTime").gte(today.getHoursBack(1)).lte(today.getTomorrow()));
 			List<Reminder> reminders = mongoTemplate.find(query, Reminder.class);
 			
 			if (!reminders.isEmpty()) {
